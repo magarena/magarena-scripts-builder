@@ -72,9 +72,6 @@ public class MtgJsonReader {
         mtgcomCardNames.retainAll(magarenaMissingCards);
         System.out.println("Total missing cards which have a matching entry in " + JSON_FILE + " = " + magarenaMissingCards.size() + "-" + missingOrphans + " = " + mtgcomCardNames.size() + " (see MissingCardsWithFilenames.txt)");
 
-        saveMissingCardNamesWithFilenames(mtgcomCardNames);
-        System.out.println("Saved MissingCardsWithFilenames.txt");
-
         saveMissingCardData(mtgcomCardNames);
         System.out.println("Created a default script file for each missing card in \"scripts\" folder.");
 
@@ -120,7 +117,8 @@ public class MtgJsonReader {
         final List<String> missingCardOrphans = new ArrayList<String>(magarenaMissingCards);
         missingCardOrphans.removeAll(mtgcomCardNames);
         Collections.sort(missingCardOrphans);
-        try (final PrintWriter writer = new PrintWriter("results" + File.separator + MISSING_ORPHANS_FILE)) {
+        final File textFile = getResultsPath().resolve(MISSING_ORPHANS_FILE).toFile();
+        try (final PrintWriter writer = new PrintWriter(textFile)) {
             for (String cardName : missingCardOrphans) {
                 writer.println(cardName);
             }
@@ -147,16 +145,7 @@ public class MtgJsonReader {
     }
 
     private static void saveCardData(final CardData cardData) {
-        final Path scriptsPath = Paths.get("results").resolve("scripts");
-        if (!Files.isDirectory(scriptsPath)) {
-            try {
-                Files.createDirectory(scriptsPath);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        final Path filePath = scriptsPath.resolve(cardData.getFilename());
+        final Path filePath = getScriptsPath().resolve(cardData.getFilename());
         try (final PrintWriter writer = new PrintWriter(filePath.toString())) {
             writer.println("name=" + cardData.getCardName(false));
             writer.println("url=" + cardData.getInfoUrl());
@@ -174,18 +163,6 @@ public class MtgJsonReader {
             }
             if (cardData.getText() != null) {
                 writer.println("text=" + cardData.getText().replace("\n", "\\n"));
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        };
-    }
-
-    private static void saveMissingCardNamesWithFilenames(final List<String> cardNames) {
-        Collections.sort(cardNames);
-        try (final PrintWriter writer = new PrintWriter("results/MissingCardsWithFilenames.txt")) {
-            for (String cardName : cardNames) {
-                final CardData cardData = mtgcomCards.get(cardName);
-                writer.println(cardName + "-->" + cardData.getFilename());
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -277,6 +254,30 @@ public class MtgJsonReader {
         } catch (final IOException ex) {
            throw new RuntimeException(ex);
         }
+    }
+
+    private static Path getResultsPath() {
+        final Path resultsPath = Paths.get("results");
+        if (!Files.isDirectory(resultsPath)) {
+            try {
+                Files.createDirectory(resultsPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return resultsPath;
+    }
+
+    private static Path getScriptsPath() {
+        final Path scriptsPath = getResultsPath().resolve("scripts");
+        if (!Files.isDirectory(scriptsPath)) {
+            try {
+                Files.createDirectory(scriptsPath);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return scriptsPath;
     }
 
 }
