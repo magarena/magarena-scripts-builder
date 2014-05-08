@@ -32,5 +32,6 @@ release/Magarena/players
 release/Magarena/decks/*.dec
 .settings/*
 target/*
+results/*
 syntax: regexp
 release/Magarena-debug.sh
