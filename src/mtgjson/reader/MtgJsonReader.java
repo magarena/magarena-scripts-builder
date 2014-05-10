@@ -161,13 +161,18 @@ public class MtgJsonReader {
             if (cardData.getPower() != null && cardData.getToughness() != null) {
                 writer.println("pt=" + cardData.getPower() + "/" + cardData.getToughness());
             }
-            if (cardData.getText() != null && (cardData.getType().contains("Instant")||cardData.getType().contains("Sorcery"))) {
+            if (cardData.getText() != null && (cardData.getType().contains("Instant") || cardData.getType().contains("Sorcery"))) {
                 writer.print("effect=");
             } else if (cardData.getText() != null) {
                 writer.print("ability=");
             }
             if (cardData.getText() !=null) {
-                writer.println(cardData.getText().replace("\n\n", ";\\\n        ").replaceAll(" \\(.+?\\)","").replace(cardData.getCardName(false), "SN"));
+                writer.println(cardData.getText()
+                        .replaceAll("^\\(.+?\\)\n\n","")
+                        .replace("\n\n", ";\\\n        ")
+                        .replaceAll("\\(.+?\\)", "")
+                        .replace(cardData.getCardName(false), "SN")
+                        );
             }
             if (cardData.getType().contains("Instant")) {
                 writer.println("timing=removal");
@@ -175,7 +180,12 @@ public class MtgJsonReader {
                 writer.println("timing=main");
             }
             if (cardData.getText() !=null) {
-                writer.println("oracle="+cardData.getText().replace("\n\n", " ").replaceAll(" \\(.+?\\)",""));
+                writer.println("oracle="+cardData.getText()
+                        .replaceAll("^\\(.+?\\)\n\n", "")
+                        .replace(".\n\n", ". ")
+                        .replace("\n\n", ". ")
+                        .replaceAll("\\(.+?\\)", "")
+                        );
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
