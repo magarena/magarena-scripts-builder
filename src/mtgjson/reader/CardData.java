@@ -116,7 +116,14 @@ class CardData {
 
     public String getFilename() {
         String filename = getCardName(true);
-        return filename.replace(" ", "_").replace(",","_").replace("'","_").replace("-","_").replace(":","_").replace('"', '_') + ".txt";
+        return filename
+                .replace(" ", "_")
+                .replace(",", "_")
+                .replace("'", "_")
+                .replace("-", "_")
+                .replace(":", "_")
+                .replace('"', '_')
+                + ".txt";
     }
 
     public String getPower() {
