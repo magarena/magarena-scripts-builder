@@ -147,7 +147,7 @@ public class MtgJsonReader {
     private static void saveCardData(final CardData cardData) {
         final Path filePath = getScriptsPath().resolve(cardData.getFilename());
         try (final PrintWriter writer = new PrintWriter(filePath.toString())) {
-            writer.println("name=" + cardData.getCardName(false));
+            writer.println("name=" + cardData.getCardName(true));
             writer.println("url=" + cardData.getInfoUrl());
             writer.println("image=" + cardData.getImageUrl());
             writer.println("rarity=" + cardData.getRarity());
@@ -161,8 +161,21 @@ public class MtgJsonReader {
             if (cardData.getPower() != null && cardData.getToughness() != null) {
                 writer.println("pt=" + cardData.getPower() + "/" + cardData.getToughness());
             }
-            if (cardData.getText() != null) {
-                writer.println("text=" + cardData.getText().replace("\n", "\\n"));
+            if (cardData.getText() != null && (cardData.getType().contains("Instant")||cardData.getType().contains("Sorcery"))) {
+                writer.print("effect=");
+            } else if (cardData.getText() != null) {
+                writer.print("ability=");
+            }
+            if (cardData.getText() !=null) {
+                writer.println(cardData.getText().replace("\n\n", ";\\\n        ").replaceAll(" \\(.+?\\)","").replace(cardData.getCardName(false), "SN"));
+            }
+            if (cardData.getType().contains("Instant")) {
+                writer.println("timing=removal");
+            } else {
+                writer.println("timing=main");
+            }
+            if (cardData.getText() !=null) {
+                writer.println("oracle="+cardData.getText().replace("\n\n", " ").replaceAll(" \\(.+?\\)",""));
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

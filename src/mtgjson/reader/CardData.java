@@ -5,14 +5,10 @@ package mtgjson.reader;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import org.apache.commons.lang3.text.WordUtils;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 class CardData {
-
-    private final JsonObject jsonCard;
 
     private String cardName;
     private String infoUrl;
@@ -27,13 +23,11 @@ class CardData {
 
     public CardData(final JsonObject card) throws UnsupportedEncodingException {
 
-        this.jsonCard = card;
-
         setCardName(card.get("name").getAsString());
 
         setInfoUrl("http://magiccards.info/query?q=%21" + URLEncoder.encode(card.get("name").getAsString(), "UTF-8"));
         setImageUrl("http://mtgimage.com/card/" + URLEncoder.encode(card.get("imageName").getAsString(), "UTF-8").replace("+", "%20") + ".jpg");
-        setRarity(card.get("rarity").getAsString().substring(0,  1) + " #" + card.get("rarity").getAsString());
+        setRarity(card.get("rarity").getAsString().substring(0, 1));
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
         if (card.has("power"))      { setPower(card.get("power").getAsString()); }
@@ -70,7 +64,13 @@ class CardData {
 
     public String getCardName(final boolean replaceNonAscii) {
         if (replaceNonAscii) {
-            return cardName.replace("Æ", "AE");
+            return cardName
+                    .replace("ö", "o")
+                    .replace("û", "u")
+                    .replace("í", "i")
+                    .replace("á", "a")
+                    .replace("â", "a")
+                    .replace("Æ", "AE");
         } else {
             return cardName;
         }
@@ -115,13 +115,8 @@ class CardData {
     }
 
     public String getFilename() {
-        String filename = null;
-        if (jsonCard.has("imageName")) {
-            filename = jsonCard.get("imageName").getAsString();
-        } else {
-            filename = getCardName(true);
-        }
-        return WordUtils.capitalize(filename).replace(" ", "_") + ".txt";
+        String filename = getCardName(true);
+        return filename.replace(" ", "_").replace(",","_").replace("'","_").replace("-","_").replace(":","_").replace('"', '_') + ".txt";
     }
 
     public String getPower() {
