@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -70,7 +72,7 @@ public class MtgJsonReader {
         System.out.println("Total missing cards which could not be matched in " + JSON_FILE + " = " + missingOrphans + " (see " + MISSING_ORPHANS_FILE + ")");
 
         mtgcomCardNames.retainAll(magarenaMissingCards);
-        System.out.println("Total missing cards which have a matching entry in " + JSON_FILE + " = " + magarenaMissingCards.size() + "-" + missingOrphans + " = " + mtgcomCardNames.size() + " (see MissingCardsWithFilenames.txt)");
+        System.out.println("Total missing cards which have a matching entry in " + JSON_FILE + " = " + magarenaMissingCards.size() + "-" + missingOrphans + " = " + mtgcomCardNames.size());
 
         saveMissingCardData(mtgcomCardNames);
         System.out.println("Created a default script file for each missing card in \"scripts\" folder.");
@@ -138,6 +140,7 @@ public class MtgJsonReader {
     }
 
     private static void saveMissingCardData(final List<String> cardNames) {
+        FileUtils.deleteQuietly(getScriptsPath().toFile());
         for (String cardName : cardNames) {
             final CardData cardData = mtgcomCards.get(cardName);
             saveCardData(cardData);
