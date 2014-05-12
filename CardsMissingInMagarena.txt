@@ -26,6 +26,7 @@ Academy Raider
 Academy Rector
 Academy Researchers
 Accelerated Mutation
+Acceptable Losses
 Accumulated Knowledge
 Acidic Dagger
 Acidic Soil
@@ -1537,7 +1538,6 @@ Dragonspeaker Shaman
 Dragonstorm
 Drain Life
 Drain Power
-Drain the Well
 Drake Familiar
 Dralnu's Crusade
 Dralnu's Pet
@@ -2131,7 +2131,6 @@ Frostwielder
 Frozen AEther
 Frozen Solid
 Fuel for the Cause
-Fugitive Druid
 Fulgent Distraction
 Full Moon's Rise
 Fumarole
@@ -2974,7 +2973,6 @@ Island Fish Jasconius
 Island Sanctuary
 Island of Wak-Wak
 Isperia the Inscrutable
-Isperia, Supreme Judge
 It That Betrays
 Ith, High Arcanist
 Ivory Charm
@@ -3636,7 +3634,6 @@ Master of the Feast
 Master of the Hunt
 Master of the Veil
 Master of the Wild Hunt
-Masumaro, First to Live
 Matca Rioters
 Matopi Golem
 Matsu-Tribe Birdstalker
@@ -3703,7 +3700,6 @@ Merrow Reejerey
 Merseine
 Mesa Pegasus
 Mesmeric Fiend
-Mesmeric Orb
 Mesmeric Sliver
 Metal Fatigue
 Metalworker
@@ -4065,7 +4061,6 @@ Nim Abomination
 Nim Deathmantle
 Nim Devourer
 Nimbus Maze
-Nin, the Pain Artist
 Nirkana Revenant
 Nissa Revane
 Nivix Cyclops
@@ -5359,7 +5354,6 @@ Seraph
 Serendib Djinn
 Serendib Sorcerer
 Serene Master
-Serene Offering
 Serene Remembrance
 Serene Sunset
 Serenity
@@ -5664,6 +5658,7 @@ Song of Blood
 Song of Serenity
 Songs of the Damned
 Songstitcher
+Sonic Burst
 Sonic Seizure
 Sootfeather Flock
 Soothsaying
@@ -6191,7 +6186,6 @@ Tenacious Dead
 Tenza, Godo's Maul
 Tephraderm
 Terashi's Cry
-Terashi's Grasp
 Terashi's Verdict
 Terastodon
 Teremko Griffin
@@ -6223,7 +6217,6 @@ That Which Was Taken
 Thawing Glaciers
 The Abyss
 The Fallen
-The Great Forest
 The Mimeoplasm
 The Unspeakable
 The Wretched
@@ -6770,7 +6763,6 @@ Vulshok War Boar
 Vulturous Zombie
 Wail of the Nim
 Waiting in the Weeds
-Wake Thrasher
 Wake of Destruction
 Wakestone Gargoyle
 Walk the Aeons
@@ -6917,6 +6909,7 @@ Wild Beastmaster
 Wild Dogs
 Wild Evocation
 Wild Growth
+Wild Guess
 Wild Mammoth
 Wild Might
 Wild Mongrel
@@ -7089,5 +7082,4 @@ Zombie Trailblazer
 Zoologist
 Zulaport Enforcer
 Zuo Ci, the Mocking Sage
-Zur the Enchanter
 Zur's Weirding
