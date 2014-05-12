@@ -101,7 +101,7 @@ public class MtgJsonReader {
 
             for (String setCode : getSetCodes()) {
                 // Not interested in unsets.
-                if (!setCode.equalsIgnoreCase("UNH")) {
+                if (!setCode.equalsIgnoreCase("UNH") && !setCode.equalsIgnoreCase("VAN")) {
                     final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
                     extractCardDataFromJson(setObject.getAsJsonArray("cards"));
                 }
