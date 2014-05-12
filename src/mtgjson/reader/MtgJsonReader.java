@@ -149,7 +149,7 @@ public class MtgJsonReader {
 
     private static void saveCardData(final CardData cardData) {
         final Path filePath = getScriptsPath().resolve(cardData.getFilename());
-        try (final PrintWriter writer = new PrintWriter(filePath.toString())) {
+        try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
             writer.println("name=" + cardData.getCardName(true));
             writer.println("url=" + cardData.getInfoUrl());
             writer.println("image=" + cardData.getImageUrl());
@@ -190,7 +190,7 @@ public class MtgJsonReader {
                         .replaceAll(" \\(.+?\\)", "")
                         );
             }
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         };
     }
