@@ -173,7 +173,7 @@ public class MtgJsonReader {
                 writer.println(cardData.getText()
                         .replaceAll("^\\(.+?\\)\n\n","")
                         .replace("\n\n", ";\\\n        ")
-                        .replaceAll("\\(.+?\\)", "")
+                        .replaceAll(" \\(.+?\\)", "")
                         .replace(cardData.getCardName(false), "SN")
                         );
             }
@@ -187,7 +187,7 @@ public class MtgJsonReader {
                         .replaceAll("^\\(.+?\\)\n\n", "")
                         .replace(".\n\n", ". ")
                         .replace("\n\n", ". ")
-                        .replaceAll("\\(.+?\\)", "")
+                        .replaceAll(" \\(.+?\\)", "")
                         );
             }
         } catch (FileNotFoundException e) {
