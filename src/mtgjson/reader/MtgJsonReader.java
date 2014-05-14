@@ -153,6 +153,7 @@ public class MtgJsonReader {
             writer.println("name=" + cardData.getCardName(true));
             writer.println("url=" + cardData.getInfoUrl());
             writer.println("image=" + cardData.getImageUrl());
+            writer.println("value=2.500");
             writer.println("rarity=" + cardData.getRarity());
             writer.println("type=" + cardData.getType());
             if (cardData.getSubType() != null) {

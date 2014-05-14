@@ -142,7 +142,6 @@ Angelic Arbiter
 Angelic Favor
 Angelic Protector
 Angelic Skirmisher
-Angelic Voices
 Anger
 Angry Mob
 Angus Mackenzie
@@ -759,7 +758,6 @@ Cascade Bluffs
 Cast Through Time
 Castigate
 Casting of Bones
-Castle Raptors
 Castle Sengir
 Cataclysm
 Catacomb Dragon
@@ -2012,7 +2010,6 @@ Flamespeaker Adept
 Flamespeaker's Will
 Flamestick Courier
 Flaming Gambit
-Flaring Flame-Kin
 Flaring Pain
 Flash
 Flash Conscription
@@ -2186,7 +2183,6 @@ Garruk, the Veil-Cursed
 Garza Zol, Plague Queen
 Garza's Assassin
 Gaseous Form
-Gate Hound
 Gate to the AEther
 Gatecreeper Vine
 Gateway Shade
@@ -2605,7 +2601,6 @@ Havoc Festival
 Hazduhr the Abbot
 Haze Frog
 Hazezon Tamar
-Hazy Homunculus
 He Who Hungers
 Head Games
 Headhunter
@@ -3059,7 +3054,6 @@ Jund Sojourners
 Jungle Basin
 Jungle Patrol
 Jungle Wurm
-Juniper Order Advocate
 Junk Diver
 Junk Golem
 Junktroller
@@ -4117,7 +4111,6 @@ Nurturing Licid
 Nykthos, Shrine to Nyx
 Nyx Infusion
 O-Naginata
-Oak Street Innkeeper
 Oaken Brawler
 Oath of Druids
 Oath of Ghouls
@@ -4146,7 +4139,6 @@ Ogre Marauder
 Ogre Savant
 Ohran Viper
 Ohran Yeti
-Okina Nightwatch
 Okk
 Old Man of the Sea
 Oloro, Ageless Ascetic
@@ -4669,7 +4661,6 @@ Quenchable Fire
 Quest for Ancient Secrets
 Quest for Pure Flame
 Quest for Ula's Temple
-Quest for the Goblin Lord
 Quest for the Holy Relic
 Quest for the Nihil Stone
 Questing Phelddagrif
@@ -5728,7 +5719,6 @@ Spearbreaker Behemoth
 Spectral Bears
 Spectral Cloak
 Spectral Force
-Spectral Guardian
 Spectral Prison
 Spectral Procession
 Spectral Searchlight
@@ -6665,7 +6655,6 @@ Veteran Explorer
 Veteran's Voice
 Vex
 Vexing Arcanix
-Vexing Beetle
 Vexing Shusher
 Vexing Sphinx
 Vhati il-Dal
@@ -6674,7 +6663,6 @@ Viashino Heretic
 Viashino Racketeer
 Viashino Runner
 Viashino Sandswimmer
-Vibrating Sphere
 Vicious Betrayal
 Vicious Shadows
 Victimize
