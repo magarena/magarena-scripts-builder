@@ -148,6 +148,10 @@ public class MtgJsonReader {
     }
 
     private static void saveCardData(final CardData cardData) {
+
+        // ensure unix style line endings.
+        System.setProperty("line.separator", "\n");
+
         final Path filePath = getScriptsPath().resolve(cardData.getFilename());
         try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
             writer.println("name=" + cardData.getCardName(true));
