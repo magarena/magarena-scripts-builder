@@ -16,6 +16,7 @@ class CardData {
     private String rarity;
     private String manaCost;
     private String type;
+    private String superType    = null;
     private String subType      = null;
     private String power        = null;
     private String toughness    = null;
@@ -24,8 +25,6 @@ class CardData {
     public CardData(final JsonObject card) throws UnsupportedEncodingException {
 
         setCardName(card.get("name").getAsString());
-
-        setInfoUrl("http://magiccards.info/query?q=%21" + URLEncoder.encode(card.get("name").getAsString(), "UTF-8"));
         setImageUrl("http://mtgimage.com/card/" + URLEncoder.encode(card.get("imageName").getAsString(), "UTF-8").replace("+", "%20") + ".jpg");
         setRarity(card.get("rarity").getAsString().substring(0, 1));
 
@@ -34,6 +33,16 @@ class CardData {
         if (card.has("toughness"))  { setToughness(card.get("toughness").getAsString()); }
         if (card.has("text"))       { setText(card.get("text").getAsString()); }
 
+        if (card.has("supertypes")) {
+            final StringBuffer sb = new StringBuffer();
+            final JsonArray cardTypes = card.getAsJsonArray("supertypes");
+            for (int j = 0; j < cardTypes.size(); j++) {
+                sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
+            }
+            final String superTypes =sb.toString().substring(0,sb.toString().length()-1);
+            setSuperType(superTypes);
+        }
+        
         if (card.has("types")) {
             final StringBuffer sb = new StringBuffer();
             final JsonArray cardTypes = card.getAsJsonArray("types");
@@ -65,12 +74,15 @@ class CardData {
     public String getCardName(final boolean replaceNonAscii) {
         if (replaceNonAscii) {
             return cardName
-                    .replace("ö", "o")
-                    .replace("û", "u")
-                    .replace("í", "i")
-                    .replace("á", "a")
-                    .replace("â", "a")
-                    .replace("Æ", "AE");
+                    .replace("ö", "_")
+                    .replace("û", "_")
+                    .replace("í", "_")
+                    .replace("á", "_")
+                    .replace("à", "_")
+                    .replace("â", "_")
+                    .replace("é", "_")
+                    .replace("ú", "_")
+                    .replace("Æ", "_");
         } else {
             return cardName;
         }
@@ -147,6 +159,14 @@ class CardData {
         this.text = text;
     }
 
+    public String getSuperType() {
+        return superType;
+    }
+    
+    public void setSuperType(String superType) {
+        this.superType=superType;
+    }
+    
     public String getSubType() {
         return subType;
     }

@@ -100,7 +100,7 @@ public class MtgJsonReader {
             final JsonElement element = parser.parse(reader);
 
             for (String setCode : getSetCodes()) {
-                // Not interested in unsets.
+                // Not interested in unsets or vanguard.
                 if (!setCode.equalsIgnoreCase("UNH") && !setCode.equalsIgnoreCase("VAN")) {
                     final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
                     extractCardDataFromJson(setObject.getAsJsonArray("cards"));
@@ -133,8 +133,8 @@ public class MtgJsonReader {
     private static void extractCardDataFromJson(final JsonArray cards) throws UnsupportedEncodingException {
         for (int i = 0; i < cards.size(); i++) {
             final CardData cardData = new CardData(cards.get(i).getAsJsonObject());
-            if (!mtgcomCards.containsKey(cardData.getCardName(true))) {
-                mtgcomCards.put(cardData.getCardName(true), cardData);
+            if (!mtgcomCards.containsKey(cardData.getCardName(false))) {
+                mtgcomCards.put(cardData.getCardName(false), cardData);
             };
         }
     }
@@ -154,12 +154,16 @@ public class MtgJsonReader {
 
         final Path filePath = getScriptsPath().resolve(cardData.getFilename());
         try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
-            writer.println("name=" + cardData.getCardName(true));
-            writer.println("url=" + cardData.getInfoUrl());
+            writer.println("name=" + cardData.getCardName(false));
+//            writer.println("url=" + cardData.getInfoUrl());
             writer.println("image=" + cardData.getImageUrl());
             writer.println("value=2.500");
             writer.println("rarity=" + cardData.getRarity());
-            writer.println("type=" + cardData.getType());
+            if (cardData.getSuperType() !=null) {
+                writer.println("type=" + cardData.getSuperType()+","+cardData.getType());
+            } else {
+                writer.println("type=" + cardData.getType());
+            }
             if (cardData.getSubType() != null) {
                 writer.println("subtype=" + cardData.getSubType());
             }
