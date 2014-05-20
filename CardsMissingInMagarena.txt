@@ -1,15 +1,3 @@
-AEther Burst
-AEther Charge
-AEther Rift
-AEther Shockwave
-AEther Snap
-AEther Storm
-AEther Tide
-AEther Tradewinds
-AEtherling
-AEthermage's Touch
-AEtherplasm
-AEthertow
 Abandon Hope
 Abattoir Ghoul
 Abduction
@@ -29,13 +17,11 @@ Accelerated Mutation
 Acceptable Losses
 Accumulated Knowledge
 Acidic Dagger
-Acidic Soil
 Acolyte's Reward
 Acquire
 Act of Authority
 Active Volcano
 Ad Nauseam
-Adamaro, First to Desire
 Adaptive Automaton
 Adarkar Unicorn
 Adarkar Valkyrie
@@ -72,7 +58,6 @@ Akroan Horse
 Akroma's Devoted
 Akroma, Angel of Fury
 Akron Legionnaire
-Aku Djinn
 Akuta, Born of Ash
 Al-abara's Carpet
 Alabaster Leech
@@ -80,7 +65,6 @@ Alabaster Potion
 Alaborn Veteran
 Alaborn Zealot
 Aladdin's Lamp
-Alarum
 Alchemist's Refuge
 Alchor's Tomb
 Aleatory
@@ -140,7 +124,6 @@ Angel's Trumpet
 Angelic Accord
 Angelic Arbiter
 Angelic Favor
-Angelic Protector
 Angelic Skirmisher
 Anger
 Angry Mob
@@ -213,7 +196,7 @@ Arena of the Ancients
 Argothian Elder
 Argothian Pixies
 Argothian Treefolk
-Arm with AEther
+Arm with Æther
 Armageddon Clock
 Armament of Nyx
 Armed
@@ -223,7 +206,6 @@ Armor of Thorns
 Armored Galleon
 Armored Guardian
 Armored Transport
-Armory of Iroas
 Arrogant Wurm
 Arrow Volley Trap
 Arsenal Thresher
@@ -328,7 +310,6 @@ Ayumi, the Last Visitor
 Azami, Lady of Scrolls
 Azamuki, Treachery Incarnate
 Azor's Elocutors
-Azorius AEthermage
 Azorius Chancery
 Azorius Charm
 Azorius First-Wing
@@ -337,6 +318,7 @@ Azorius Herald
 Azorius Justiciar
 Azorius Ploy
 Azorius Signet
+Azorius Æthermage
 Back from the Brink
 Backdraft
 Backslide
@@ -344,7 +326,6 @@ Baki's Curse
 Bala Ged Scorpion
 Bala Ged Thief
 Balance
-Balance of Power
 Balancing Act
 Balduvian Conjurer
 Balduvian Dead
@@ -583,7 +564,6 @@ Boros Garrison
 Boros Signet
 Borrowing the East Wind
 Boseiju, Who Shelters All
-Bosium Strip
 Bosk Banneret
 Bottle of Suleiman
 Bottled Cloister
@@ -686,10 +666,10 @@ Burning-Tree Shaman
 Burnished Hart
 Burnt Offering
 Burrenton Forge-Tender
-Burst of Strength
 Bushi Tenderfoot
 Bust
 Butcher Orgg
+Bösium Strip
 Cabal Coffers
 Cabal Conditioning
 Cabal Executioner
@@ -792,7 +772,6 @@ Cemetery Puca
 Cenn's Heir
 Cenn's Tactician
 Centaur Omenreader
-Cephalid Aristocrat
 Cephalid Constable
 Cephalid Illusionist
 Cephalid Inkshrouder
@@ -815,7 +794,6 @@ Chain of Smog
 Chain of Vapor
 Chainbreaker
 Chained Throatseeker
-Chainer's Edict
 Chainer, Dementia Master
 Chains of Mephistopheles
 Chalice of Death
@@ -950,7 +928,6 @@ Clockwork Steed
 Clockwork Swarm
 Cloistered Youth
 Clone Shell
-Cloud Cover
 Cloud Key
 Cloud of Faeries
 Cloudchaser Kestrel
@@ -1030,7 +1007,6 @@ Consuming Bonfire
 Consuming Ferocity
 Consuming Vapors
 Consuming Vortex
-Consumptive Goo
 Contagion
 Contagion Clasp
 Contagion Engine
@@ -1088,7 +1064,6 @@ Covenant of Minds
 Cover of Darkness
 Cover of Winter
 Covetous Dragon
-Cowardice
 Cowed by Wisdom
 Crab Umbra
 Crackdown
@@ -1228,7 +1203,7 @@ Damping Field
 Damping Matrix
 Dance of Many
 Dance of the Dead
-Dandan
+Dandân
 Dangerous
 Dangerous Wager
 Darigaaz's Attendant
@@ -1262,7 +1237,6 @@ Daru Healer
 Daru Lancer
 Daru Mender
 Daru Sanctifier
-Daru Spiritualist
 Daru Stinger
 Daru Warchief
 Dash Hopes
@@ -1627,6 +1601,7 @@ Dwarven Strike Force
 Dwell on the Past
 Dying Wail
 Dystopia
+Déjà Vu
 Early Frost
 Early Harvest
 Earnest Fellowship
@@ -1653,6 +1628,7 @@ Eiganjo Free-Riders
 Eight-and-a-Half-Tails
 Eightfold Maze
 Ekundu Cyclops
+El-Hajjâj
 Eladamri's Vineyard
 Elbrus, the Binding Blade
 Elder Pine of Jukai
@@ -1734,7 +1710,6 @@ Energy Tap
 Energy Vortex
 Engineered Explosives
 Engineered Plague
-Engulfing Flames
 Enigma Eidolon
 Enigma Sphinx
 Enlarge
@@ -2010,7 +1985,6 @@ Flamespeaker Adept
 Flamespeaker's Will
 Flamestick Courier
 Flaming Gambit
-Flaring Pain
 Flash
 Flash Conscription
 Flash Flood
@@ -2057,7 +2031,7 @@ Flux
 Fog Elemental
 Fog Patch
 Foil
-Fold into AEther
+Fold into Æther
 Font of Return
 Food Chain
 Fool's Tome
@@ -2125,8 +2099,8 @@ Frost Breath
 Frost Raptor
 Frostweb Spider
 Frostwielder
-Frozen AEther
 Frozen Solid
+Frozen Æther
 Fuel for the Cause
 Fulgent Distraction
 Full Moon's Rise
@@ -2183,7 +2157,7 @@ Garruk, the Veil-Cursed
 Garza Zol, Plague Queen
 Garza's Assassin
 Gaseous Form
-Gate to the AEther
+Gate to the Æther
 Gatecreeper Vine
 Gateway Shade
 Gathan Raiders
@@ -2218,7 +2192,6 @@ Geosurge
 Geothermal Crevice
 Gerrard Capashen
 Gerrard's Verdict
-Gerrard's Wisdom
 Geth's Grimoire
 Geth, Lord of the Vault
 Ghastly Demise
@@ -2226,7 +2199,7 @@ Ghastly Discovery
 Ghastly Haunting
 Ghastly Remains
 Ghave, Guru of Spores
-Ghazban Ogre
+Ghazbán Ogre
 Ghitu Fire
 Ghitu Fire-Eater
 Ghitu Firebreathing
@@ -2290,7 +2263,6 @@ Glarecaster
 Glarewielder
 Glaring Spotlight
 Glass Asp
-Gleam of Battle
 Gleam of Resistance
 Gleancrawler
 Gleeful Sabotage
@@ -2737,7 +2709,6 @@ Horn of Greed
 Horn of Plenty
 Hornet Cannon
 Horobi's Whisper
-Horobi, Death's Wail
 Hostile Realm
 Hostility
 Hotheaded Giant
@@ -2807,7 +2778,7 @@ Ichor Slick
 Ichorid
 Icy Prison
 Ideas Unbound
-Ifh-Biff Efreet
+Ifh-Bíff Efreet
 Ignite Disorder
 Ignite Memories
 Ignoble Soldier
@@ -3040,7 +3011,6 @@ Jokulmorder
 Jolrael, Empress of Beasts
 Jolt
 Joraga Treespeaker
-Jotun Grunt
 Journey of Discovery
 Joven's Ferrets
 Joven's Tools
@@ -3059,11 +3029,15 @@ Junk Golem
 Junktroller
 Junkyo Bell
 Juntu Stakes
+Junún Efreet
 Jushi Apprentice
 Just Fate
 Justice
 Juxtapose
+Juzám Djinn
 Jwari Shapeshifter
+Jötun Grunt
+Jötun Owl Keeper
 Kabira Evangel
 Kaboom!
 Kaervek's Hex
@@ -3091,7 +3065,6 @@ Karoo
 Karplusan Giant
 Karplusan Minotaur
 Karplusan Strider
-Karplusan Wolverine
 Karplusan Yeti
 Karrthus, Tyrant of Jund
 Kashi-Tribe Elite
@@ -3129,7 +3102,7 @@ Kentaro, the Smiling Cat
 Kenzo the Hardhearted
 Keranos, God of Storms
 Kezzerdrix
-Khabal Ghoul
+Khabál Ghoul
 Khalni Gem
 Khalni Heart Expedition
 Khalni Hydra
@@ -3323,7 +3296,7 @@ Leering Emblem
 Leering Gargoyle
 Legerdemain
 Legion's Initiative
-Legions of Lim-Dul
+Legions of Lim-Dûl
 Leonin Arbiter
 Leonin Bola
 Leonin Shikari
@@ -3388,10 +3361,12 @@ Lignify
 Liliana of the Dark Realms
 Liliana of the Veil
 Lilting Refrain
-Lim-Dul's Cohort
-Lim-Dul's Hex
-Lim-Dul's Paladin
-Lim-Dul's Vault
+Lim-Dûl the Necromancer
+Lim-Dûl's Cohort
+Lim-Dûl's Hex
+Lim-Dûl's High Guard
+Lim-Dûl's Paladin
+Lim-Dûl's Vault
 Limited Resources
 Lin Sivvi, Defiant Hero
 Linessa, Zephyr Mage
@@ -3599,7 +3574,6 @@ Marshaling the Troops
 Marshdrinker Giant
 Marshmist Titan
 Martial Glory
-Marton Stromgald
 Martyr of Ashes
 Martyr of Bones
 Martyr of Frost
@@ -3884,7 +3858,6 @@ Mortipede
 Mortis Dogs
 Mortuary
 Mossbridge Troll
-Mossdog
 Mossfire Egg
 Mossfire Valley
 Mosstodon
@@ -3949,6 +3922,7 @@ Mystic Decree
 Mystic Gate
 Mystic Veil
 Mystifying Maze
+Márton Stromgald
 Nacatl Hunt-Pride
 Nacatl War-Pride
 Nafs Asp
@@ -4115,7 +4089,7 @@ Oaken Brawler
 Oath of Druids
 Oath of Ghouls
 Oath of Lieges
-Oath of Lim-Dul
+Oath of Lim-Dûl
 Oath of Mages
 Oath of Scholars
 Oathkeeper, Takeno's Daisho
@@ -4510,7 +4484,6 @@ Preeminent Captain
 Preferred Selection
 Premature Burial
 Preordain
-Presence of the Wise
 Pretender's Claim
 Prey Upon
 Prey's Vengeance
@@ -4896,7 +4869,6 @@ Retract
 Retraction Helix
 Retribution
 Retribution of the Meek
-Retromancer
 Return of the Nightstalkers
 Return to Dust
 Returned Phalanx
@@ -4959,7 +4931,7 @@ Rimescale Dragon
 Rimewind Cryomancer
 Rimewind Taskmage
 Ring of Immortals
-Ring of Ma'ruf
+Ring of Ma'rûf
 Ring of Renewal
 Rings of Brighthearth
 Ringskipper
@@ -5238,6 +5210,7 @@ Scorching Winds
 Scoria Wurm
 Scorned Villager
 Scornful Egotist
+Scornful Æther-Lich
 Scour
 Scourge of Fleets
 Scourge of Kher Ridges
@@ -5313,7 +5286,6 @@ Seek the Horizon
 Seeker
 Seer's Vision
 Seething Song
-Segmented Wurm
 Seht's Tiger
 Seismic Spike
 Seizan, Perverter of Truth
@@ -5654,7 +5626,6 @@ Sonic Seizure
 Sootfeather Flock
 Soothsaying
 Sootstoke Kindler
-Sophic Centaur
 Soratami Cloud Chariot
 Soratami Mirror-Mage
 Soratami Seer
@@ -5767,7 +5738,6 @@ Spin into Myth
 Spinal Embrace
 Spinal Graft
 Spinal Parasite
-Spincrusher
 Spinebiter
 Spined Basher
 Spined Thopter
@@ -5810,7 +5780,6 @@ Spoils of the Vault
 Spontaneous Generation
 Spore Burst
 Spore Cloud
-Sporeback Troll
 Sporesower Thallid
 Sporogenesis
 Spread the Sickness
@@ -6028,11 +5997,11 @@ Surge Node
 Surge of Strength
 Surge of Zeal
 Surgical Extraction
-Surging AEther
 Surging Dementia
 Surging Flame
 Surging Might
 Surging Sentinels
+Surging Æther
 Surprise Deployment
 Surrakar Spellblade
 Surreal Memoir
@@ -6079,9 +6048,9 @@ Synod Sanctum
 Syphon Flesh
 Syphon Mind
 Syphon Soul
+Séance
 Tablet of the Guilds
 Tahngarth's Glare
-Tainted AEther
 Tainted Field
 Tainted Isle
 Tainted Pact
@@ -6090,6 +6059,7 @@ Tainted Sigil
 Tainted Specter
 Tainted Well
 Tainted Wood
+Tainted Æther
 Taj-Nar Swordsmith
 Tajuru Preserver
 Take
@@ -6190,7 +6160,6 @@ Test of Endurance
 Test of Faith
 Testament of Faith
 Tethered Griffin
-Tethered Skirge
 Tetravus
 Tetsuo Umezawa
 Teysa, Orzhov Scion
@@ -6336,7 +6305,6 @@ Tin-Wing Chimera
 Tinder Farm
 Tinder Wall
 Titan's Revenge
-Titania's Boon
 Titania's Song
 Titanic Bulvox
 Tithe
@@ -6540,6 +6508,7 @@ Unnatural Hunger
 Unnatural Selection
 Unnerve
 Unnerving Assault
+Unravel the Æther
 Unscythe, Killer of Kings
 Unstable Footing
 Unstable Frontier
@@ -6609,6 +6578,7 @@ Vedalken Engineer
 Vedalken Orrery
 Vedalken Plotter
 Vedalken Shackles
+Vedalken Æthermage
 Veil of Birds
 Veil of Secrecy
 Veilborn Ghoul
@@ -7071,3 +7041,29 @@ Zoologist
 Zulaport Enforcer
 Zuo Ci, the Mocking Sage
 Zur's Weirding
+Ærathi Berserker
+Æther Adept
+Æther Barrier
+Æther Burst
+Æther Charge
+Æther Figment
+Æther Flash
+Æther Membrane
+Æther Mutation
+Æther Rift
+Æther Shockwave
+Æther Snap
+Æther Spellbomb
+Æther Sting
+Æther Storm
+Æther Tide
+Æther Tradewinds
+Æther Vial
+Æther Web
+Ætherflame Wall
+Ætherize
+Ætherling
+Æthermage's Touch
+Ætherplasm
+Æthersnipe
+Æthertow
