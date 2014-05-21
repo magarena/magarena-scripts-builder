@@ -1601,7 +1601,6 @@ Dwarven Strike Force
 Dwell on the Past
 Dying Wail
 Dystopia
-Déjà Vu
 Early Frost
 Early Harvest
 Earnest Fellowship
@@ -1628,7 +1627,6 @@ Eiganjo Free-Riders
 Eight-and-a-Half-Tails
 Eightfold Maze
 Ekundu Cyclops
-El-Hajjâj
 Eladamri's Vineyard
 Elbrus, the Binding Blade
 Elder Pine of Jukai
@@ -3029,15 +3027,12 @@ Junk Golem
 Junktroller
 Junkyo Bell
 Juntu Stakes
-Junún Efreet
 Jushi Apprentice
 Just Fate
 Justice
 Juxtapose
-Juzám Djinn
 Jwari Shapeshifter
 Jötun Grunt
-Jötun Owl Keeper
 Kabira Evangel
 Kaboom!
 Kaervek's Hex
@@ -3361,10 +3356,8 @@ Lignify
 Liliana of the Dark Realms
 Liliana of the Veil
 Lilting Refrain
-Lim-Dûl the Necromancer
 Lim-Dûl's Cohort
 Lim-Dûl's Hex
-Lim-Dûl's High Guard
 Lim-Dûl's Paladin
 Lim-Dûl's Vault
 Limited Resources
@@ -5210,7 +5203,6 @@ Scorching Winds
 Scoria Wurm
 Scorned Villager
 Scornful Egotist
-Scornful Æther-Lich
 Scour
 Scourge of Fleets
 Scourge of Kher Ridges
@@ -6048,7 +6040,6 @@ Synod Sanctum
 Syphon Flesh
 Syphon Mind
 Syphon Soul
-Séance
 Tablet of the Guilds
 Tahngarth's Glare
 Tainted Field
@@ -6508,7 +6499,6 @@ Unnatural Hunger
 Unnatural Selection
 Unnerve
 Unnerving Assault
-Unravel the Æther
 Unscythe, Killer of Kings
 Unstable Footing
 Unstable Frontier
@@ -6578,7 +6568,6 @@ Vedalken Engineer
 Vedalken Orrery
 Vedalken Plotter
 Vedalken Shackles
-Vedalken Æthermage
 Veil of Birds
 Veil of Secrecy
 Veilborn Ghoul
@@ -7041,29 +7030,14 @@ Zoologist
 Zulaport Enforcer
 Zuo Ci, the Mocking Sage
 Zur's Weirding
-Ærathi Berserker
-Æther Adept
-Æther Barrier
 Æther Burst
-Æther Charge
-Æther Figment
-Æther Flash
-Æther Membrane
-Æther Mutation
 Æther Rift
 Æther Shockwave
 Æther Snap
-Æther Spellbomb
-Æther Sting
 Æther Storm
 Æther Tide
 Æther Tradewinds
-Æther Vial
-Æther Web
-Ætherflame Wall
-Ætherize
 Ætherling
 Æthermage's Touch
 Ætherplasm
-Æthersnipe
 Æthertow
