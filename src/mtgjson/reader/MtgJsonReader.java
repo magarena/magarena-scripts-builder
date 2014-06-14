@@ -197,6 +197,7 @@ public class MtgJsonReader {
                         .replace(".\n\n", ". ")
                         .replace("\n\n", ". ")
                         .replaceAll(" \\(.+?\\)", "")
+                        .replace("..", ".")
                         );
             }
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
