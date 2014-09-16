@@ -22,6 +22,9 @@ class CardData {
     private String power        = null;
     private String toughness    = null;
     private String text         = null;
+    private String effectText   = null;
+    private String abilityText  = null;
+    private String oracleText   = null;
 
     public CardData(final JsonObject card) throws UnsupportedEncodingException {
 
@@ -30,7 +33,16 @@ class CardData {
         setRarity(card.get("rarity").getAsString().substring(0, 1));
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
-        if (card.has("manaCost")==false && card.has("colors")) { setColor(card.get("colors").toString()); }
+        
+        if (card.has("manaCost")==false && card.has("colors")) { 
+            final String colors =  card.get("colors")
+                    .toString()
+                    .replaceAll("\\W", "")
+                    .replaceAll("[a-z]", "")
+                    .toLowerCase();
+            setColor(colors); 
+        }
+        
         if (card.has("power"))      { setPower(card.get("power").getAsString()); }
         if (card.has("toughness"))  { setToughness(card.get("toughness").getAsString()); }
         if (card.has("text"))       { setText(card.get("text").getAsString()); }
@@ -69,7 +81,37 @@ class CardData {
             final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
             setSubType(typeValues);
         }
-
+        
+        if (card.has("text")) {
+            if (card.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
+                final String effect = text
+                                        .replaceAll("^\\(.+?\\)\n","")
+                                        .replaceAll("^.+— ", "")
+                                        .replace("\n", "~")
+                                        .replaceAll("~.+? — ","~")
+                                        .replaceAll(" \\(.+?\\)", "")
+                                        .replaceAll("~•", " •")
+                                        .replace(getCardName(false), "SN");
+                setEffectText(effect);
+            } else {
+                final String ability = text
+                                        .replaceAll("^\\(.+?\\)\n","")
+                                        .replaceAll("^.+— ", "")
+                                        .replace("\n", ";\\\n        ")
+                                        .replaceAll(" \\(.+?\\)", "")
+                                        .replace(getCardName(false), "SN");
+                setAbilityText(ability);
+            }
+            final String oracle = text
+                                    .replaceAll("^\\(.+?\\)\n", "")
+                                    .replace(".\n", ". ")
+                                    .replace("\n", ". ")
+                                    .replaceAll(" \\(.+?\\)", "")
+                                    .replace("..", ".")
+                                    .replace("—.", "—")
+                                    .replace(". .", ".");
+            setOracleText(oracle);
+        }
     }
 
     public String getCardName(final boolean replaceNonAscii) {
@@ -173,7 +215,7 @@ class CardData {
     }
     
     public void setSuperType(String superType) {
-        this.superType=superType;
+        this.superType = superType;
     }
     
     public String getSubType() {
@@ -182,5 +224,26 @@ class CardData {
     public void setSubType(String subType) {
         this.subType = subType;
     }
+    
+    public String getEffectText() {
+        return effectText;
+    }
+    public void setEffectText(String effect) {
+        this.effectText = effect;
+    }
 
+    public String getAbilityText() {
+        return abilityText;
+    }
+    public void setAbilityText(String ability) {
+        this.abilityText = ability;
+    }
+
+    public String getOracleText() {
+        return oracleText;
+    }
+
+    public void setOracleText(String oracleText) {
+        this.oracleText = oracleText;
+    }
 }
