@@ -62,7 +62,7 @@ class CardData {
                             .replace("\"", "")
                             .replace(" ", "_")
                             .replace("'s", "")
-                            .replace("’s", "")
+                            .replace("â€™s", "")
                             .replace("-", "_")).append(",");
             }
             final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
@@ -74,15 +74,15 @@ class CardData {
     public String getCardName(final boolean replaceNonAscii) {
         if (replaceNonAscii) {
             return cardName
-                    .replace("ö", "_")
-                    .replace("û", "_")
-                    .replace("í", "_")
-                    .replace("á", "_")
-                    .replace("à", "_")
-                    .replace("â", "_")
-                    .replace("é", "_")
-                    .replace("ú", "_")
-                    .replace("Æ", "_");
+                    .replace("Ã†", "_")
+                    .replace("Ã¡", "_")
+                    .replace("Ã ", "_")
+                    .replace("Ã¢", "_")
+                    .replace("Ã©", "_")
+                    .replace("Ã­", "_")
+                    .replace("Ã¶", "_")
+                    .replace("Ãº", "_")
+                    .replace("Ã»", "_");
         } else {
             return cardName;
         }
