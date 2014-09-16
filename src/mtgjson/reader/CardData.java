@@ -11,7 +11,6 @@ import com.google.gson.JsonObject;
 class CardData {
 
     private String cardName;
-    private String infoUrl;
     private String imageUrl;
     private String rarity;
     private String manaCost;
@@ -35,7 +34,7 @@ class CardData {
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
         
         if (card.has("colors") && card.has("manaCost")==false) { 
-            final String colors =  card.get("colors")
+            final String colors = card.get("colors")
                     .toString()
                     .replaceAll("\\W", "")
                     .replaceAll("[a-z]", "")
@@ -132,13 +131,6 @@ class CardData {
     }
     public void setCardName(String cardName) {
         this.cardName = cardName;
-    }
-
-    public String getInfoUrl() {
-        return infoUrl;
-    }
-    public void setInfoUrl(String infoUrl) {
-        this.infoUrl = infoUrl;
     }
 
     public String getImageUrl() {
