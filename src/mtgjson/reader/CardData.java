@@ -25,7 +25,7 @@ class CardData {
     public CardData(final JsonObject card) throws UnsupportedEncodingException {
 
         setCardName(card.get("name").getAsString());
-        setImageUrl("http://mtgimage.com/card/" + URLEncoder.encode(card.get("imageName").getAsString(), "UTF-8").replace("+", "%20") + ".jpg");
+        setImageUrl("http://mtgimage.com/card/" + URLEncoder.encode(card.get("imageName").getAsString(), "UTF-8").replace("+", "%20").replaceAll("(\\D)1", "$1") + ".jpg");
         setRarity(card.get("rarity").getAsString().substring(0, 1));
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
