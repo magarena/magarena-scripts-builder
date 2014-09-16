@@ -179,6 +179,7 @@ public class MtgJsonReader {
                             .replaceAll("^\\(.+?\\)\n","")
                             .replaceAll("^.+— ", "")
                             .replace("\n", "~")
+                            .replaceAll("~.+? — ","~")
                             .replaceAll(" \\(.+?\\)", "")
                             .replaceAll("~•", " •")
                             .replace(cardData.getCardName(false), "SN")
