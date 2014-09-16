@@ -101,7 +101,7 @@ public class MtgJsonReader {
 
             for (String setCode : getSetCodes()) {
                 // Not interested in unsets or vanguard.
-                if (!setCode.equalsIgnoreCase("UNH") && !setCode.equalsIgnoreCase("VAN")) {
+                if (!setCode.equalsIgnoreCase("UNG") && !setCode.equalsIgnoreCase("UNH") && !setCode.equalsIgnoreCase("VAN")) {
                     final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
                     extractCardDataFromJson(setObject.getAsJsonArray("cards"));
                 }
@@ -133,7 +133,7 @@ public class MtgJsonReader {
     private static void extractCardDataFromJson(final JsonArray cards) throws UnsupportedEncodingException {
         for (int i = 0; i < cards.size(); i++) {
             final CardData cardData = new CardData(cards.get(i).getAsJsonObject());
-            if (!mtgcomCards.containsKey(cardData.getCardName(false))) {
+            if (!mtgcomCards.containsKey(cardData.getCardName(false)) && !cardData.getRarity().contentEquals("S")) {
                 mtgcomCards.put(cardData.getCardName(false), cardData);
             };
         }
