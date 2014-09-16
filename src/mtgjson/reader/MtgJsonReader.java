@@ -168,10 +168,7 @@ public class MtgJsonReader {
             }
             if (cardData.getManaCost() == null && cardData.getColor() !=null) {
                 writer.println("color="+cardData.getColor()
-                        .replace("\"", "")
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace(",", "")
+                        .replaceAll("\\W", "")
                         .replaceAll("[a-z]", "")
                         .toLowerCase()
                         );
