@@ -155,7 +155,6 @@ public class MtgJsonReader {
         final Path filePath = getScriptsPath().resolve(cardData.getFilename());
         try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
             writer.println("name=" + cardData.getCardName(false));
-//            writer.println("url=" + cardData.getInfoUrl());
             writer.println("image=" + cardData.getImageUrl());
             writer.println("value=2.500");
             writer.println("rarity=" + cardData.getRarity());
@@ -175,16 +174,26 @@ public class MtgJsonReader {
             }
             if (cardData.getText() != null && (cardData.getType().contains("Instant") || cardData.getType().contains("Sorcery"))) {
                 writer.print("effect=");
+                if (cardData.getText() !=null) {
+                    writer.println(cardData.getText()
+                            .replaceAll("^\\(.+?\\)\n","")
+                            .replaceAll("^.+— ", "")
+                            .replace("\n", "~")
+                            .replaceAll(" \\(.+?\\)", "")
+                            .replace(cardData.getCardName(false), "SN")
+                            );
+                }
             } else if (cardData.getText() != null) {
                 writer.print("ability=");
-            }
-            if (cardData.getText() !=null) {
-                writer.println(cardData.getText()
-                        .replaceAll("^\\(.+?\\)\n\n","")
-                        .replace("\n\n", ";\\\n        ")
-                        .replaceAll(" \\(.+?\\)", "")
-                        .replace(cardData.getCardName(false), "SN")
-                        );
+                if (cardData.getText() !=null) {
+                    writer.println(cardData.getText()
+                            .replaceAll("^\\(.+?\\)\n","")
+                            .replaceAll("^.+— ", "")
+                            .replace("\n", ";\\\n        ")
+                            .replaceAll(" \\(.+?\\)", "")
+                            .replace(cardData.getCardName(false), "SN")
+                            );
+                }
             }
             if (cardData.getType().contains("Instant")) {
                 writer.println("timing=removal");
@@ -193,11 +202,13 @@ public class MtgJsonReader {
             }
             if (cardData.getText() !=null) {
                 writer.println("oracle="+cardData.getText()
-                        .replaceAll("^\\(.+?\\)\n\n", "")
-                        .replace(".\n\n", ". ")
-                        .replace("\n\n", ". ")
+                        .replaceAll("^\\(.+?\\)\n", "")
+                        .replace(".\n", ". ")
+                        .replace("\n", ". ")
                         .replaceAll(" \\(.+?\\)", "")
                         .replace("..", ".")
+                        .replace("—.", "—")
+                        .replace(". .", ".")
                         );
             }
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
