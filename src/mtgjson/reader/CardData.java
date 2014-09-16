@@ -16,6 +16,7 @@ class CardData {
     private String rarity;
     private String manaCost;
     private String type;
+    private String color        = null;
     private String superType    = null;
     private String subType      = null;
     private String power        = null;
@@ -29,6 +30,7 @@ class CardData {
         setRarity(card.get("rarity").getAsString().substring(0, 1));
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
+        if (card.has("manaCost")==false && card.has("colors")) { setColor(card.get("colors").toString()); }
         if (card.has("power"))      { setPower(card.get("power").getAsString()); }
         if (card.has("toughness"))  { setToughness(card.get("toughness").getAsString()); }
         if (card.has("text"))       { setText(card.get("text").getAsString()); }
@@ -61,8 +63,7 @@ class CardData {
                 sb.append(subType
                             .replace("\"", "")
                             .replace(" ", "_")
-                            .replace("'s", "")
-                            .replace("’s", "")
+                            .replace("’s", "'s")
                             .replace("-", "_")).append(",");
             }
             final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
@@ -117,6 +118,14 @@ class CardData {
     }
     public void setManaCost(String manaCost) {
         this.manaCost = manaCost;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+    
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getType() {

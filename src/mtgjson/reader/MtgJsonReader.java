@@ -166,6 +166,16 @@ public class MtgJsonReader {
             if (cardData.getSubType() != null) {
                 writer.println("subtype=" + cardData.getSubType());
             }
+            if (cardData.getManaCost() == null && cardData.getColor() !=null) {
+                writer.println("color="+cardData.getColor()
+                        .replace("\"", "")
+                        .replace("[", "")
+                        .replace("]", "")
+                        .replace(",", "")
+                        .replaceAll("[a-z]", "")
+                        .toLowerCase()
+                        );
+            }
             if (cardData.getManaCost() != null) {
                 writer.println("cost=" + cardData.getManaCost());
             }
@@ -202,6 +212,7 @@ public class MtgJsonReader {
             } else {
                 writer.println("timing=main");
             }
+            
             if (cardData.getText() !=null) {
                 writer.println("oracle="+cardData.getText()
                         .replaceAll("^\\(.+?\\)\n", "")
