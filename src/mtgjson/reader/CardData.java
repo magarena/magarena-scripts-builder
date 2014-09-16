@@ -34,13 +34,13 @@ class CardData {
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
         
-        if (card.has("manaCost")==false && card.has("colors")) { 
+        if (card.has("colors") && card.has("manaCost")==false) { 
             final String colors =  card.get("colors")
                     .toString()
                     .replaceAll("\\W", "")
                     .replaceAll("[a-z]", "")
                     .toLowerCase();
-            setColor(colors); 
+            setColor(colors);
         }
         
         if (card.has("power"))      { setPower(card.get("power").getAsString()); }
