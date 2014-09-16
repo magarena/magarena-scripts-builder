@@ -36,6 +36,7 @@ class CardData {
         if (card.has("colors") && card.has("manaCost")==false) { 
             final String colors = card.get("colors")
                     .toString()
+                    .replace("Blue", "U")
                     .replaceAll("\\W", "")
                     .replaceAll("[a-z]", "")
                     .toLowerCase();
