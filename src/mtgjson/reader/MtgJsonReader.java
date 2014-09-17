@@ -52,9 +52,9 @@ public class MtgJsonReader {
     // the mtgcom json ("AllSets.json") file. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
-    private static final List<String> setCodesList = new ArrayList<String>();
-    private static final HashMap<String, CardData> mtgcomCards = new HashMap<String, CardData>();
-    private static final List<String> magarenaMissingCards = new ArrayList<String>();
+    private static final List<String> setCodesList = new ArrayList<>();
+    private static final HashMap<String, CardData> mtgcomCards = new HashMap<>();
+    private static final List<String> magarenaMissingCards = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -65,7 +65,7 @@ public class MtgJsonReader {
         System.out.println("Total missing cards in Magarena = " + magarenaMissingCards.size() + " (see " + MISSING_CARDS_FILE + ")");
 
         // sort list of ALL card names from json file.
-        final List<String> mtgcomCardNames = new ArrayList<String>(mtgcomCards.keySet());
+        final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
         Collections.sort(mtgcomCardNames);
 
         final int missingOrphans = saveListOfMissingCardOrphans(mtgcomCardNames);
@@ -116,7 +116,7 @@ public class MtgJsonReader {
      * Magarena but which have no matching card name in the json file from mtgjson.com.
      */
     private static int saveListOfMissingCardOrphans(final List<String> mtgcomCardNames) {
-        final List<String> missingCardOrphans = new ArrayList<String>(magarenaMissingCards);
+        final List<String> missingCardOrphans = new ArrayList<>(magarenaMissingCards);
         missingCardOrphans.removeAll(mtgcomCardNames);
         Collections.sort(missingCardOrphans);
         final File textFile = getResultsPath().resolve(MISSING_ORPHANS_FILE).toFile();
@@ -126,7 +126,7 @@ public class MtgJsonReader {
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
-        };
+        }
         return missingCardOrphans.size();
     }
 
@@ -135,7 +135,7 @@ public class MtgJsonReader {
             final CardData cardData = new CardData(cards.get(i).getAsJsonObject());
             if (!mtgcomCards.containsKey(cardData.getCardName(false)) && !cardData.getRarity().contentEquals("S")) {
                 mtgcomCards.put(cardData.getCardName(false), cardData);
-            };
+            }
         }
     }
 
@@ -180,7 +180,7 @@ public class MtgJsonReader {
             
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
-        };
+        }
     }
 
     private static String[] getSetCodes() throws IOException {
