@@ -158,11 +158,7 @@ public class MtgJsonReader {
             writer.println("image=" + cardData.getImageUrl());
             writer.println("value=2.500");
             writer.println("rarity=" + cardData.getRarity().replace("S", "R"));
-            if (cardData.getSuperType() !=null) {
-                writer.println("type=" + cardData.getSuperType()+","+cardData.getType());
-            } else {
-                writer.println("type=" + cardData.getType());
-            }
+            writer.println("type=" + cardData.getType());
             if (cardData.getSubType() != null) {
                 writer.println("subtype=" + cardData.getSubType());
             }
@@ -179,8 +175,7 @@ public class MtgJsonReader {
                 if (cardData.getEffectText() !=null) { writer.println("effect=" + cardData.getEffectText()); }
                 else if (cardData.getAbilityText() !=null) { writer.println("ability="+cardData.getAbilityText()); }
             }
-            writer.println("timing=" + cardData.getTiming());
-            
+            writer.println("timing=" + cardData.getTiming());            
             if (cardData.getText() !=null) { writer.println("oracle="+cardData.getOracleText()); }
             
         } catch (FileNotFoundException | UnsupportedEncodingException e) {

@@ -164,7 +164,11 @@ class CardData {
     }
 
     public String getType() {
-        return type;
+        if (getSuperType() != null) {
+            return getSuperType() + "," + type;
+        } else {
+            return type;
+        }
     }
     public void setType(String type) {
         this.type = type;
@@ -241,7 +245,7 @@ class CardData {
     }
 
     public String getTiming() {
-        if (getType().contains("Instant")) {
+        if (type.contains("Instant")) {
             return "removal";
         } else {
             return "main";
