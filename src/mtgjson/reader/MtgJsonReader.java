@@ -179,11 +179,7 @@ public class MtgJsonReader {
                 if (cardData.getEffectText() !=null) { writer.println("effect=" + cardData.getEffectText()); }
                 else if (cardData.getAbilityText() !=null) { writer.println("ability="+cardData.getAbilityText()); }
             }
-            if (cardData.getType().contains("Instant")) {
-                writer.println("timing=removal");
-            } else {
-                writer.println("timing=main");
-            }
+            writer.println("timing=" + cardData.getTiming());
             
             if (cardData.getText() !=null) { writer.println("oracle="+cardData.getOracleText()); }
             

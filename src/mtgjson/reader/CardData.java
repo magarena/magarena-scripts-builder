@@ -239,4 +239,12 @@ class CardData {
     public void setOracleText(String oracleText) {
         this.oracleText = oracleText;
     }
+
+    public String getTiming() {
+        if (getType().contains("Instant")) {
+            return "removal";
+        } else {
+            return "main";
+        }
+    }
 }
