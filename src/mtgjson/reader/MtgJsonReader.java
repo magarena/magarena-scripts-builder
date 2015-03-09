@@ -176,7 +176,11 @@ public class MtgJsonReader {
                 else if (cardData.getAbilityText() !=null) { writer.println("ability="+cardData.getAbilityText()); }
             }
             writer.println("timing=" + cardData.getTiming());            
-            if (cardData.getText() !=null) { writer.println("oracle="+cardData.getOracleText()); }
+            if (cardData.getText() !=null) { 
+                writer.println("oracle="+cardData.getOracleText()); 
+            } else {
+                writer.println("oracle=NONE");
+            }
             
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
