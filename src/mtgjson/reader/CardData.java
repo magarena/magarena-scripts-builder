@@ -259,7 +259,7 @@ class CardData {
                     card.get("number").getAsString()
             );
         } else {
-            System.err.println(card.get("name").getAsString());
+//            System.err.println(card.get("name").getAsString());
         }
     }
 }

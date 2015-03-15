@@ -110,7 +110,11 @@ public class MtgJsonReader {
                         !setCode.equalsIgnoreCase("VAN")) {
                     final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
                     final String setReleaseDate = setObject.get("releaseDate").getAsString();
-                    extractCardDataFromJson(setObject.getAsJsonArray("cards"), setCode, setReleaseDate);
+                    final String gathererCode = setObject.has("gathererCode") ?
+                            setObject.get("gathererCode").getAsString() :
+                            setCode;
+                    System.out.println(!setCode.equalsIgnoreCase(gathererCode) ? ("setCode=" + setCode + ", gathererCode=" + gathererCode) : "");
+                    extractCardDataFromJson(setObject.getAsJsonArray("cards"), gathererCode, setReleaseDate);
                 }
             }
 
