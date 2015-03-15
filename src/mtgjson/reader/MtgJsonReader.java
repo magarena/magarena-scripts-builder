@@ -1,8 +1,11 @@
-/**
- *
- */
 package mtgjson.reader;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,19 +19,14 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import org.apache.commons.io.FileUtils;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 
 /**
  * Given a list of missing card names from Magarena this will attempt to match each
@@ -58,24 +56,30 @@ public class MtgJsonReader {
 
     public static void main(String[] args) throws IOException {
 
+        System.out.println("Running...");
+
         loadJsonData();
-        System.out.println("Total unique cards identified in json feed = " + mtgcomCards.size() + " (see " + JSON_FILE + ")");
+        System.out.printf("Total unique cards identified in json feed = %d (see %s)\n",
+                mtgcomCards.size(), JSON_FILE);
 
         loadMissingMagarenaCards();
-        System.out.println("Total missing cards in Magarena = " + magarenaMissingCards.size() + " (see " + MISSING_CARDS_FILE + ")");
+        System.out.printf("Total missing cards in Magarena = %d (see %s)\n",
+                magarenaMissingCards.size(), MISSING_CARDS_FILE);
 
         // sort list of ALL card names from json file.
         final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
         Collections.sort(mtgcomCardNames);
 
         final int missingOrphans = saveListOfMissingCardOrphans(mtgcomCardNames);
-        System.out.println("Total missing cards which could not be matched in " + JSON_FILE + " = " + missingOrphans + " (see " + MISSING_ORPHANS_FILE + ")");
+        System.out.printf("Total missing cards which could not be matched in %s = %d (see \\results\\%s)\n",
+                JSON_FILE, missingOrphans, MISSING_ORPHANS_FILE);
 
         mtgcomCardNames.retainAll(magarenaMissingCards);
-        System.out.println("Total missing cards which have a matching entry in " + JSON_FILE + " = " + magarenaMissingCards.size() + "-" + missingOrphans + " = " + mtgcomCardNames.size());
+        System.out.printf("Total missing cards which have a matching entry in %s = %d-%d = %d\n",
+                JSON_FILE, magarenaMissingCards.size(), missingOrphans, mtgcomCardNames.size());
 
         saveMissingCardData(mtgcomCardNames);
-        System.out.println("Created a default script file for each missing card in \"scripts\" folder.");
+        System.out.println("Created a default script file for each missing card in \"\\results\\scripts\" folder.");
 
         System.out.println("Finished.");
 
@@ -101,9 +105,12 @@ public class MtgJsonReader {
 
             for (String setCode : getSetCodes()) {
                 // Not interested in unsets or vanguard.
-                if (!setCode.equalsIgnoreCase("UNG") && !setCode.equalsIgnoreCase("UNH") && !setCode.equalsIgnoreCase("VAN")) {
+                if (!setCode.equalsIgnoreCase("UNG") &&
+                        !setCode.equalsIgnoreCase("UNH") &&
+                        !setCode.equalsIgnoreCase("VAN")) {
                     final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
-                    extractCardDataFromJson(setObject.getAsJsonArray("cards"));
+                    final String setReleaseDate = setObject.get("releaseDate").getAsString();
+                    extractCardDataFromJson(setObject.getAsJsonArray("cards"), setCode, setReleaseDate);
                 }
             }
 
@@ -130,11 +137,15 @@ public class MtgJsonReader {
         return missingCardOrphans.size();
     }
 
-    private static void extractCardDataFromJson(final JsonArray cards) throws UnsupportedEncodingException {
+    private static void extractCardDataFromJson(
+            final JsonArray cards,
+            final String setCode,
+            final String releaseDate) throws UnsupportedEncodingException {
         for (int i = 0; i < cards.size(); i++) {
-            final CardData cardData = new CardData(cards.get(i).getAsJsonObject());
-            if (!mtgcomCards.containsKey(cardData.getCardName(false)) && !cardData.getRarity().contentEquals("S")) {
-                mtgcomCards.put(cardData.getCardName(false), cardData);
+            final CardData cardData = new CardData(cards.get(i).getAsJsonObject(), setCode);
+            final String key = cardData.getCardName(false);
+            if (!mtgcomCards.containsKey(key) && !cardData.getRarity().contentEquals("S")) {
+                mtgcomCards.put(key, cardData);
             }
         }
     }
@@ -175,13 +186,13 @@ public class MtgJsonReader {
                 if (cardData.getEffectText() !=null) { writer.println("effect=" + cardData.getEffectText()); }
                 else if (cardData.getAbilityText() !=null) { writer.println("ability="+cardData.getAbilityText()); }
             }
-            writer.println("timing=" + cardData.getTiming());            
-            if (cardData.getText() !=null) { 
-                writer.println("oracle="+cardData.getOracleText()); 
+            writer.println("timing=" + cardData.getTiming());
+            if (cardData.getText() !=null) {
+                writer.println("oracle="+cardData.getOracleText());
             } else {
                 writer.println("oracle=NONE");
             }
-            
+
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
@@ -296,6 +307,31 @@ public class MtgJsonReader {
             }
         }
         return scriptsPath;
+    }
+
+    private class CardSetCode {
+
+        private final String setCode;
+        private final String releaseDate;
+
+        public CardSetCode(final String setCode, final String releaseDate) {
+            this.setCode = setCode;
+            this.releaseDate = releaseDate;
+        }
+
+        public String getCode() {
+            return this.setCode;
+        }
+
+        public Date getReleaseDate() {
+             try {
+                final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                return df.parse(this.releaseDate);
+             } catch (ParseException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
     }
 
 }
