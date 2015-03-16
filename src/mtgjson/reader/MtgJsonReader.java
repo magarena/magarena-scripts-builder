@@ -145,9 +145,7 @@ public class MtgJsonReader {
 
     
     private static String getSetCode(final JsonObject jsonSetObject, final String defaultCode) {
-        return jsonSetObject.has("gathererCode")
-                ? jsonSetObject.get("gathererCode").getAsString()
-                : defaultCode;
+        return  defaultCode;
     }
 
     private static void logErrorDetails() {
