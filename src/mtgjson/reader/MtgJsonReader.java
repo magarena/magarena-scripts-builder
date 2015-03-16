@@ -129,6 +129,20 @@ public class MtgJsonReader {
         }
 
     }
+
+    private static void extractCardDataFromJson(final JsonArray cards, final String setCode) throws UnsupportedEncodingException {
+
+        for (int i = 0; i < cards.size(); i++) {
+
+            final JsonObject jsonCard = cards.get(i).getAsJsonObject();
+            final String key = CardData.getRawCardName(jsonCard);
+
+            if (!mtgcomCards.containsKey(key) && CardData.isValid(jsonCard)) {
+                mtgcomCards.put(key, new CardData(cards.get(i).getAsJsonObject(), setCode));
+            }
+        }
+    }
+
     
     private static String getSetCode(final JsonObject jsonSetObject, final String defaultCode) {
         return jsonSetObject.has("gathererCode")
@@ -220,19 +234,6 @@ public class MtgJsonReader {
             throw new RuntimeException(e);
         }
         return missingCardOrphans.size();
-    }
-
-    private static void extractCardDataFromJson(final JsonArray cards, final String setCode) throws UnsupportedEncodingException {
-
-        for (int i = 0; i < cards.size(); i++) {
-
-            final JsonObject jsonCard = cards.get(i).getAsJsonObject();
-            final String key = CardData.getRawCardName(jsonCard);
-            
-            if (!mtgcomCards.containsKey(key) && !CardData.getRarity(jsonCard).contentEquals("S")) {
-                mtgcomCards.put(key, new CardData(cards.get(i).getAsJsonObject(), setCode));
-            }
-        }
     }
 
     private static void saveMissingCardData(final List<String> cardNames) {

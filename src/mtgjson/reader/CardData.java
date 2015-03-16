@@ -296,5 +296,10 @@ class CardData {
     public static String getRarity(final JsonObject card) {
         return card.get("rarity").getAsString().substring(0, 1);
     }
+    
+    public static boolean isValid(final JsonObject jsonCard) {
+        return !CardData.getRarity(jsonCard).contentEquals("S") &&
+               (jsonCard.has("number") || jsonCard.has("multiverseid"));
+    }
 
 }
