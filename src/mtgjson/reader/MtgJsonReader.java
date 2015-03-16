@@ -171,18 +171,16 @@ public class MtgJsonReader {
         final File textFile = getResultsPath().resolve(JSON_SETS_FILE).toFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
             for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
-                final String releaseDate = entrySet.getKey();
+                final String key = entrySet.getKey();
                 final String jsonSetCode = entrySet.getValue();
                 final boolean isValidSetCode = isValidSetCode(jsonSetCode);
                 final JsonObject setObject = element.getAsJsonObject().get(jsonSetCode).getAsJsonObject();
-                final String actualSetCode = setObject.has("gathererCode")
-                        ? setObject.get("gathererCode").getAsString()
-                        : jsonSetCode;
+                final String setCode = getSetCode(setObject, jsonSetCode);
                 if (isValidSetCode) {
-                    if (!actualSetCode.equalsIgnoreCase(jsonSetCode)) {
-                        writer.printf("%s : %s -> %s\n", releaseDate, jsonSetCode, actualSetCode);
+                    if (!setCode.equalsIgnoreCase(jsonSetCode)) {
+                        writer.printf("%s -> %s\n", key, setCode);
                     } else {
-                        writer.printf("%s : %s\n", releaseDate, jsonSetCode);
+                        writer.printf("%s\n", key);
                     }
                 }
             }
@@ -211,7 +209,8 @@ public class MtgJsonReader {
         for (String setCode : setCodes) {
             final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
             final String setReleaseDate = setObject.get("releaseDate").getAsString();
-            sortedSetCodes.put(setReleaseDate, setCode);
+            final String key = setReleaseDate + " " + setCode;
+            sortedSetCodes.put(key, setCode);
         }
                 
         return sortedSetCodes;
