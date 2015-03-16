@@ -1,17 +1,17 @@
-/**
- *
- */
 package mtgjson.reader;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 class CardData {
 
+    public static final SortedMap<String, String> cardImageErrors = new TreeMap<>();
+
     private String cardName;
-    private String imageUrl;
+    private String imageUrl = "";
     private String rarity;
     private String manaCost;
     private String type;
@@ -24,16 +24,19 @@ class CardData {
     private String effectText   = null;
     private String abilityText  = null;
     private String oracleText   = null;
+    private final String setCode;
 
-    public CardData(final JsonObject card) throws UnsupportedEncodingException {
+    public CardData(final JsonObject card, final String setCode) throws UnsupportedEncodingException {
 
-        setCardName(card.get("name").getAsString());
-        setImageUrl("http://mtgimage.com/card/" + URLEncoder.encode(card.get("imageName").getAsString(), "UTF-8").replace("+", "%20").replaceAll("(\\D)1", "$1") + ".jpg");
-        setRarity(card.get("rarity").getAsString().substring(0, 1));
+        this.setCode = setCode;
+
+        setCardName(CardData.getRawCardName(card));
+        setImageUrl(card);
+        setRarity(CardData.getRarity(card));
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
-        
-        if (card.has("colors") && card.has("manaCost")==false) { 
+
+        if (card.has("colors") && card.has("manaCost")==false) {
             final String colors = card.get("colors")
                     .toString()
                     .replace("Blue", "U")
@@ -42,7 +45,7 @@ class CardData {
                     .toLowerCase();
             setColor(colors);
         }
-        
+
         if (card.has("power"))      { setPower(card.get("power").getAsString()); }
         if (card.has("toughness"))  { setToughness(card.get("toughness").getAsString()); }
         if (card.has("text"))       { setText(card.get("text").getAsString()); }
@@ -56,7 +59,7 @@ class CardData {
             final String superTypes =sb.toString().substring(0,sb.toString().length()-1);
             setSuperType(superTypes);
         }
-        
+
         if (card.has("types")) {
             final StringBuffer sb = new StringBuffer();
             final JsonArray cardTypes = card.getAsJsonArray("types");
@@ -81,7 +84,7 @@ class CardData {
             final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
             setSubType(typeValues);
         }
-        
+
         if (card.has("text")) {
             if (card.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
                 final String effect = text
@@ -137,9 +140,6 @@ class CardData {
     public String getImageUrl() {
         return imageUrl;
     }
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public String getRarity() {
         return rarity;
@@ -154,11 +154,11 @@ class CardData {
     public void setManaCost(String manaCost) {
         this.manaCost = manaCost;
     }
-    
+
     public String getColor() {
         return color;
     }
-    
+
     public void setColor(String color) {
         this.color = color;
     }
@@ -210,18 +210,18 @@ class CardData {
     public String getSuperType() {
         return superType;
     }
-    
+
     public void setSuperType(String superType) {
         this.superType = superType;
     }
-    
+
     public String getSubType() {
         return subType;
     }
     public void setSubType(String subType) {
         this.subType = subType;
     }
-    
+
     public String getEffectText() {
         return effectText;
     }
@@ -251,4 +251,55 @@ class CardData {
             return "main";
         }
     }
+
+    private void setImageUrl(final JsonObject card) throws UnsupportedEncodingException {
+
+        if (card.has("number")) {
+            this.imageUrl = String.format(
+                    "http://magiccards.info/scans/en/%s/%s.jpg",
+                    setCode.toLowerCase(),
+                    card.get("number").getAsString()
+            );
+            clearCardImageError(this);
+
+        } else if (card.has("multiverseid")) {
+            this.imageUrl = String.format(
+                    "http://api.mtgdb.info/content/hi_res_card_images/%s.jpg",
+                    card.get("multiverseid").getAsString()
+            );
+            clearCardImageError(this);
+
+        } else {
+            addCardImageError(this, String.format("%s has no number or multiverseid - cannot set {image} property.", cardName));
+        }
+        
+    }
+    
+    private static void addCardImageError(final CardData card, final String errorDetails) {
+        final String key = card.getCardName(false);        
+        if (!cardImageErrors.containsKey(key)) {
+            cardImageErrors.put(key, errorDetails);
+        }
+    }
+
+    private static void clearCardImageError(final CardData card) {
+        final String key = card.getCardName(false);
+        if (cardImageErrors.containsKey(key)) {
+            cardImageErrors.remove(key);
+        }
+    }
+
+    public static String getRawCardName(final JsonObject card) {
+        return card.get("name").getAsString().trim();
+    }
+
+    public static String getRarity(final JsonObject card) {
+        return card.get("rarity").getAsString().substring(0, 1);
+    }
+    
+    public static boolean isValid(final JsonObject jsonCard) {
+        return !CardData.getRarity(jsonCard).contentEquals("S") &&
+               (jsonCard.has("number") || jsonCard.has("multiverseid"));
+    }
+
 }

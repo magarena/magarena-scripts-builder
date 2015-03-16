@@ -1,0 +1,6 @@
+results/
+nbactions.xml
+target/
+AllSets.json
+CardsMissingInMagarena.txt
+nb-configuration.xml

@@ -1,14 +1,18 @@
-/**
- *
- */
 package mtgjson.reader;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -20,15 +24,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Properties;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import org.apache.commons.io.FileUtils;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
 
 /**
  * Given a list of missing card names from Magarena this will attempt to match each
@@ -52,32 +52,46 @@ public class MtgJsonReader {
     // the mtgcom json ("AllSets.json") file. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
+    private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
+    private static final String ERRORS_FILE = "errors.txt";
+
     private static final List<String> setCodesList = new ArrayList<>();
     private static final HashMap<String, CardData> mtgcomCards = new HashMap<>();
     private static final List<String> magarenaMissingCards = new ArrayList<>();
+    private static final HashMap<String, String> mtginfoSetsMap = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
 
+        final long start_time = System.currentTimeMillis();
+        System.out.println("Running...");
+
         loadJsonData();
-        System.out.println("Total unique cards identified in json feed = " + mtgcomCards.size() + " (see " + JSON_FILE + ")");
+        System.out.printf("Total unique cards identified in json feed = %d (see %s).\n",
+                mtgcomCards.size(), JSON_FILE);
 
         loadMissingMagarenaCards();
-        System.out.println("Total missing cards in Magarena = " + magarenaMissingCards.size() + " (see " + MISSING_CARDS_FILE + ")");
+        System.out.printf("Total missing cards in Magarena = %d (see %s).\n",
+                magarenaMissingCards.size(), MISSING_CARDS_FILE);
 
         // sort list of ALL card names from json file.
         final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
         Collections.sort(mtgcomCardNames);
 
         final int missingOrphans = saveListOfMissingCardOrphans(mtgcomCardNames);
-        System.out.println("Total missing cards which could not be matched in " + JSON_FILE + " = " + missingOrphans + " (see " + MISSING_ORPHANS_FILE + ")");
+        System.out.printf("Total missing cards which could not be matched in %s = %d (see \\results\\%s).\n",
+                JSON_FILE, missingOrphans, MISSING_ORPHANS_FILE);
 
         mtgcomCardNames.retainAll(magarenaMissingCards);
-        System.out.println("Total missing cards which have a matching entry in " + JSON_FILE + " = " + magarenaMissingCards.size() + "-" + missingOrphans + " = " + mtgcomCardNames.size());
+        System.out.printf("Total missing cards which have a matching entry in %s = %d-%d = %d\n",
+                JSON_FILE, magarenaMissingCards.size(), missingOrphans, mtgcomCardNames.size());
 
         saveMissingCardData(mtgcomCardNames);
-        System.out.println("Created a default script file for each missing card in \"scripts\" folder.");
+        System.out.printf("Created %d script files in \"\\results\\scripts\" folder.\n", mtgcomCardNames.size());
 
-        System.out.println("Finished.");
+        logErrorDetails();
+
+        final double duration = (double)(System.currentTimeMillis() - start_time) / 1000;
+        System.out.printf("Finished in %.1f seconds.\n", duration);
 
     }
 
@@ -99,16 +113,125 @@ public class MtgJsonReader {
             final JsonParser parser = new JsonParser();
             final JsonElement element = parser.parse(reader);
 
-            for (String setCode : getSetCodes()) {
-                // Not interested in unsets or vanguard.
-                if (!setCode.equalsIgnoreCase("UNG") && !setCode.equalsIgnoreCase("UNH") && !setCode.equalsIgnoreCase("VAN")) {
-                    final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
-                    extractCardDataFromJson(setObject.getAsJsonArray("cards"));
+            // list of set codes sorted by release date (map key) descending.
+            final SortedMap<String, String> sortedSetCodes =
+                    getSetCodesSortedByReleaseDateDesc(getSetCodes(), element);
+
+            // save list of set codes for reference.
+            logSetCodes(sortedSetCodes);
+
+            loadMtgInfoSetsMap();
+
+            for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
+                final String jsonSetCode = entrySet.getValue();
+                if (isValidSetCode(jsonSetCode)) {
+                    final JsonObject jsonSetObject = element.getAsJsonObject().get(jsonSetCode).getAsJsonObject();
+                    final String setCode = getSetCode(jsonSetCode);
+                    extractCardDataFromJson(jsonSetObject.getAsJsonArray("cards"), setCode);
                 }
             }
 
         }
 
+    }
+
+    private static void extractCardDataFromJson(final JsonArray cards, final String setCode) throws UnsupportedEncodingException {
+
+        for (int i = 0; i < cards.size(); i++) {
+
+            final JsonObject jsonCard = cards.get(i).getAsJsonObject();
+            final String key = CardData.getRawCardName(jsonCard);
+
+            if (!mtgcomCards.containsKey(key) && CardData.isValid(jsonCard)) {
+                mtgcomCards.put(key, new CardData(cards.get(i).getAsJsonObject(), setCode));
+            }
+        }
+    }
+
+    
+    private static String getSetCode(final String jsonSetCode) {
+        final String key = jsonSetCode.toUpperCase().trim();
+        final String code = mtginfoSetsMap.containsKey(key) ? mtginfoSetsMap.get(key) : jsonSetCode;
+        return code;
+    }
+
+    private static void loadMtgInfoSetsMap() {
+        final Properties prop = new Properties();
+        try (final InputStream in = MtgJsonReader.class.getClassLoader().getResourceAsStream("mtginfoSetsMap.txt")) {
+            prop.load(in);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        for (final String jsonSetCode : prop.stringPropertyNames()) {
+            final String key = jsonSetCode.toUpperCase().trim();
+            final String mtgInfoSetCode = prop.getProperty(jsonSetCode);
+            mtginfoSetsMap.put(key, mtgInfoSetCode);
+        }
+    }
+
+    private static void logErrorDetails() {
+        final File textFile = getResultsPath().resolve(ERRORS_FILE).toFile();
+        try (final PrintWriter writer = new PrintWriter(textFile)) {
+            for (String error : CardData.cardImageErrors.values()) {
+                writer.println(error);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (CardData.cardImageErrors.size() > 0) {
+            System.out.printf("ERRORS = %d (see \\results\\%s)\n",
+                    CardData.cardImageErrors.size(), ERRORS_FILE);
+        } else {
+            System.out.println("No errors generated.");
+        }
+    }
+
+    private static void logSetCodes(final SortedMap<String, String> sortedSetCodes) {
+        final File textFile = getResultsPath().resolve(JSON_SETS_FILE).toFile();
+        try (final PrintWriter writer = new PrintWriter(textFile)) {
+            for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
+                final String key = entrySet.getKey();
+                final String jsonSetCode = entrySet.getValue();
+                final boolean isValidSetCode = isValidSetCode(jsonSetCode);
+                final String setCode = getSetCode(jsonSetCode);
+                if (isValidSetCode) {
+                    if (!setCode.equalsIgnoreCase(jsonSetCode)) {
+                        writer.printf("%s -> %s\n", key, setCode);
+                    } else {
+                        writer.printf("%s\n", key);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.printf("Processing %d sets in release date reverse order (see \\results\\%s)\n",
+                sortedSetCodes.size(), JSON_SETS_FILE);
+    }
+
+    /**
+     * Not interested in unsets or vanguard.
+     */
+    private static boolean isValidSetCode(final String setCode) {
+        return !setCode.equalsIgnoreCase("UNG")
+                && !setCode.equalsIgnoreCase("UNH")
+                && !setCode.equalsIgnoreCase("VAN");
+    }
+
+    private static SortedMap<String, String> getSetCodesSortedByReleaseDateDesc(
+            final String[] setCodes, final JsonElement element) {
+
+        final SortedMap<String, String> sortedSetCodes =
+                new TreeMap<>(Collections.reverseOrder());
+
+        for (String setCode : setCodes) {
+            final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
+            final String setReleaseDate = setObject.get("releaseDate").getAsString();
+            final String key = setReleaseDate + " " + setCode;
+            sortedSetCodes.put(key, setCode);
+        }
+                
+        return sortedSetCodes;
     }
 
     /**
@@ -128,15 +251,6 @@ public class MtgJsonReader {
             throw new RuntimeException(e);
         }
         return missingCardOrphans.size();
-    }
-
-    private static void extractCardDataFromJson(final JsonArray cards) throws UnsupportedEncodingException {
-        for (int i = 0; i < cards.size(); i++) {
-            final CardData cardData = new CardData(cards.get(i).getAsJsonObject());
-            if (!mtgcomCards.containsKey(cardData.getCardName(false)) && !cardData.getRarity().contentEquals("S")) {
-                mtgcomCards.put(cardData.getCardName(false), cardData);
-            }
-        }
     }
 
     private static void saveMissingCardData(final List<String> cardNames) {
@@ -175,13 +289,13 @@ public class MtgJsonReader {
                 if (cardData.getEffectText() !=null) { writer.println("effect=" + cardData.getEffectText()); }
                 else if (cardData.getAbilityText() !=null) { writer.println("ability="+cardData.getAbilityText()); }
             }
-            writer.println("timing=" + cardData.getTiming());            
-            if (cardData.getText() !=null) { 
-                writer.println("oracle="+cardData.getOracleText()); 
+            writer.println("timing=" + cardData.getTiming());
+            if (cardData.getText() !=null) {
+                writer.println("oracle="+cardData.getOracleText());
             } else {
                 writer.println("oracle=NONE");
             }
-            
+
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
