@@ -30,9 +30,9 @@ class CardData {
 
         this.setCode = setCode;
 
-        setCardName(card.get("name").getAsString());
+        setCardName(CardData.getRawCardName(card));
         setImageUrl(card);
-        setRarity(card.get("rarity").getAsString().substring(0, 1));
+        setRarity(CardData.getRarity(card));
 
         if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
 
@@ -140,9 +140,6 @@ class CardData {
     public String getImageUrl() {
         return imageUrl;
     }
-//    public void setImageUrl(String imageUrl) {
-//        this.imageUrl = imageUrl;
-//    }
 
     public String getRarity() {
         return rarity;
@@ -256,6 +253,7 @@ class CardData {
     }
 
     private void setImageUrl(final JsonObject card) throws UnsupportedEncodingException {
+
         if (card.has("number")) {
             this.imageUrl = String.format(
                     "http://magiccards.info/scans/en/%s/%s.jpg",
@@ -263,15 +261,18 @@ class CardData {
                     card.get("number").getAsString()
             );
             clearCardImageError(this);
+
         } else if (card.has("multiverseid")) {
             this.imageUrl = String.format(
                     "http://api.mtgdb.info/content/hi_res_card_images/%s.jpg",
                     card.get("multiverseid").getAsString()
             );
             clearCardImageError(this);
+
         } else {
             addCardImageError(this, String.format("%s has no number or multiverseid - cannot set {image} property.", cardName));
         }
+        
     }
     
     private static void addCardImageError(final CardData card, final String errorDetails) {
@@ -286,6 +287,14 @@ class CardData {
         if (cardImageErrors.containsKey(key)) {
             cardImageErrors.remove(key);
         }
+    }
+
+    public static String getRawCardName(final JsonObject card) {
+        return card.get("name").getAsString().trim();
+    }
+
+    public static String getRarity(final JsonObject card) {
+        return card.get("rarity").getAsString().substring(0, 1);
     }
 
 }

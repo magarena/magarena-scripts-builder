@@ -120,28 +120,32 @@ public class MtgJsonReader {
             for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
                 final String jsonSetCode = entrySet.getValue();
                 if (isValidSetCode(jsonSetCode)) {
-                    final JsonObject setObject = element.getAsJsonObject().get(jsonSetCode).getAsJsonObject();
-                    final String actualSetCode = setObject.has("gathererCode")
-                            ? setObject.get("gathererCode").getAsString()
-                            : jsonSetCode;
-                    extractCardDataFromJson(setObject.getAsJsonArray("cards"), actualSetCode);
+                    final JsonObject jsonSetObject = element.getAsJsonObject().get(jsonSetCode).getAsJsonObject();
+                    final String setCode = getSetCode(jsonSetObject, jsonSetCode);
+                    extractCardDataFromJson(jsonSetObject.getAsJsonArray("cards"), setCode);
                 }
             }
 
         }
 
     }
+    
+    private static String getSetCode(final JsonObject jsonSetObject, final String defaultCode) {
+        return jsonSetObject.has("gathererCode")
+                ? jsonSetObject.get("gathererCode").getAsString()
+                : defaultCode;
+    }
 
     private static void logErrorDetails() {
-        if (CardData.cardImageErrors.size() > 0) {
-            final File textFile = getResultsPath().resolve(ERRORS_FILE).toFile();
-            try (final PrintWriter writer = new PrintWriter(textFile)) {
-                for (String error : CardData.cardImageErrors.values()) {
-                    writer.println(error);
-                }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+        final File textFile = getResultsPath().resolve(ERRORS_FILE).toFile();
+        try (final PrintWriter writer = new PrintWriter(textFile)) {
+            for (String error : CardData.cardImageErrors.values()) {
+                writer.println(error);
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        if (CardData.cardImageErrors.size() > 0) {
             System.out.printf("ERRORS = %d (see \\results\\%s)\n",
                     CardData.cardImageErrors.size(), ERRORS_FILE);
         } else {
@@ -219,11 +223,14 @@ public class MtgJsonReader {
     }
 
     private static void extractCardDataFromJson(final JsonArray cards, final String setCode) throws UnsupportedEncodingException {
+
         for (int i = 0; i < cards.size(); i++) {
-            final CardData cardData = new CardData(cards.get(i).getAsJsonObject(), setCode);
-            final String key = cardData.getCardName(false);
-            if (!mtgcomCards.containsKey(key) && !cardData.getRarity().contentEquals("S")) {
-                mtgcomCards.put(key, cardData);
+
+            final JsonObject jsonCard = cards.get(i).getAsJsonObject();
+            final String key = CardData.getRawCardName(jsonCard);
+            
+            if (!mtgcomCards.containsKey(key) && !CardData.getRarity(jsonCard).contentEquals("S")) {
+                mtgcomCards.put(key, new CardData(cards.get(i).getAsJsonObject(), setCode));
             }
         }
     }
