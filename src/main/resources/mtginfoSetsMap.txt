@@ -1,0 +1,6 @@
+#
+# Use this file to map set codes in the json feed from mtgjson.com
+# to the equivalent code used by mtginfo.com. You only need to add
+# an entry where the codes are different.
+#
+TOR=tr
