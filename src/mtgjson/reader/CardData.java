@@ -3,8 +3,12 @@ package mtgjson.reader;
 import java.io.UnsupportedEncodingException;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 class CardData {
+
+    public static final SortedMap<String, String> cardImageErrors = new TreeMap<>();
 
     private String cardName;
     private String imageUrl = "";
@@ -258,8 +262,30 @@ class CardData {
                     setCode.toLowerCase(),
                     card.get("number").getAsString()
             );
+            clearCardImageError(this);
+        } else if (card.has("multiverseid")) {
+            this.imageUrl = String.format(
+                    "http://api.mtgdb.info/content/hi_res_card_images/%s.jpg",
+                    card.get("multiverseid").getAsString()
+            );
+            clearCardImageError(this);
         } else {
-//            System.err.println(card.get("name").getAsString());
+            addCardImageError(this, String.format("%s has no number or multiverseid - cannot set {image} property.", cardName));
         }
     }
+    
+    private static void addCardImageError(final CardData card, final String errorDetails) {
+        final String key = card.getCardName(false);        
+        if (!cardImageErrors.containsKey(key)) {
+            cardImageErrors.put(key, errorDetails);
+        }
+    }
+
+    private static void clearCardImageError(final CardData card) {
+        final String key = card.getCardName(false);
+        if (cardImageErrors.containsKey(key)) {
+            cardImageErrors.remove(key);
+        }
+    }
+
 }
