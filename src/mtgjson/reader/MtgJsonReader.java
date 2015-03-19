@@ -53,7 +53,7 @@ public class MtgJsonReader {
     // the mtgcom json ("AllSets.json") file. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
-    // list of valid set codes from json feed sort by release date in descending order.
+    // list of all set codes from json feed sort by release date in descending order.
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
 
     // Set codes to be ignored in the json feed - no card data will be used from these sets.
