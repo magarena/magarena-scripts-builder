@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -25,7 +24,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import org.apache.commons.io.FileUtils;
@@ -156,18 +154,79 @@ public class MtgJsonReader {
     }
 
     private static void loadMtgInfoSetsMap() {
-        final Properties prop = new Properties();
-        try (final InputStream in = MtgJsonReader.class.getClassLoader().getResourceAsStream("mtginfoSetsMap.txt")) {
-            prop.load(in);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-        for (final String jsonSetCode : prop.stringPropertyNames()) {
-            final String key = jsonSetCode.toUpperCase().trim();
-            final String mtgInfoSetCode = prop.getProperty(jsonSetCode);
-            mtginfoSetsMap.put(key, mtgInfoSetCode);
-        }
-    }
+        // Base Sets
+        mtginfoSetsMap.put("LEA", "al");
+        mtginfoSetsMap.put("LEB", "be");
+        mtginfoSetsMap.put("2ED", "un");
+        mtginfoSetsMap.put("3ED", "rv");
+        mtginfoSetsMap.put("4ED", "4e");
+        mtginfoSetsMap.put("5ED", "5e");
+        mtginfoSetsMap.put("6ED", "6e");
+        mtginfoSetsMap.put("7ED", "7e");
+        mtginfoSetsMap.put("8ED", "8e");
+        mtginfoSetsMap.put("9ED", "9e");
+        // Pre-Block sets
+        mtginfoSetsMap.put("ARN", "an");
+        mtginfoSetsMap.put("ATQ", "aq");
+        mtginfoSetsMap.put("LEG", "lg");
+        mtginfoSetsMap.put("DRK", "dk");
+        mtginfoSetsMap.put("FEM", "fe");
+        mtginfoSetsMap.put("HML", "hl");
+        // Block sets
+        mtginfoSetsMap.put("ICE", "ia");
+        mtginfoSetsMap.put("ALL", "ai");
+        mtginfoSetsMap.put("CSP", "cs");
+        mtginfoSetsMap.put("MIR", "mr");
+        mtginfoSetsMap.put("VIS", "vi");
+        mtginfoSetsMap.put("WTH", "wl");
+        mtginfoSetsMap.put("TMP", "tp");
+        mtginfoSetsMap.put("STH", "sh");
+        mtginfoSetsMap.put("EXO", "ex");
+        mtginfoSetsMap.put("USG", "us");
+        mtginfoSetsMap.put("ULG", "ul");
+        mtginfoSetsMap.put("UDS", "ud");
+        mtginfoSetsMap.put("MMQ", "mm");
+        mtginfoSetsMap.put("NMS", "ne");
+        mtginfoSetsMap.put("PCY", "pr");
+        mtginfoSetsMap.put("INV", "in");
+        mtginfoSetsMap.put("PLS", "ps");
+        mtginfoSetsMap.put("APC", "ap");
+        mtginfoSetsMap.put("ODY", "od");
+        mtginfoSetsMap.put("TOR", "tr");
+        mtginfoSetsMap.put("JUD", "ju");
+        mtginfoSetsMap.put("ONS", "on");
+        mtginfoSetsMap.put("LGN", "le");
+        mtginfoSetsMap.put("SCG", "sc");
+        mtginfoSetsMap.put("MRD", "mi");
+        mtginfoSetsMap.put("DST", "ds");
+        mtginfoSetsMap.put("GPT", "gp");
+        mtginfoSetsMap.put("DIS", "di");
+        mtginfoSetsMap.put("TSP", "ts");
+        mtginfoSetsMap.put("TSB", "tsts");
+        mtginfoSetsMap.put("PLC", "pc");
+        mtginfoSetsMap.put("LRW", "lw");
+        mtginfoSetsMap.put("MOR", "mt");
+        mtginfoSetsMap.put("CON", "cfx");
+        // Reprint Sets
+        mtginfoSetsMap.put("CHR", "ch");
+        mtginfoSetsMap.put("DD2", "jvc");
+        mtginfoSetsMap.put("DDC", "dvd");
+        mtginfoSetsMap.put("DDD", "gvl");
+        mtginfoSetsMap.put("DDE", "pvc");
+        mtginfoSetsMap.put("HOP", "pch");
+        mtginfoSetsMap.put("CM1", "CMA");
+        // Starter Sets
+        mtginfoSetsMap.put("POR", "po");
+        mtginfoSetsMap.put("PTK", "p3k");
+        mtginfoSetsMap.put("S99", "st");
+        mtginfoSetsMap.put("S00", "st2k");
+        // Boxed Sets
+        mtginfoSetsMap.put("BRB", "br");
+        mtginfoSetsMap.put("BTD", "bd");
+        mtginfoSetsMap.put("DKM", "dm");
+        mtginfoSetsMap.put("ATH", "at");
+        mtginfoSetsMap.put("MGB", "mgbc");
+}
 
     private static void logErrorDetails() {
         final File textFile = getResultsPath().resolve(ERRORS_FILE).toFile();
@@ -213,9 +272,61 @@ public class MtgJsonReader {
      * Not interested in unsets or vanguard.
      */
     private static boolean isValidSetCode(final String setCode) {
-        return !setCode.equalsIgnoreCase("UNG")
+        return !setCode.equalsIgnoreCase("UGL")
                 && !setCode.equalsIgnoreCase("UNH")
-                && !setCode.equalsIgnoreCase("VAN");
+                && !setCode.equalsIgnoreCase("VAN")
+                // Foil sets
+                && !setCode.equalsIgnoreCase("DRB")
+                && !setCode.equalsIgnoreCase("V09")
+                && !setCode.equalsIgnoreCase("V10")
+                && !setCode.equalsIgnoreCase("V11")
+                && !setCode.equalsIgnoreCase("V12")
+                && !setCode.equalsIgnoreCase("V13")
+                && !setCode.equalsIgnoreCase("V14")
+                && !setCode.equalsIgnoreCase("V15")
+                && !setCode.equalsIgnoreCase("H09")
+                && !setCode.equalsIgnoreCase("PD2")
+                && !setCode.equalsIgnoreCase("PD3")
+                // Literal Re-prints
+                && !setCode.equalsIgnoreCase("DD3_JVC")
+                && !setCode.equalsIgnoreCase("DD3_GVL")
+                && !setCode.equalsIgnoreCase("DD3_EVG")
+                && !setCode.equalsIgnoreCase("DD3_DVD")
+                // Not on magiccards.info
+                && !setCode.equalsIgnoreCase("CST") // Cold Snap Theme deck reprints
+                && !setCode.equalsIgnoreCase("DPA") // Duels of the Planeswalkers
+                && !setCode.equalsIgnoreCase("RQS") // Rivals Quick Start Set
+                && !setCode.equalsIgnoreCase("FRF_UGIN") // Ugin alternate art
+                // Promo Cards (Normally foil or textless)
+                && !setCode.equalsIgnoreCase("pWCQ")
+                && !setCode.equalsIgnoreCase("p15A")
+                && !setCode.equalsIgnoreCase("pLPA")
+                && !setCode.equalsIgnoreCase("pSUM")
+                && !setCode.equalsIgnoreCase("pMGD")
+                && !setCode.equalsIgnoreCase("pGPX")
+                && !setCode.equalsIgnoreCase("pPRO")
+                && !setCode.equalsIgnoreCase("pHHO")
+                && !setCode.equalsIgnoreCase("pCMP")
+                && !setCode.equalsIgnoreCase("pWPN")
+                && !setCode.equalsIgnoreCase("p2HG")
+                && !setCode.equalsIgnoreCase("pREL")
+                && !setCode.equalsIgnoreCase("pMPR")
+                && !setCode.equalsIgnoreCase("pELP")
+                && !setCode.equalsIgnoreCase("pFNM")
+                && !setCode.equalsIgnoreCase("pSUS")
+                && !setCode.equalsIgnoreCase("pWOS")
+                && !setCode.equalsIgnoreCase("pWOR")
+                && !setCode.equalsIgnoreCase("pGRU")
+                && !setCode.equalsIgnoreCase("pALP")
+                && !setCode.equalsIgnoreCase("pJGP")
+                && !setCode.equalsIgnoreCase("pPRE")
+                && !setCode.equalsIgnoreCase("pPOD")
+                && !setCode.equalsIgnoreCase("pCEL")
+                && !setCode.equalsIgnoreCase("pARL")
+                && !setCode.equalsIgnoreCase("pMEI")
+                && !setCode.equalsIgnoreCase("pLGM")
+                && !setCode.equalsIgnoreCase("pDRC")
+                ;
     }
 
     private static SortedMap<String, String> getSetCodesSortedByReleaseDateDesc(
