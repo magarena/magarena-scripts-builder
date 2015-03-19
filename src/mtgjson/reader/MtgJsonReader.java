@@ -20,10 +20,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import org.apache.commons.io.FileUtils;
@@ -50,7 +53,33 @@ public class MtgJsonReader {
     // the mtgcom json ("AllSets.json") file. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
+    // list of valid set codes from json feed sort by release date in descending order.
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
+
+    // Set codes to be ignored in the json feed - no card data will be used from these sets.
+    private static final Set<String> invalidSetCodes = new HashSet<>(
+            Arrays.asList(
+                    "UGL", "UNH", "VAN",
+
+                    // Foil sets
+                    "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
+
+                    // Literal Re-prints
+                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
+
+                    // Not on magiccards.info
+                    "CST", // Cold Snap Theme deck reprints
+                    "DPA", // Duels of the Planeswalkers
+                    "RQS", // Rivals Quick Start Set
+                    "FRF_UGIN", // Ugin alternate art
+
+                    // Promo Cards (Normally foil or textless)
+                    "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
+                    "p2HG", "pREL", "pMPR", "pELP", "pFNM", "pSUS", "pWOS", "pWOR", "pGRU", "pALP",
+                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pMEI", "pLGM", "pDRC"
+            )
+    );
+
     private static final String ERRORS_FILE = "errors.txt";
 
     private static final List<String> setCodesList = new ArrayList<>();
@@ -268,65 +297,9 @@ public class MtgJsonReader {
                 sortedSetCodes.size(), JSON_SETS_FILE);
     }
 
-    /**
-     * Not interested in unsets or vanguard.
-     */
     private static boolean isValidSetCode(final String setCode) {
-        return !setCode.equalsIgnoreCase("UGL")
-                && !setCode.equalsIgnoreCase("UNH")
-                && !setCode.equalsIgnoreCase("VAN")
-                // Foil sets
-                && !setCode.equalsIgnoreCase("DRB")
-                && !setCode.equalsIgnoreCase("V09")
-                && !setCode.equalsIgnoreCase("V10")
-                && !setCode.equalsIgnoreCase("V11")
-                && !setCode.equalsIgnoreCase("V12")
-                && !setCode.equalsIgnoreCase("V13")
-                && !setCode.equalsIgnoreCase("V14")
-                && !setCode.equalsIgnoreCase("V15")
-                && !setCode.equalsIgnoreCase("H09")
-                && !setCode.equalsIgnoreCase("PD2")
-                && !setCode.equalsIgnoreCase("PD3")
-                // Literal Re-prints
-                && !setCode.equalsIgnoreCase("DD3_JVC")
-                && !setCode.equalsIgnoreCase("DD3_GVL")
-                && !setCode.equalsIgnoreCase("DD3_EVG")
-                && !setCode.equalsIgnoreCase("DD3_DVD")
-                // Not on magiccards.info
-                && !setCode.equalsIgnoreCase("CST") // Cold Snap Theme deck reprints
-                && !setCode.equalsIgnoreCase("DPA") // Duels of the Planeswalkers
-                && !setCode.equalsIgnoreCase("RQS") // Rivals Quick Start Set
-                && !setCode.equalsIgnoreCase("FRF_UGIN") // Ugin alternate art
-                // Promo Cards (Normally foil or textless)
-                && !setCode.equalsIgnoreCase("pWCQ")
-                && !setCode.equalsIgnoreCase("p15A")
-                && !setCode.equalsIgnoreCase("pLPA")
-                && !setCode.equalsIgnoreCase("pSUM")
-                && !setCode.equalsIgnoreCase("pMGD")
-                && !setCode.equalsIgnoreCase("pGPX")
-                && !setCode.equalsIgnoreCase("pPRO")
-                && !setCode.equalsIgnoreCase("pHHO")
-                && !setCode.equalsIgnoreCase("pCMP")
-                && !setCode.equalsIgnoreCase("pWPN")
-                && !setCode.equalsIgnoreCase("p2HG")
-                && !setCode.equalsIgnoreCase("pREL")
-                && !setCode.equalsIgnoreCase("pMPR")
-                && !setCode.equalsIgnoreCase("pELP")
-                && !setCode.equalsIgnoreCase("pFNM")
-                && !setCode.equalsIgnoreCase("pSUS")
-                && !setCode.equalsIgnoreCase("pWOS")
-                && !setCode.equalsIgnoreCase("pWOR")
-                && !setCode.equalsIgnoreCase("pGRU")
-                && !setCode.equalsIgnoreCase("pALP")
-                && !setCode.equalsIgnoreCase("pJGP")
-                && !setCode.equalsIgnoreCase("pPRE")
-                && !setCode.equalsIgnoreCase("pPOD")
-                && !setCode.equalsIgnoreCase("pCEL")
-                && !setCode.equalsIgnoreCase("pARL")
-                && !setCode.equalsIgnoreCase("pMEI")
-                && !setCode.equalsIgnoreCase("pLGM")
-                && !setCode.equalsIgnoreCase("pDRC")
-                ;
+        return !invalidSetCodes.contains(setCode);
+
     }
 
     private static SortedMap<String, String> getSetCodesSortedByReleaseDateDesc(
