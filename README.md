@@ -44,6 +44,11 @@ Please make sure the required files are present in the ``INPUT`` folder (see bel
     // in JSON_FILE. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
+    // Optional. This file is manually created in the INPUT_FOLDER.
+    // Use this file to override the automatically generated image link for a given script file.
+    // This is applies to both the scripts generator and image line batch updater.
+    private static final String PREDEFINED_IMAGES_FILE = "CardImages.txt";
+
     // This file is automatically created in the OUTPUT_FOLDER (for reference only).
     // list of all set codes from json feed sorted by release date in descending order.
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
