@@ -53,6 +53,10 @@ public class MtgJsonReader {
     // This folder should contain scripts whose "image" property needs to be updated.
     private static final String INVALID_IMAGE_SCRIPTS_FOLDER = "invalid_image_scripts";
 
+    // This file is created in the OUTPUT_FOLDER and lists any scripts in
+    // INVALID_IMAGE_SCRIPTS_FOLDER which could not be updated.
+    private static final String IMAGE_UPDATE_ERROR_LOG = "SkippedInvalidImageScripts.log";
+
     // Required. Place this file in the INPUT_FOLDER.
     // It is obtained from mtgjson.com. It contains every card grouped by set.
     private static final String JSON_FILE = "AllSets.json";
@@ -602,7 +606,7 @@ public class MtgJsonReader {
     }
 
     private static void saveSkippedFilesLog(List<String> skippedFiles) {
-        final File textFile = getOutputPath().resolve("SkippedInvalidImageScripts.log").toFile();
+        final File textFile = getOutputPath().resolve(IMAGE_UPDATE_ERROR_LOG).toFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
             for (String filename : skippedFiles) {
                 writer.println(filename);
