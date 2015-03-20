@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -73,6 +75,10 @@ public class MtgJsonReader {
     // in JSON_FILE. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
+    // Optional. This file is manually created in the INPUT_FOLDER.
+    // Use this file to override the automatically generated image link for a given script file.
+    private static final String PREDEFINED_IMAGES_FILE = "CardImages.txt";
+
     // This file is automatically created in the OUTPUT_FOLDER (for reference only).
     // list of all set codes from json feed sorted by release date in descending order.
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
@@ -108,6 +114,7 @@ public class MtgJsonReader {
     private static final List<String> magarenaMissingCards = new ArrayList<>();
     private static final HashMap<String, String> mtginfoSetsMap = new HashMap<>();
     private static final Map<String, String> cardImageLink = new TreeMap<>();
+    private static final Map<String, String> predefinedCardImages = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -125,6 +132,8 @@ public class MtgJsonReader {
         loadMissingMagarenaCards();
         System.out.printf("-> Total missing cards in Magarena = %d (see %s).\n",
                 magarenaMissingCards.size(), getMissingCardsFile());
+
+        loadPredefinedCardImages();
 
         // sort list of ALL card names from json file.
         final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
@@ -393,10 +402,11 @@ public class MtgJsonReader {
         // ensure unix style line endings.
         System.setProperty("line.separator", "\n");
 
-        final Path filePath = getScriptsMissingFolder().resolve(cardData.getFilename());
+        final String scriptFilename = cardData.getFilename();
+        final Path filePath = getScriptsMissingFolder().resolve(scriptFilename);
         try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
             writer.println("name=" + cardData.getCardName(false));
-            writer.println("image=" + cardData.getImageUrl());
+            writer.println("image=" + getCardImageUrl(scriptFilename, cardData.getImageUrl()));
             writer.println("value=2.500");
             writer.println("rarity=" + cardData.getRarity().replace("S", "R"));
             writer.println("type=" + cardData.getType());
@@ -425,6 +435,14 @@ public class MtgJsonReader {
 
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
+        }
+    }
+    
+    private static String getCardImageUrl(final String scriptFilename, final String defaultUrl) {
+        if (predefinedCardImages.containsKey(scriptFilename)) {
+            return predefinedCardImages.get(scriptFilename);
+        } else {
+            return defaultUrl;
         }
     }
 
@@ -539,6 +557,10 @@ public class MtgJsonReader {
         return getOutputPath().resolve(MISSING_ORPHANS_FILE).toFile();
     }
 
+    private static File getPredefinedImagesFile() {
+        return getInputPath().resolve(PREDEFINED_IMAGES_FILE).toFile();
+    }
+
     private static Path getFolderPath(final Path folderPath) {
         if (!Files.isDirectory(folderPath)) {
             try {
@@ -634,12 +656,26 @@ public class MtgJsonReader {
                     String line;
                     while ((line = br.readLine()) != null) {
                         if (line.startsWith("image=")) {
-                            bw.println("image=" + imageUrl);
+                            bw.println("image=" + getCardImageUrl(inputScript.getName(), imageUrl));
                         } else {
                             bw.println(line);
                         }
                     }
                 }
+    }
+
+    private static void loadPredefinedCardImages() {
+        if (getPredefinedImagesFile().exists()) {
+            final Properties prop = new Properties();
+            try (final InputStream in = new FileInputStream(getPredefinedImagesFile())) {
+                prop.load(in);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            for (final String scriptName : prop.stringPropertyNames()) {
+                predefinedCardImages.put(scriptName, prop.getProperty(scriptName));
+            }
+        }
     }
 
 }

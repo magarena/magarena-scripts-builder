@@ -4,6 +4,7 @@ target/
 AllSets.json
 CardsMissingInMagarena.txt
 nb-configuration.xml
-
-INPUT/
 OUTPUT/
+
+INPUT/AllSetsJson.txt
+INPUT/invalid_image_scripts/

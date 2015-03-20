@@ -1,0 +1,13 @@
+# 
+# Use this file to override the automatically generated
+# image link for a given script file.
+#
+# <script filename>=<image url>
+#
+
+Abbey_Matron.txt=http://magiccards.info/scans/en/hl/102.jpg
+Aliban_s_Tower.txt=http://magiccards.info/scans/en/hl/76.jpg
+Balduvian_War_Makers.txt=http://magiccards.info/scans/en/ai/97.jpg
+Cemetery_Gate.txt=http://magiccards.info/scans/en/hl/5.jpg
+Dwarven_Trader.txt=http://magiccards.info/scans/en/hl/92.jpg
+Elven_Fortress.txt=http://magiccards.info/scans/en/fe/68.jpg
