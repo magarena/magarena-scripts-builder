@@ -24,6 +24,10 @@ Please make sure the required files are present in the ``INPUT`` folder (see bel
     // This folder should contain scripts whose "image" property needs to be updated.
     private static final String INVALID_IMAGE_SCRIPTS_FOLDER = "invalid_image_scripts";
 
+    // This file is created in the OUTPUT_FOLDER and lists any scripts in
+    // INVALID_IMAGE_SCRIPTS_FOLDER which could not be updated.
+    private static final String IMAGE_UPDATE_ERROR_LOG = "SkippedInvalidImageScripts.log";
+
     // Required. Place this file in the INPUT_FOLDER.
     // It is obtained from mtgjson.com. It contains every card grouped by set.
     private static final String JSON_FILE = "AllSets.json";
@@ -43,27 +47,3 @@ Please make sure the required files are present in the ``INPUT`` folder (see bel
     // This file is automatically created in the OUTPUT_FOLDER (for reference only).
     // list of all set codes from json feed sorted by release date in descending order.
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
-
-    // Set codes to be ignored in the json feed - no card data will be used from these sets.
-    private static final Set<String> invalidSetCodes = new HashSet<>(
-            Arrays.asList(
-                    "UGL", "UNH", "VAN",
-
-                    // Foil sets
-                    "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
-
-                    // Literal Re-prints
-                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
-
-                    // Not on magiccards.info
-                    "CST", // Cold Snap Theme deck reprints
-                    "DPA", // Duels of the Planeswalkers
-                    "RQS", // Rivals Quick Start Set
-                    "FRF_UGIN", // Ugin alternate art
-
-                    // Promo Cards (Normally foil or textless)
-                    "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
-                    "p2HG", "pREL", "pMPR", "pELP", "pFNM", "pSUS", "pWOS", "pWOR", "pGRU", "pALP",
-                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pMEI", "pLGM", "pDRC"
-            )
-    );
