@@ -110,6 +110,10 @@ public class MtgJsonReader {
         final long start_time = System.currentTimeMillis();
         System.out.println("\nRunning Magarena Scripts Generator...");
 
+        if (!deleteOutputFolder()) {
+            return;
+        }
+
         loadJsonData();
         System.out.printf("-> Total unique cards identified in json feed = %d (see %s).\n",
                 mtgcomCards.size(), getJsonFile());
@@ -141,6 +145,19 @@ public class MtgJsonReader {
         final double duration = (double)(System.currentTimeMillis() - start_time) / 1000;
         System.out.printf("Finished in %.1f seconds.\n", duration);
 
+    }
+
+    private static boolean deleteOutputFolder() {
+        boolean result = true;
+        if (getOutputPath().toFile().exists()) {
+            try {
+                FileSysUtil.deleteDirectory(getOutputPath());
+            } catch (IOException ex) {
+                System.err.println(ex);
+                result = false;
+            }
+        }
+        return result;
     }
 
     /**
