@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,26 +35,42 @@ import org.apache.commons.io.FileUtils;
 /**
  * Given a list of missing card names from Magarena this will attempt to match each
  * card name to an entry in the json feed from mgtjson.com and create a script file
- * for each matching card which can be loaded into MagicCardDefinition for display
- * in the Card Explorer screen.
- *
+ * for each matching card.
  */
 public class MtgJsonReader {
 
-    // This file is obtained from mtgjson.com. It contains every card grouped by set.
+    // All input data required should be stored in this folder (will fail if missing!).
+    private static final String INPUT_FOLDER = "INPUT";
+
+    // All data generated will be stored in this folder (it will be created if missing).
+    private static final String OUTPUT_FOLDER = "OUTPUT";
+
+    // This folder is automatically created in the OUTPUT_FOLDER.
+    // Contains set of scripts files to be added to the Magarena "scripts_missing" folder.
+    private static final String SCRIPTS_MISSING_FOLDER = "scripts_missing";
+
+    // Optional. This folder is manually created in the INPUT_FOLDER.
+    // This folder should contain scripts whose "image" property needs to be updated.
+    private static final String INVALID_IMAGE_SCRIPTS_FOLDER = "invalid_image_scripts";
+
+    // Required. Place this file in the INPUT_FOLDER.
+    // It is obtained from mtgjson.com. It contains every card grouped by set.
     private static final String JSON_FILE = "AllSets.json";
 
+    // Required. Place this file in the INPUT_FOLDER.
     // This is a list of the cards which have not yet been implemented in Magarena.
-    // In effect it is the list of cards in AllCardNames.txt minus those cards which
-    // have a matching script file in the "cards" folder.
-    // !! NB I hacked some code in Magarena to create this (not supplied) !!
+    // In effect it is the list of cards in "AllCardNames.txt" minus those cards which
+    // have a matching script file in the "scripts" folder. This file can be created
+    // from the Cards Explorer screen by running Magarena in dev mode (-DdevMode=true).
     private static final String MISSING_CARDS_FILE = "CardsMissingInMagarena.txt";
 
-    // This contains entries from CardsMissingInMagarena.txt which have no matching entry in
-    // the mtgcom json ("AllSets.json") file. Check the name for typos, strange characters, etc.
+    // This file is automatically created in the OUTPUT_FOLDER.
+    // This file contains entries from MISSING_CARDS_FILE which have no matching entry
+    // in JSON_FILE. Check the name for typos, strange characters, etc.
     private static final String MISSING_ORPHANS_FILE = "MissingCardOrphans.txt";
 
-    // list of all set codes from json feed sort by release date in descending order.
+    // This file is automatically created in the OUTPUT_FOLDER (for reference only).
+    // list of all set codes from json feed sorted by release date in descending order.
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
 
     // Set codes to be ignored in the json feed - no card data will be used from these sets.
@@ -86,35 +103,39 @@ public class MtgJsonReader {
     private static final HashMap<String, CardData> mtgcomCards = new HashMap<>();
     private static final List<String> magarenaMissingCards = new ArrayList<>();
     private static final HashMap<String, String> mtginfoSetsMap = new HashMap<>();
+    private static final Map<String, String> cardImageLink = new TreeMap<>();
 
     public static void main(String[] args) throws IOException {
 
         final long start_time = System.currentTimeMillis();
-        System.out.println("Running...");
+        System.out.println("\nRunning Magarena Scripts Generator...");
 
         loadJsonData();
-        System.out.printf("Total unique cards identified in json feed = %d (see %s).\n",
-                mtgcomCards.size(), JSON_FILE);
+        System.out.printf("-> Total unique cards identified in json feed = %d (see %s).\n",
+                mtgcomCards.size(), getJsonFile());
 
         loadMissingMagarenaCards();
-        System.out.printf("Total missing cards in Magarena = %d (see %s).\n",
-                magarenaMissingCards.size(), MISSING_CARDS_FILE);
+        System.out.printf("-> Total missing cards in Magarena = %d (see %s).\n",
+                magarenaMissingCards.size(), getMissingCardsFile());
 
         // sort list of ALL card names from json file.
         final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
         Collections.sort(mtgcomCardNames);
 
         final int missingOrphans = saveListOfMissingCardOrphans(mtgcomCardNames);
-        System.out.printf("Total missing cards which could not be matched in %s = %d (see \\results\\%s).\n",
-                JSON_FILE, missingOrphans, MISSING_ORPHANS_FILE);
+        System.out.printf("-> Total missing cards which could not be matched in \"%s\" = %d (see %s).\n",
+                JSON_FILE, missingOrphans, getMissingOrphansFile());
 
+        // From this point, only interested in cards defined in MISSING_CARDS_FILE.
         mtgcomCardNames.retainAll(magarenaMissingCards);
-        System.out.printf("Total missing cards which have a matching entry in %s = %d-%d = %d\n",
-                JSON_FILE, magarenaMissingCards.size(), missingOrphans, mtgcomCardNames.size());
 
         saveMissingCardData(mtgcomCardNames);
-        System.out.printf("Created %d script files in \"\\results\\scripts\" folder.\n", mtgcomCardNames.size());
+        System.out.printf("-> Created %d script files in \"%s\".\n",
+                mtgcomCardNames.size(), getScriptsMissingFolder()
+        );
 
+        updateScriptsImageProperty();
+        
         logErrorDetails();
 
         final double duration = (double)(System.currentTimeMillis() - start_time) / 1000;
@@ -135,7 +156,7 @@ public class MtgJsonReader {
         try (final BufferedReader reader =
                 new BufferedReader(
                         new InputStreamReader(
-                                new FileInputStream(JSON_FILE), "UTF-8"))) {
+                                new FileInputStream(getJsonFile()), "UTF-8"))) {
 
             final JsonParser parser = new JsonParser();
             final JsonElement element = parser.parse(reader);
@@ -146,7 +167,6 @@ public class MtgJsonReader {
 
             // save list of set codes for reference.
             logSetCodes(sortedSetCodes);
-
             loadMtgInfoSetsMap();
 
             for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
@@ -170,7 +190,9 @@ public class MtgJsonReader {
             final String key = CardData.getRawCardName(jsonCard);
 
             if (!mtgcomCards.containsKey(key) && CardData.isValid(jsonCard)) {
-                mtgcomCards.put(key, new CardData(cards.get(i).getAsJsonObject(), setCode));
+                final CardData card = new CardData(cards.get(i).getAsJsonObject(), setCode);
+                mtgcomCards.put(key, card);
+                cardImageLink.put(card.getFilename(), card.getImageUrl());
             }
         }
     }
@@ -258,24 +280,22 @@ public class MtgJsonReader {
 }
 
     private static void logErrorDetails() {
-        final File textFile = getResultsPath().resolve(ERRORS_FILE).toFile();
-        try (final PrintWriter writer = new PrintWriter(textFile)) {
-            for (String error : CardData.cardImageErrors.values()) {
-                writer.println(error);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
         if (CardData.cardImageErrors.size() > 0) {
+            final File textFile = getOutputPath().resolve(ERRORS_FILE).toFile();
+            try (final PrintWriter writer = new PrintWriter(textFile)) {
+                for (String error : CardData.cardImageErrors.values()) {
+                    writer.println(error);
+                }
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             System.out.printf("ERRORS = %d (see \\results\\%s)\n",
                     CardData.cardImageErrors.size(), ERRORS_FILE);
-        } else {
-            System.out.println("No errors generated.");
         }
     }
 
     private static void logSetCodes(final SortedMap<String, String> sortedSetCodes) {
-        final File textFile = getResultsPath().resolve(JSON_SETS_FILE).toFile();
+        final File textFile = getOutputPath().resolve(JSON_SETS_FILE).toFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
             for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
                 final String key = entrySet.getKey();
@@ -293,8 +313,8 @@ public class MtgJsonReader {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        System.out.printf("Processing %d sets in release date reverse order (see \\results\\%s)\n",
-                sortedSetCodes.size(), JSON_SETS_FILE);
+//        System.out.printf("-> Processing %d sets in release date reverse order (see \\results\\%s)\n",
+//                sortedSetCodes.size(), JSON_SETS_FILE);
     }
 
     private static boolean isValidSetCode(final String setCode) {
@@ -326,7 +346,7 @@ public class MtgJsonReader {
         final List<String> missingCardOrphans = new ArrayList<>(magarenaMissingCards);
         missingCardOrphans.removeAll(mtgcomCardNames);
         Collections.sort(missingCardOrphans);
-        final File textFile = getResultsPath().resolve(MISSING_ORPHANS_FILE).toFile();
+        final File textFile = getMissingOrphansFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
             for (String cardName : missingCardOrphans) {
                 writer.println(cardName);
@@ -338,7 +358,7 @@ public class MtgJsonReader {
     }
 
     private static void saveMissingCardData(final List<String> cardNames) {
-        FileUtils.deleteQuietly(getScriptsPath().toFile());
+        FileUtils.deleteQuietly(getScriptsMissingFolder().toFile());
         for (String cardName : cardNames) {
             final CardData cardData = mtgcomCards.get(cardName);
             saveCardData(cardData);
@@ -350,7 +370,7 @@ public class MtgJsonReader {
         // ensure unix style line endings.
         System.setProperty("line.separator", "\n");
 
-        final Path filePath = getScriptsPath().resolve(cardData.getFilename());
+        final Path filePath = getScriptsMissingFolder().resolve(cardData.getFilename());
         try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
             writer.println("name=" + cardData.getCardName(false));
             writer.println("image=" + cardData.getImageUrl());
@@ -386,7 +406,7 @@ public class MtgJsonReader {
     }
 
     private static String[] getSetCodes() throws IOException {
-        FileReader fileReader = new FileReader(JSON_FILE);
+        FileReader fileReader = new FileReader(getJsonFile());
         JsonReader reader = new JsonReader(fileReader);
         handleObject(reader);
         return setCodesList.toArray(new String[setCodesList.size()]);
@@ -463,7 +483,7 @@ public class MtgJsonReader {
     public static void loadMissingMagarenaCards() {
         magarenaMissingCards.clear();
         try {
-            final Path filePath = Paths.get(MISSING_CARDS_FILE);
+            final Path filePath = getMissingCardsFile().toPath();
             for (final String cardName : Files.readAllLines(filePath, Charset.defaultCharset())) {
                 magarenaMissingCards.add(cardName.trim());
             }
@@ -472,28 +492,131 @@ public class MtgJsonReader {
         }
     }
 
-    private static Path getResultsPath() {
-        final Path resultsPath = Paths.get("results");
-        if (!Files.isDirectory(resultsPath)) {
-            try {
-                Files.createDirectory(resultsPath);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return resultsPath;
+    private static Path getInputPath() {
+        return getFolderPath(Paths.get(INPUT_FOLDER));
     }
 
-    private static Path getScriptsPath() {
-        final Path scriptsPath = getResultsPath().resolve("scripts");
-        if (!Files.isDirectory(scriptsPath)) {
+    private static Path getOutputPath() {
+        return getFolderPath(Paths.get(OUTPUT_FOLDER));
+    }
+
+    private static Path getScriptsMissingFolder() {
+        return getFolderPath(getOutputPath().resolve(SCRIPTS_MISSING_FOLDER));
+    }
+
+    private static File getJsonFile() {
+        return getInputPath().resolve(JSON_FILE).toFile();
+    }
+
+    private static File getMissingCardsFile() {
+        return getInputPath().resolve(MISSING_CARDS_FILE).toFile();
+    }
+
+    private static File getMissingOrphansFile() {
+        return getOutputPath().resolve(MISSING_ORPHANS_FILE).toFile();
+    }
+
+    private static Path getFolderPath(final Path folderPath) {
+        if (!Files.isDirectory(folderPath)) {
             try {
-                Files.createDirectory(scriptsPath);
+                Files.createDirectory(folderPath);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        return scriptsPath;
+        return folderPath;
+    }
+
+    private static void updateScriptsImageProperty() {
+
+        final Path inputFolder = getFolderPath(getInputPath().resolve(INVALID_IMAGE_SCRIPTS_FOLDER));
+        final File[] scriptFiles = getSortedInvalidImageScriptFiles(inputFolder.toFile());
+        final int totalScripts = scriptFiles.length;
+
+        if (totalScripts > 0) {
+            final Path outputFolder = getFolderPath(getOutputPath().resolve(INVALID_IMAGE_SCRIPTS_FOLDER));
+
+            System.out.println("Running batch image link updater...");
+            System.out.printf("-> Updating %d script files in \"%s\"...\n",
+                    totalScripts, inputFolder
+            );
+
+            final List<String> skippedFiles = new ArrayList<>();
+            int updateCount = 0;
+            for (File scriptFile : scriptFiles) {
+                try {
+                    final String scriptFilename = scriptFile.getName();
+                    if (cardImageLink.containsKey(scriptFilename)) {
+                        final String imageUrl = cardImageLink.get(scriptFilename);
+                        replaceScriptImageLink(scriptFile, outputFolder, imageUrl);
+                        updateCount++;
+                    } else {
+                        skippedFiles.add(scriptFilename);
+                    }
+                } catch (InvalidPathException ex) {
+                    System.err.println(ex);
+                } catch (IOException | RuntimeException ex) {
+                    System.err.println(ex);
+                }
+            }
+
+            System.out.printf("-> Updated image property in %d script files in \"%s\".\n",
+                    updateCount, outputFolder
+            );
+
+            if (skippedFiles.size() > 0) {
+                saveSkippedFilesLog(skippedFiles);
+            }
+
+        }
+    }
+
+    private static File[] getSortedInvalidImageScriptFiles(final File scriptsFolder) {
+        final File[] files = scriptsFolder.listFiles(new java.io.FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.toLowerCase().endsWith(".txt");
+            }
+        });
+        Arrays.sort(files);
+        return files;
+    }
+
+    private static void saveSkippedFilesLog(List<String> skippedFiles) {
+        final File textFile = getOutputPath().resolve("SkippedInvalidImageScripts.log").toFile();
+        try (final PrintWriter writer = new PrintWriter(textFile)) {
+            for (String filename : skippedFiles) {
+                writer.println(filename);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.printf("-> Failed to update image property in %d script files. (see %s).\n",
+                skippedFiles.size(),
+                textFile
+        );
+    }
+
+    private static void replaceScriptImageLink(
+            final File inputScript,
+            final Path outputFolder,
+            final String imageUrl) throws IOException {
+        final File outputScript = outputFolder.resolve(inputScript.getName()).toFile();
+        try (
+                final BufferedReader br = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(inputScript), "UTF-8"));
+                
+                final PrintWriter bw = new PrintWriter(outputScript, "UTF-8");) {
+
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        if (line.startsWith("image=")) {
+                            bw.println("image=" + imageUrl);
+                        } else {
+                            bw.println(line);
+                        }
+                    }
+                }
     }
 
 }

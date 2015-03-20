@@ -4,3 +4,6 @@ target/
 AllSets.json
 CardsMissingInMagarena.txt
 nb-configuration.xml
+
+INPUT/
+OUTPUT/
