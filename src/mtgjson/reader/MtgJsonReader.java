@@ -93,7 +93,7 @@ public class MtgJsonReader {
                     // Promo Cards (Normally foil or textless)
                     "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
                     "p2HG", "pREL", "pMPR", "pELP", "pFNM", "pSUS", "pWOS", "pWOR", "pGRU", "pALP",
-                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pMEI", "pLGM", "pDRC"
+                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC"
             )
     );
 
@@ -277,6 +277,8 @@ public class MtgJsonReader {
         mtginfoSetsMap.put("DKM", "dm");
         mtginfoSetsMap.put("ATH", "at");
         mtginfoSetsMap.put("MGB", "mgbc");
+        // Media Inserts
+        mtginfoSetsMap.put("pMEI", "mbp");
 }
 
     private static void logErrorDetails() {
