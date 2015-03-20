@@ -77,6 +77,7 @@ public class MtgJsonReader {
 
     // Optional. This file is manually created in the INPUT_FOLDER.
     // Use this file to override the automatically generated image link for a given script file.
+    // This is applies to both the scripts generator and image line batch updater.
     private static final String PREDEFINED_IMAGES_FILE = "CardImages.txt";
 
     // This file is automatically created in the OUTPUT_FOLDER (for reference only).
