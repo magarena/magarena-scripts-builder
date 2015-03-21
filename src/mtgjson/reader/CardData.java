@@ -175,15 +175,7 @@ class CardData {
     }
 
     public String getFilename() {
-        String filename = getCardName(true);
-        return filename
-                .replace(" ", "_")
-                .replace(",", "_")
-                .replace("'", "_")
-                .replace("-", "_")
-                .replace(":", "_")
-                .replace('"', '_')
-                + ".txt";
+        return getCardName(true).replaceAll("[^A-Za-z0-9]", "_") + ".txt";
     }
 
     public String getPower() {
