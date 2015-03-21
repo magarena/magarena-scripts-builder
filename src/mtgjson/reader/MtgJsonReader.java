@@ -97,7 +97,6 @@ public class MtgJsonReader {
 
                     // Not on magiccards.info
                     "CST", // Cold Snap Theme deck reprints
-                    "DPA", // Duels of the Planeswalkers
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
 
@@ -297,6 +296,7 @@ public class MtgJsonReader {
         mtginfoSetsMap.put("DDE", "pvc");
         mtginfoSetsMap.put("HOP", "pch");
         mtginfoSetsMap.put("CM1", "CMA");
+        mtginfoSetsMap.put("DPA", "dpa");
         // Starter Sets
         mtginfoSetsMap.put("POR", "po");
         mtginfoSetsMap.put("PTK", "p3k");
