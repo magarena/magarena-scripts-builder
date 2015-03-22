@@ -96,9 +96,9 @@ public class MtgJsonReader {
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
 
                     // Not on magiccards.info
-                    "CST", // Cold Snap Theme deck reprints
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
+                    "S00", // Starter Set 2000 incomplete
 
                     // Promo Cards (Normally foil or textless)
                     "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
@@ -297,11 +297,11 @@ public class MtgJsonReader {
         mtginfoSetsMap.put("HOP", "pch");
         mtginfoSetsMap.put("CM1", "CMA");
         mtginfoSetsMap.put("DPA", "dpa");
+        mtginfoSetsMap.put("CST", "cstd");
         // Starter Sets
         mtginfoSetsMap.put("POR", "po");
         mtginfoSetsMap.put("PTK", "p3k");
         mtginfoSetsMap.put("S99", "st");
-        mtginfoSetsMap.put("S00", "st2k");
         // Boxed Sets
         mtginfoSetsMap.put("BRB", "br");
         mtginfoSetsMap.put("BTD", "bd");
