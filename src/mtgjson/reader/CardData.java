@@ -255,10 +255,7 @@ class CardData {
             clearCardImageError(this);
 
         } else if (card.has("multiverseid")) {
-            this.imageUrl = String.format(
-                    "http://api.mtgdb.info/content/hi_res_card_images/%s.jpg",
-                    card.get("multiverseid").getAsString()
-            );
+            this.imageUrl = setCode.toLowerCase();
             clearCardImageError(this);
 
         } else {
