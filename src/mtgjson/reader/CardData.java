@@ -93,7 +93,9 @@ class CardData {
                                         .replace("\n", "~")
                                         .replaceAll("~.+? — ","~")
                                         .replaceAll(" \\(.+?\\)", "")
-                                        .replaceAll("~•", " •")
+                                        .replaceFirst("~•", " (1)")
+                                        .replaceFirst("~•", " (2)")
+                                        .replaceFirst("~•", " (3)")
                                         .replace(getCardName(false), "SN");
                 setEffectText(effect);
             } else {
