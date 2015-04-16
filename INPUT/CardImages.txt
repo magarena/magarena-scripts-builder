@@ -1581,3 +1581,4 @@ Yare.txt=http://magiccards.info/scans/en/mr/252.jpg
 Zirilan_of_the_Claw.txt=http://magiccards.info/scans/en/mr/204.jpg
 Zombie_Mob.txt=http://magiccards.info/scans/en/mr/51.jpg
 Zombie_Scavengers.txt=http://magiccards.info/scans/en/wl/29.jpg
+Jace__the_Mind_Sculptor.txt=http://magiccards.info/wwk/en/31.html
