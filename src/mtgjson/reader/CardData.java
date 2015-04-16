@@ -96,6 +96,7 @@ class CardData {
                                         .replaceFirst("~•", " (1)")
                                         .replaceFirst("~•", " (2)")
                                         .replaceFirst("~•", " (3)")
+                                        .replaceFirst("~•", " (4)")
                                         .replace(getCardName(false), "SN");
                 setEffectText(effect);
             } else {
