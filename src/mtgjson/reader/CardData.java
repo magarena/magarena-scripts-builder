@@ -93,6 +93,7 @@ class CardData {
                                         .replace("\n", "~")
                                         .replaceAll("~.+? — ","~")
                                         .replaceAll(" \\(.+?\\)", "")
+                                        .replaceAll("\n~•", "~•")
                                         .replaceFirst("~•", " (1)")
                                         .replaceFirst("~•", " (2)")
                                         .replaceFirst("~•", " (3)")
@@ -104,7 +105,12 @@ class CardData {
                                         .replaceAll("^\\(.+?\\)\n","")
                                         .replaceAll("^.+— ", "")
                                         .replace("\n", ";\\\n        ")
+                                        .replace(";\\\n        •", " \\\n        •")
                                         .replaceAll(" \\(.+?\\)", "")
+                                        .replaceFirst(" •", " (1)")
+                                        .replaceFirst(" •", " (2)")
+                                        .replaceFirst(" •", " (3)")
+                                        .replaceFirst(" •", " (4)")
                                         .replace(getCardName(false), "SN");
                 setAbilityText(ability);
             }
