@@ -17,7 +17,7 @@ class CardData {
     private String type;
     private String color        = null;
     private String superType    = null;
-    private String subType      = null;
+    private String subTypes     = null;
     private String power        = null;
     private String toughness    = null;
     private String text         = null;
@@ -39,25 +39,13 @@ class CardData {
         extractToughness(jsonCard);
         extractSuperTypes(jsonCard);
         extractTypes(jsonCard);
+        extractSubTypes(jsonCard);
 
         if (jsonCard.has("text"))       { setText(jsonCard.get("text").getAsString()); }
 
 
 
-        if (jsonCard.has("subtypes")) {
-            final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = jsonCard.getAsJsonArray("subtypes");
-            for (int j = 0; j < cardTypes.size(); j++) {
-                final String subType = cardTypes.get(j).toString();
-                sb.append(subType
-                            .replace("\"", "")
-                            .replace(" ", "_")
-                            .replace("’s", "'s")
-                            .replace("-", "_")).append(",");
-            }
-            final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
-            setSubType(typeValues);
-        }
+
 
         if (jsonCard.has("text")) {
             if (jsonCard.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
@@ -222,10 +210,24 @@ class CardData {
     }
 
     public String getSubType() {
-        return subType;
+        return subTypes;
     }
-    public void setSubType(String subType) {
-        this.subType = subType;
+    
+    private void extractSubTypes(final JsonObject json) {
+        if (json.has("subtypes")) {
+            final StringBuffer sb = new StringBuffer();
+            final JsonArray cardTypes = json.getAsJsonArray("subtypes");
+            for (int j = 0; j < cardTypes.size(); j++) {
+                final String subType = cardTypes.get(j).toString();
+                sb.append(subType
+                        .replace("\"", "")
+                        .replace(" ", "_")
+                        .replace("’s", "'s")
+                        .replace("-", "_")).append(",");
+            }
+            final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
+            this.subTypes = typeValues;
+        }
     }
 
     public String getEffectText() {
