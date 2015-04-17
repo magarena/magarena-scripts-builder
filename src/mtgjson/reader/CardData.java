@@ -38,18 +38,11 @@ class CardData {
         extractPower(jsonCard);
         extractToughness(jsonCard);
         extractSuperTypes(jsonCard);
+        extractTypes(jsonCard);
 
         if (jsonCard.has("text"))       { setText(jsonCard.get("text").getAsString()); }
 
-        if (jsonCard.has("types")) {
-            final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = jsonCard.getAsJsonArray("types");
-            for (int j = 0; j < cardTypes.size(); j++) {
-                sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
-            }
-            final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
-            setType(typeValues);
-        }
+
 
         if (jsonCard.has("subtypes")) {
             final StringBuffer sb = new StringBuffer();
@@ -172,8 +165,17 @@ class CardData {
             return type;
         }
     }
-    public void setType(String type) {
-        this.type = type;
+    
+    private void extractTypes(final JsonObject json) {
+        if (json.has("types")) {
+            final StringBuffer sb = new StringBuffer();
+            final JsonArray cardTypes = json.getAsJsonArray("types");
+            for (int j = 0; j < cardTypes.size(); j++) {
+                sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
+            }
+            final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
+            this.type = typeValues;
+        }
     }
 
     public String getFilename() {
