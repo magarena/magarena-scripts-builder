@@ -303,4 +303,8 @@ class CardData {
                (jsonCard.has("number") || jsonCard.has("multiverseid"));
     }
 
+    public boolean hasSubType() {
+        return getSubType() != null;
+    }
+
 }
