@@ -308,7 +308,11 @@ class CardData {
     }
 
     public boolean hasColor() {
-        return getManaCost() == null && getColor() != null;
+        return !hasManaCost() && getColor() != null;
+    }
+
+    public boolean hasManaCost() {
+        return getManaCost() != null;
     }
 
 }

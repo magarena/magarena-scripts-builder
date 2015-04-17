@@ -417,7 +417,7 @@ public class MtgJsonReader {
             if (cardData.hasColor()) {
                 writer.println("color="+cardData.getColor());
             }
-            if (cardData.getManaCost() != null) {
+            if (cardData.hasManaCost()) {
                 writer.println("cost=" + cardData.getManaCost());
             }
             if (cardData.getPower() != null && cardData.getToughness() != null) {
