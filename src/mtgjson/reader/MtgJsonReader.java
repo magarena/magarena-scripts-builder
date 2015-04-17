@@ -420,7 +420,7 @@ public class MtgJsonReader {
             if (cardData.hasManaCost()) {
                 writer.println("cost=" + cardData.getManaCost());
             }
-            if (cardData.getPower() != null && cardData.getToughness() != null) {
+            if (cardData.hasPT()) {
                 writer.println("pt=" + cardData.getPower() + "/" + cardData.getToughness());
             }
             if (cardData.getText() != null) {

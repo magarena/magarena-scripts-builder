@@ -315,4 +315,8 @@ class CardData {
         return getManaCost() != null;
     }
 
+    public boolean hasPT() {
+        return getPower() != null && getToughness() != null;
+    }
+
 }
