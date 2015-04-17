@@ -307,4 +307,8 @@ class CardData {
         return getSubType() != null;
     }
 
+    public boolean hasColor() {
+        return getManaCost() == null && getColor() != null;
+    }
+
 }
