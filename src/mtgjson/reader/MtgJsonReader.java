@@ -423,9 +423,11 @@ public class MtgJsonReader {
             if (cardData.hasPT()) {
                 writer.println("pt=" + cardData.getPower() + "/" + cardData.getToughness());
             }
-            if (cardData.getText() != null) {
-                if (cardData.getEffectText() !=null) { writer.println("effect=" + cardData.getEffectText()); }
-                else if (cardData.getAbilityText() !=null) { writer.println("ability="+cardData.getAbilityText()); }
+            if (cardData.hasEffectText()) {
+                writer.println("effect=" + cardData.getEffectText());
+            }
+            if (cardData.hasAbilityText()) {
+                writer.println("ability=" + cardData.getAbilityText());
             }
             writer.println("timing=" + cardData.getTiming());
             if (cardData.getText() !=null) {

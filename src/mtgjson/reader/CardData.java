@@ -319,4 +319,12 @@ class CardData {
         return getPower() != null && getToughness() != null;
     }
 
+    public boolean hasEffectText() {
+        return getText() != null && getEffectText() != null;
+    }
+
+    public boolean hasAbilityText() {
+        return getText() != null && !hasEffectText() && getAbilityText() != null;
+    }
+
 }
