@@ -327,4 +327,8 @@ class CardData {
         return getText() != null && !hasEffectText() && getAbilityText() != null;
     }
 
+    public boolean hasOracleText() {
+        return getText() != null;
+    }
+
 }
