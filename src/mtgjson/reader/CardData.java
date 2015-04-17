@@ -34,8 +34,7 @@ class CardData {
         extractCardName(jsonCard);
         extractImageUrl(jsonCard);
         extractRarity(jsonCard);
-
-        if (jsonCard.has("manaCost"))   { setManaCost(jsonCard.get("manaCost").getAsString()); }
+        extractManaCost(jsonCard);
 
         if (jsonCard.has("colors") && jsonCard.has("manaCost")==false) {
             final String colors = jsonCard.get("colors")
@@ -163,8 +162,11 @@ class CardData {
     public String getManaCost() {
         return manaCost;
     }
-    public void setManaCost(String manaCost) {
-        this.manaCost = manaCost;
+
+    private void extractManaCost(final JsonObject json) {
+        if (json.has("manaCost")) {
+            this.manaCost = json.get("manaCost").getAsString();
+        }
     }
 
     public String getColor() {
