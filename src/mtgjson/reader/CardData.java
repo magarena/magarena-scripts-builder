@@ -36,9 +36,9 @@ class CardData {
         extractRarity(jsonCard);
         extractManaCost(jsonCard);
         extractColor(jsonCard);
+        extractPower(jsonCard);
+        extractToughness(jsonCard);
 
-        if (jsonCard.has("power"))      { setPower(jsonCard.get("power").getAsString()); }
-        if (jsonCard.has("toughness"))  { setToughness(jsonCard.get("toughness").getAsString()); }
         if (jsonCard.has("text"))       { setText(jsonCard.get("text").getAsString()); }
 
         if (jsonCard.has("supertypes")) {
@@ -193,15 +193,21 @@ class CardData {
     public String getPower() {
         return power;
     }
-    public void setPower(String power) {
-        this.power = power;
+
+    private void extractPower(final JsonObject json) {
+        if (json.has("power")) {
+            this.power = json.get("power").getAsString();
+        }
     }
 
     public String getToughness() {
         return toughness;
     }
-    public void setToughness(String toughness) {
-        this.toughness = toughness;
+    
+    private void extractToughness(final JsonObject json) {
+        if (json.has("toughness")) {
+            this.toughness = json.get("toughness").getAsString();
+        }
     }
 
     public String getText() {
