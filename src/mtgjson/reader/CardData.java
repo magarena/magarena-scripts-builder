@@ -32,8 +32,8 @@ class CardData {
         this.setCode = setCode;
 
         extractCardName(jsonCard);
-        setImageUrl(jsonCard);
-        setRarity(CardData.getRarity(jsonCard));
+        extractImageUrl(jsonCard);
+        extractRarity(jsonCard);
 
         if (jsonCard.has("manaCost"))   { setManaCost(jsonCard.get("manaCost").getAsString()); }
 
@@ -155,8 +155,9 @@ class CardData {
     public String getRarity() {
         return rarity;
     }
-    public void setRarity(String rarity) {
-        this.rarity = rarity;
+
+    private void extractRarity(final JsonObject json) {
+        this.rarity = getRarity(json);
     }
 
     public String getManaCost() {
@@ -255,17 +256,17 @@ class CardData {
         }
     }
 
-    private void setImageUrl(final JsonObject card) throws UnsupportedEncodingException {
+    private void extractImageUrl(final JsonObject json) throws UnsupportedEncodingException {
 
-        if (card.has("number")) {
+        if (json.has("number")) {
             this.imageUrl = String.format(
                     "http://magiccards.info/scans/en/%s/%s.jpg",
                     setCode.toLowerCase(),
-                    card.get("number").getAsString()
+                    json.get("number").getAsString()
             );
             clearCardImageError(this);
 
-        } else if (card.has("multiverseid")) {
+        } else if (json.has("multiverseid")) {
             this.imageUrl = setCode.toLowerCase();
             clearCardImageError(this);
 
