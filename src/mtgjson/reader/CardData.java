@@ -35,16 +35,7 @@ class CardData {
         extractImageUrl(jsonCard);
         extractRarity(jsonCard);
         extractManaCost(jsonCard);
-
-        if (jsonCard.has("colors") && jsonCard.has("manaCost")==false) {
-            final String colors = jsonCard.get("colors")
-                    .toString()
-                    .replace("Blue", "U")
-                    .replaceAll("\\W", "")
-                    .replaceAll("[a-z]", "")
-                    .toLowerCase();
-            setColor(colors);
-        }
+        extractColor(jsonCard);
 
         if (jsonCard.has("power"))      { setPower(jsonCard.get("power").getAsString()); }
         if (jsonCard.has("toughness"))  { setToughness(jsonCard.get("toughness").getAsString()); }
@@ -173,8 +164,15 @@ class CardData {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    private void extractColor(final JsonObject json) {
+        if (json.has("colors") && json.has("manaCost") == false) {
+            this.color = json.get("colors")
+                    .toString()
+                    .replace("Blue", "U")
+                    .replaceAll("\\W", "")
+                    .replaceAll("[a-z]", "")
+                    .toLowerCase();
+        }
     }
 
     public String getType() {
