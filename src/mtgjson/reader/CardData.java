@@ -159,8 +159,8 @@ class CardData {
     }
 
     public String getType() {
-        if (getSuperType() != null) {
-            return getSuperType() + "," + type;
+        if (superType != null) {
+            return superType + "," + type;
         } else {
             return type;
         }
@@ -207,10 +207,6 @@ class CardData {
     }
     public void setText(String text) {
         this.text = text;
-    }
-
-    private String getSuperType() {
-        return superType;
     }
 
     private void extractSuperTypes(final JsonObject json) {
