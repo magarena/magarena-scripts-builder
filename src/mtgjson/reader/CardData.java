@@ -31,7 +31,7 @@ class CardData {
 
         this.setCode = setCode;
 
-        setCardName(CardData.getRawCardName(jsonCard));
+        extractCardName(jsonCard);
         setImageUrl(jsonCard);
         setRarity(CardData.getRarity(jsonCard));
 
@@ -143,8 +143,9 @@ class CardData {
             return cardName;
         }
     }
-    public void setCardName(String cardName) {
-        this.cardName = cardName;
+    
+    private void extractCardName(final JsonObject json) {
+        this.cardName = getRawCardName(json);
     }
 
     public String getImageUrl() {
