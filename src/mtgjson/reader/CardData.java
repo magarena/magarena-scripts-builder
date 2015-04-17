@@ -41,50 +41,14 @@ class CardData {
         extractTypes(jsonCard);
         extractSubTypes(jsonCard);
 
-        if (jsonCard.has("text"))       { setText(jsonCard.get("text").getAsString()); }
-
-
-
-
-
         if (jsonCard.has("text")) {
+            setText(jsonCard.get("text").getAsString());
             if (jsonCard.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
-                final String effect = text
-                                        .replaceAll("^\\(.+?\\)\n","")
-                                        .replaceAll("^.+— ", "")
-                                        .replace("\n", "~")
-                                        .replaceAll("~.+? — ","~")
-                                        .replaceAll(" \\(.+?\\)", "")
-                                        .replaceAll("\n~•", "~•")
-                                        .replaceFirst("~•", " (1)")
-                                        .replaceFirst("~•", " (2)")
-                                        .replaceFirst("~•", " (3)")
-                                        .replaceFirst("~•", " (4)")
-                                        .replace(getCardName(false), "SN");
-                setEffectText(effect);
+                extractEffectText(jsonCard);
             } else {
-                final String ability = text
-                                        .replaceAll("^\\(.+?\\)\n","")
-                                        .replaceAll("^.+— ", "")
-                                        .replace("\n", ";\\\n        ")
-                                        .replace(";\\\n        •", " \\\n        •")
-                                        .replaceAll(" \\(.+?\\)", "")
-                                        .replaceFirst(" •", " (1)")
-                                        .replaceFirst(" •", " (2)")
-                                        .replaceFirst(" •", " (3)")
-                                        .replaceFirst(" •", " (4)")
-                                        .replace(getCardName(false), "SN");
-                setAbilityText(ability);
+                extractAbilityText(jsonCard);
             }
-            final String oracle = text
-                                    .replaceAll("^\\(.+?\\)\n", "")
-                                    .replace(".\n", ". ")
-                                    .replace("\n", ". ")
-                                    .replaceAll(" \\(.+?\\)", "")
-                                    .replace("..", ".")
-                                    .replace("—.", "—")
-                                    .replace(". .", ".");
-            setOracleText(oracle);
+            extractOracleText(jsonCard);
         }
     }
 
@@ -233,23 +197,55 @@ class CardData {
     public String getEffectText() {
         return effectText;
     }
-    public void setEffectText(String effect) {
-        this.effectText = effect;
+    
+    private void extractEffectText(final JsonObject json) {
+        this.effectText = json.get("text").getAsString()
+                .replaceAll("^\\(.+?\\)\n", "")
+                .replaceAll("^.+— ", "")
+                .replace("\n", "~")
+                .replaceAll("~.+? — ", "~")
+                .replaceAll(" \\(.+?\\)", "")
+                .replaceAll("\n~•", "~•")
+                .replaceFirst("~•", " (1)")
+                .replaceFirst("~•", " (2)")
+                .replaceFirst("~•", " (3)")
+                .replaceFirst("~•", " (4)")
+                .replace(getCardName(false), "SN");
     }
 
     public String getAbilityText() {
         return abilityText;
     }
-    public void setAbilityText(String ability) {
-        this.abilityText = ability;
+        
+    private void extractAbilityText(final JsonObject json) {
+        this.abilityText = json.get("text").getAsString()
+                .replaceAll("^\\(.+?\\)\n", "")
+                .replaceAll("^.+— ", "")
+                .replace("\n", ";\\\n        ")
+                .replace(";\\\n        •", " \\\n        •")
+                .replaceAll(" \\(.+?\\)", "")
+                .replaceFirst(" •", " (1)")
+                .replaceFirst(" •", " (2)")
+                .replaceFirst(" •", " (3)")
+                .replaceFirst(" •", " (4)")
+                .replace(getCardName(false), "SN");
     }
 
     public String getOracleText() {
         return oracleText;
     }
 
-    public void setOracleText(String oracleText) {
-        this.oracleText = oracleText;
+    private void extractOracleText(final JsonObject json) {
+        if (json.has("text")) {
+            this.oracleText = json.get("text").getAsString()
+                    .replaceAll("^\\(.+?\\)\n", "")
+                    .replace(".\n", ". ")
+                    .replace("\n", ". ")
+                    .replaceAll(" \\(.+?\\)", "")
+                    .replace("..", ".")
+                    .replace("—.", "—")
+                    .replace(". .", ".");
+        }
     }
 
     public String getTiming() {
