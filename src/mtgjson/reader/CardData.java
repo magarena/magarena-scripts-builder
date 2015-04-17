@@ -26,18 +26,19 @@ class CardData {
     private String oracleText   = null;
     private final String setCode;
 
-    public CardData(final JsonObject card, final String setCode) throws UnsupportedEncodingException {
+
+    public CardData(final JsonObject jsonCard, final String setCode) throws UnsupportedEncodingException {
 
         this.setCode = setCode;
 
-        setCardName(CardData.getRawCardName(card));
-        setImageUrl(card);
-        setRarity(CardData.getRarity(card));
+        setCardName(CardData.getRawCardName(jsonCard));
+        setImageUrl(jsonCard);
+        setRarity(CardData.getRarity(jsonCard));
 
-        if (card.has("manaCost"))   { setManaCost(card.get("manaCost").getAsString()); }
+        if (jsonCard.has("manaCost"))   { setManaCost(jsonCard.get("manaCost").getAsString()); }
 
-        if (card.has("colors") && card.has("manaCost")==false) {
-            final String colors = card.get("colors")
+        if (jsonCard.has("colors") && jsonCard.has("manaCost")==false) {
+            final String colors = jsonCard.get("colors")
                     .toString()
                     .replace("Blue", "U")
                     .replaceAll("\\W", "")
@@ -46,13 +47,13 @@ class CardData {
             setColor(colors);
         }
 
-        if (card.has("power"))      { setPower(card.get("power").getAsString()); }
-        if (card.has("toughness"))  { setToughness(card.get("toughness").getAsString()); }
-        if (card.has("text"))       { setText(card.get("text").getAsString()); }
+        if (jsonCard.has("power"))      { setPower(jsonCard.get("power").getAsString()); }
+        if (jsonCard.has("toughness"))  { setToughness(jsonCard.get("toughness").getAsString()); }
+        if (jsonCard.has("text"))       { setText(jsonCard.get("text").getAsString()); }
 
-        if (card.has("supertypes")) {
+        if (jsonCard.has("supertypes")) {
             final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = card.getAsJsonArray("supertypes");
+            final JsonArray cardTypes = jsonCard.getAsJsonArray("supertypes");
             for (int j = 0; j < cardTypes.size(); j++) {
                 sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
             }
@@ -60,9 +61,9 @@ class CardData {
             setSuperType(superTypes);
         }
 
-        if (card.has("types")) {
+        if (jsonCard.has("types")) {
             final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = card.getAsJsonArray("types");
+            final JsonArray cardTypes = jsonCard.getAsJsonArray("types");
             for (int j = 0; j < cardTypes.size(); j++) {
                 sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
             }
@@ -70,9 +71,9 @@ class CardData {
             setType(typeValues);
         }
 
-        if (card.has("subtypes")) {
+        if (jsonCard.has("subtypes")) {
             final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = card.getAsJsonArray("subtypes");
+            final JsonArray cardTypes = jsonCard.getAsJsonArray("subtypes");
             for (int j = 0; j < cardTypes.size(); j++) {
                 final String subType = cardTypes.get(j).toString();
                 sb.append(subType
@@ -85,8 +86,8 @@ class CardData {
             setSubType(typeValues);
         }
 
-        if (card.has("text")) {
-            if (card.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
+        if (jsonCard.has("text")) {
+            if (jsonCard.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
                 final String effect = text
                                         .replaceAll("^\\(.+?\\)\n","")
                                         .replaceAll("^.+— ", "")
