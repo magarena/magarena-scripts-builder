@@ -217,7 +217,7 @@ public class MtgJsonReader {
         for (int i = 0; i < cards.size(); i++) {
 
             final JsonObject jsonCard = cards.get(i).getAsJsonObject();
-            final String key = CardData.getRawCardName(jsonCard);
+            final String key = CardData.getId(jsonCard);
 
             if (!mtgcomCards.containsKey(key) && CardData.isValid(jsonCard)) {
                 final CardData card = new CardData(cards.get(i).getAsJsonObject(), setCode);
@@ -406,7 +406,7 @@ public class MtgJsonReader {
         final String scriptFilename = cardData.getFilename();
         final Path filePath = getScriptsMissingFolder().resolve(scriptFilename);
         try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
-            writer.println("name=" + cardData.getCardName(false));
+            writer.println("name=" + cardData.getCardName());
             writer.println("image=" + getCardImageUrl(scriptFilename, cardData.getImageUrl()));
             writer.println("value=2.500");
             writer.println("rarity=" + cardData.getRarity().replace("S", "R"));

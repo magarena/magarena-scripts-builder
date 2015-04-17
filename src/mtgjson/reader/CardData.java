@@ -52,25 +52,25 @@ class CardData {
         }
     }
 
-    public String getCardName(final boolean replaceNonAscii) {
-        if (replaceNonAscii) {
-            return cardName
-                    .replace("Æ", "_")
-                    .replace("á", "_")
-                    .replace("à", "_")
-                    .replace("â", "_")
-                    .replace("é", "_")
-                    .replace("í", "_")
-                    .replace("ö", "_")
-                    .replace("ú", "_")
-                    .replace("û", "_");
-        } else {
-            return cardName;
-        }
+    public String getCardName() {
+        return cardName;
+    }
+
+    private String getCardNameAsAscii() {
+        return cardName
+                .replace("Æ", "_")
+                .replace("á", "_")
+                .replace("à", "_")
+                .replace("â", "_")
+                .replace("é", "_")
+                .replace("í", "_")
+                .replace("ö", "_")
+                .replace("ú", "_")
+                .replace("û", "_");
     }
     
     private void extractCardName(final JsonObject json) {
-        this.cardName = getRawCardName(json);
+        this.cardName = json.get("name").getAsString();
     }
 
     public String getImageUrl() {
@@ -131,7 +131,7 @@ class CardData {
     }
 
     public String getFilename() {
-        return getCardName(true).replaceAll("[^A-Za-z0-9]", "_") + ".txt";
+        return getCardNameAsAscii().replaceAll("[^A-Za-z0-9]", "_") + ".txt";
     }
 
     public String getPower() {
@@ -210,7 +210,7 @@ class CardData {
                 .replaceFirst("~•", " (2)")
                 .replaceFirst("~•", " (3)")
                 .replaceFirst("~•", " (4)")
-                .replace(getCardName(false), "SN");
+                .replace(getCardName(), "SN");
     }
 
     public String getAbilityText() {
@@ -228,7 +228,7 @@ class CardData {
                 .replaceFirst(" •", " (2)")
                 .replaceFirst(" •", " (3)")
                 .replaceFirst(" •", " (4)")
-                .replace(getCardName(false), "SN");
+                .replace(getCardName(), "SN");
     }
 
     public String getOracleText() {
@@ -277,20 +277,20 @@ class CardData {
     }
     
     private static void addCardImageError(final CardData card, final String errorDetails) {
-        final String key = card.getCardName(false);        
+        final String key = card.getCardName();        
         if (!cardImageErrors.containsKey(key)) {
             cardImageErrors.put(key, errorDetails);
         }
     }
 
     private static void clearCardImageError(final CardData card) {
-        final String key = card.getCardName(false);
+        final String key = card.getCardName();
         if (cardImageErrors.containsKey(key)) {
             cardImageErrors.remove(key);
         }
     }
 
-    public static String getRawCardName(final JsonObject card) {
+    public static String getId(final JsonObject card) {
         return card.get("name").getAsString().trim();
     }
 
