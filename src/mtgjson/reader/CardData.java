@@ -26,7 +26,6 @@ class CardData {
     private String oracleText   = null;
     private final String setCode;
 
-
     public CardData(final JsonObject jsonCard, final String setCode) throws UnsupportedEncodingException {
 
         this.setCode = setCode;
@@ -38,18 +37,9 @@ class CardData {
         extractColor(jsonCard);
         extractPower(jsonCard);
         extractToughness(jsonCard);
+        extractSuperTypes(jsonCard);
 
         if (jsonCard.has("text"))       { setText(jsonCard.get("text").getAsString()); }
-
-        if (jsonCard.has("supertypes")) {
-            final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = jsonCard.getAsJsonArray("supertypes");
-            for (int j = 0; j < cardTypes.size(); j++) {
-                sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
-            }
-            final String superTypes =sb.toString().substring(0,sb.toString().length()-1);
-            setSuperType(superTypes);
-        }
 
         if (jsonCard.has("types")) {
             final StringBuffer sb = new StringBuffer();
@@ -217,12 +207,20 @@ class CardData {
         this.text = text;
     }
 
-    public String getSuperType() {
+    private String getSuperType() {
         return superType;
     }
 
-    public void setSuperType(String superType) {
-        this.superType = superType;
+    private void extractSuperTypes(final JsonObject json) {
+        if (json.has("supertypes")) {
+            final StringBuffer sb = new StringBuffer();
+            final JsonArray cardTypes = json.getAsJsonArray("supertypes");
+            for (int j = 0; j < cardTypes.size(); j++) {
+                sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
+            }
+            final String superTypes =sb.toString().substring(0,sb.toString().length()-1);
+            this.superType = superTypes;
+        }
     }
 
     public String getSubType() {
