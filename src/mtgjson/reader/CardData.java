@@ -239,12 +239,8 @@ class CardData {
         if (json.has("text")) {
             this.oracleText = json.get("text").getAsString()
                     .replaceAll("^\\(.+?\\)\n", "")
-                    .replace(".\n", ". ")
-                    .replace("\n", ". ")
                     .replaceAll(" \\(.+?\\)", "")
-                    .replace("..", ".")
-                    .replace("—.", "—")
-                    .replace(". .", ".");
+                    .replaceAll("\n","\\\\n");
         }
     }
 
