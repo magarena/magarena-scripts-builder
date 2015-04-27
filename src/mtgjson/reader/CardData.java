@@ -240,7 +240,8 @@ class CardData {
             this.oracleText = json.get("text").getAsString()
                     .replaceAll("^\\(.+?\\)\n", "")
                     .replaceAll(" \\(.+?\\)", "")
-                    .replaceAll("\n","\\\\n");
+                    .replaceAll("\n","\\\\n")
+                    .replaceAll(";",",");
         }
     }
 
