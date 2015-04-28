@@ -250,11 +250,11 @@ class CardData {
             return "removal";
         } else if (type.contains("Land")){
             return "land";
-        } else if (type.contains("Equipment")) {
+        } else if (subTypes.contains("Equipment")) {
             return "equipment";
         } else if (type.contains("Artifact")) {
             return "artifact";
-        } else if (type.contains("Aura")) {
+        } else if (subTypes.contains("Aura")) {
             return "aura";
         } else if (type.contains("Enchantment")) {
             return "enchantment";
