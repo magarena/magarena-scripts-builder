@@ -248,9 +248,17 @@ class CardData {
     public String getTiming() {
         if (type.contains("Instant")) {
             return "removal";
-        } else {
-            return "main";
-        }
+        } else if (type.contains("Land")){
+            return "land";
+        } else if (type.contains("Equipment")) {
+            return "equipment";
+        } else if (type.contains("Artifact")) {
+            return "artifact";
+        } else if (type.contains("Aura")) {
+            return "aura";
+        } else if (type.contains("Enchantment")) {
+            return "enchantment";
+        } else return "main";
     }
 
     private void extractImageUrl(final JsonObject json) throws UnsupportedEncodingException {
