@@ -87,6 +87,7 @@ class CardData {
                 .replaceFirst(" •", " (2)")
                 .replaceFirst(" •", " (3)")
                 .replaceFirst(" •", " (4)")
+                .replaceAll("\n.+ — ", "\n        ")
                 .replace(getCardName(), "SN");
     }
 
@@ -117,6 +118,7 @@ class CardData {
                 .replaceFirst("~•", " (2)")
                 .replaceFirst("~•", " (3)")
                 .replaceFirst("~•", " (4)")
+                .replaceAll("\n.+ — ", "\n        ")
                 .replace(getCardName(), "SN");
     }
 
