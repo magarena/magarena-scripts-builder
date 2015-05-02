@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,6 +33,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import org.apache.commons.io.FileUtils;
 
 /**
@@ -146,6 +148,8 @@ public class MtgJsonReader {
         // From this point, only interested in cards defined in MISSING_CARDS_FILE.
         mtgcomCardNames.retainAll(magarenaMissingCards);
 
+        //saveReplacementOracle(mtgcomCardNames);
+        
         saveMissingCardData(mtgcomCardNames);
         System.out.printf("-> Created %d script files in \"%s\".\n",
                 mtgcomCardNames.size(), getScriptsMissingFolder()
@@ -160,7 +164,7 @@ public class MtgJsonReader {
 
     }
 
-    private static boolean deleteOutputFolder() {
+        private static boolean deleteOutputFolder() {
         boolean result = true;
         if (getOutputPath().toFile().exists()) {
             try {
@@ -436,6 +440,26 @@ public class MtgJsonReader {
             throw new RuntimeException(e);
         }
     }
+    
+    /*private static void saveReplacementOracle(List<String> cardNames) {
+        // ensure unix style line endings.
+        System.setProperty("line.separator", "\n");
+
+            // get individual cards
+            for (String cardName : cardNames) {
+                final CardData cardData = mtgcomCards.get(cardName);
+                // create file stream
+                if (cardData.hasOracleText() && cardData.getOracleText().contains("\\n")) {
+                    final String scriptFilename = cardData.getFilename();
+                    final Path filePath = getScriptsMissingFolder().resolve(scriptFilename);
+                    try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {   
+                        writer.println("oracle="+cardData.getOracleText());
+                    } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+    }*/
     
     private static String getCardImageUrl(final String scriptFilename, final String defaultUrl) {
         if (predefinedCardImages.containsKey(scriptFilename)) {
