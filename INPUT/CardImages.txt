@@ -1583,3 +1583,7 @@ Zombie_Mob.txt=http://magiccards.info/scans/en/mr/51.jpg
 Zombie_Scavengers.txt=http://magiccards.info/scans/en/wl/29.jpg
 Jace__the_Mind_Sculptor.txt=http://magiccards.info/scans/en/wwk/31.jpg
 Dack_Fayden.txt=http://magiccards.info/scans/en/cns/42.jpg
+# Errors with Gatherer card numbers
+Coral_Eel.txt=http://magiccards.info/scans/en/9eb/3.jpg
+Eager_Cadet.txt=http://magiccards.info/scans/en/9eb/1.jpg
+Goblin_Raider.txt=http://magiccards.info/scans/en/9eb/8.jpg
