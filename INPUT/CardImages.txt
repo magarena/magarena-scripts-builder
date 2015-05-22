@@ -1587,3 +1587,4 @@ Dack_Fayden.txt=http://magiccards.info/scans/en/cns/42.jpg
 Coral_Eel.txt=http://magiccards.info/scans/en/9eb/3.jpg
 Eager_Cadet.txt=http://magiccards.info/scans/en/9eb/1.jpg
 Goblin_Raider.txt=http://magiccards.info/scans/en/9eb/8.jpg
+Sea_Eagle.txt=http://magiccards.info/scans/en/8eb/4.jpg
