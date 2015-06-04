@@ -1592,3 +1592,5 @@ Vengeance.txt=http://magiccards.info/scans/en/9eb/2.jpg
 Giant_Octopus.txt=http://magiccards.info/scans/en/9eb/4.jpg
 Vizzerdrix.txt=http://magiccards.info/scans/en/9eb/7.jpg
 Silverback_Ape.txt=http://magiccards.info/scans/en/8eb/7.jpg
+Mystic_Compass.txt=http://magiccards.info/scans/en/6e/302.jpg
+Snake_Basket.txt=http://magiccards.info/scans/en/6e/312.jpg
