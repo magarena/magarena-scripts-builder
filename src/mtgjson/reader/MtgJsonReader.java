@@ -101,6 +101,7 @@ public class MtgJsonReader {
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
                     "S00", // Starter Set 2000 incomplete
+                    "EXP", // Expedition reprints
 
                     // Promo Cards (Normally foil or textless)
                     "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
@@ -149,14 +150,14 @@ public class MtgJsonReader {
         mtgcomCardNames.retainAll(magarenaMissingCards);
 
         //saveReplacementOracle(mtgcomCardNames);
-        
+
         saveMissingCardData(mtgcomCardNames);
         System.out.printf("-> Created %d script files in \"%s\".\n",
                 mtgcomCardNames.size(), getScriptsMissingFolder()
         );
 
         updateScriptsImageProperty();
-        
+
         logErrorDetails();
 
         final double duration = (double)(System.currentTimeMillis() - start_time) / 1000;
@@ -231,7 +232,7 @@ public class MtgJsonReader {
         }
     }
 
-    
+
     private static String getSetCode(final String jsonSetCode) {
         final String key = jsonSetCode.toUpperCase().trim();
         final String code = mtginfoSetsMap.containsKey(key) ? mtginfoSetsMap.get(key) : jsonSetCode;
@@ -371,7 +372,7 @@ public class MtgJsonReader {
             final String key = setReleaseDate + " " + setCode;
             sortedSetCodes.put(key, setCode);
         }
-                
+
         return sortedSetCodes;
     }
 
@@ -440,7 +441,7 @@ public class MtgJsonReader {
             throw new RuntimeException(e);
         }
     }
-    
+
     /*private static void saveReplacementOracle(List<String> cardNames) {
         // ensure unix style line endings.
         System.setProperty("line.separator", "\n");
@@ -452,7 +453,7 @@ public class MtgJsonReader {
                 if (cardData.hasOracleText() && cardData.getOracleText().contains("\\n")) {
                     final String scriptFilename = cardData.getFilename();
                     final Path filePath = getScriptsMissingFolder().resolve(scriptFilename);
-                    try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {   
+                    try (final PrintWriter writer = new PrintWriter(filePath.toString(), "UTF-8")) {
                         writer.println("oracle="+cardData.getOracleText());
                     } catch (FileNotFoundException | UnsupportedEncodingException e) {
                         throw new RuntimeException(e);
@@ -460,7 +461,7 @@ public class MtgJsonReader {
                 }
             }
     }*/
-    
+
     private static String getCardImageUrl(final String scriptFilename, final String defaultUrl) {
         if (predefinedCardImages.containsKey(scriptFilename)) {
             return predefinedCardImages.get(scriptFilename);
@@ -673,7 +674,7 @@ public class MtgJsonReader {
         try (
                 final BufferedReader br = new BufferedReader(
                         new InputStreamReader(new FileInputStream(inputScript), "UTF-8"));
-                
+
                 final PrintWriter bw = new PrintWriter(outputScript, "UTF-8");) {
 
                     String line;
