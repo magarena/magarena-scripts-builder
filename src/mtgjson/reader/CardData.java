@@ -33,7 +33,7 @@ class CardData {
         return !CardData.getRarity(jsonCard).contentEquals("S") &&
                 (jsonCard.has("number") || jsonCard.has("multiverseid"));
     }
-    
+
     private String cardName;
     private String imageUrl = "";
     private String rarity;
@@ -277,8 +277,14 @@ class CardData {
 
     public String getTiming() {
         if (type.contains("Instant")) {
+            if (hasEffectText()) {
+                final String effect = getEffectText();
+                if (effect.contains("Counter")) {
+                    return "counter";
+                }
+            }
             return "removal";
-        } 
+        }
         if (type.contains("Land")){
             return "land";
         }
@@ -288,6 +294,18 @@ class CardData {
             } if (subTypes.contains("Aura")) {
                 return "aura";
             }
+        }
+        if (type.contains("Creature")) {
+            if (hasAbilityText()) {
+                final String ability = getAbilityText();
+                if (ability.contains("Haste")) {
+                    return "fmain";
+                }
+                if (ability.contains("Defender")) {
+                    return "smain";
+                }
+            }
+            return "main";
         }
         if (type.contains("Artifact")) {
             return "artifact";
