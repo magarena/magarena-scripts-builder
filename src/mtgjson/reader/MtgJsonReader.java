@@ -301,7 +301,6 @@ public class MtgJsonReader {
         mtginfoSetsMap.put("DDE", "pvc");
         mtginfoSetsMap.put("HOP", "pch");
         mtginfoSetsMap.put("CM1", "CMA");
-        mtginfoSetsMap.put("DPA", "dpa");
         mtginfoSetsMap.put("CST", "cstd");
         // Starter Sets
         mtginfoSetsMap.put("POR", "po");
