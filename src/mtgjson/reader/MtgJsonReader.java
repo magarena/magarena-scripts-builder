@@ -95,7 +95,8 @@ public class MtgJsonReader {
                     "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
 
                     // Literal Re-prints
-                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
+                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "DD2", "DDC", "DDD", "DDE", "DDF",
+                    "DDG", "DDH", "DDI", "DDJ", "DDK", "DDL", "DDM", "DDN", "DDO", "DDP",
 
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
@@ -106,7 +107,7 @@ public class MtgJsonReader {
                     // Promo Cards (Normally foil or textless)
                     "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
                     "p2HG", "pREL", "pMPR", "pELP", "pFNM", "pSUS", "pWOS", "pWOR", "pGRU", "pALP",
-                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC"
+                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC", "pGTW", "pMEI"
             )
     );
 
