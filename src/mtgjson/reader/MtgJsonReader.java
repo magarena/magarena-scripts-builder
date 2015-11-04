@@ -94,10 +94,6 @@ public class MtgJsonReader {
                     // Foil sets
                     "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
 
-                    // Literal Re-prints
-                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "DD2", "DDC", "DDD", "DDE", "DDF",
-                    "DDG", "DDH", "DDI", "DDJ", "DDK", "DDL", "DDM", "DDN", "DDO", "DDP",
-
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
