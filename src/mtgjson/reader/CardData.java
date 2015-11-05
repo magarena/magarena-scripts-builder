@@ -298,6 +298,9 @@ class CardData {
         if (type.contains("Creature")) {
             if (hasAbilityText()) {
                 final String ability = getAbilityText();
+                if (ability.contains("Flash")) {
+                    return "flash";
+                }
                 if (ability.contains("Haste")) {
                     return "fmain";
                 }
@@ -308,9 +311,21 @@ class CardData {
             return "main";
         }
         if (type.contains("Artifact")) {
+            if (hasAbilityText()) {
+                final String ability = getAbilityText();
+                if (ability.contains("Flash")) {
+                    return "flash";
+                }
+            }
             return "artifact";
         }
         if (type.contains("Enchantment")) {
+            if (hasAbilityText()) {
+                final String ability = getAbilityText();
+                if (ability.contains("Flash")) {
+                    return "flash";
+                }
+            }
             return "enchantment";
         }
         return "main";
