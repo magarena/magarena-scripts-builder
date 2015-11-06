@@ -33,6 +33,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FileUtils;
 
@@ -232,8 +233,7 @@ public class MtgJsonReader {
 
     private static String getSetCode(final String jsonSetCode) {
         final String key = jsonSetCode.toUpperCase().trim();
-        final String code = mtginfoSetsMap.containsKey(key) ? mtginfoSetsMap.get(key) : jsonSetCode;
-        return code;
+        return mtginfoSetsMap.containsKey(key) ? mtginfoSetsMap.get(key) : jsonSetCode;
     }
 
     private static void loadMtgInfoSetsMap() {
@@ -317,9 +317,7 @@ public class MtgJsonReader {
         if (CardData.cardImageErrors.size() > 0) {
             final File textFile = getOutputPath().resolve(ERRORS_FILE).toFile();
             try (final PrintWriter writer = new PrintWriter(textFile)) {
-                for (String error : CardData.cardImageErrors.values()) {
-                    writer.println(error);
-                }
+                CardData.cardImageErrors.values().forEach(writer::println);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -382,9 +380,7 @@ public class MtgJsonReader {
         Collections.sort(missingCardOrphans);
         final File textFile = getMissingOrphansFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
-            for (String cardName : missingCardOrphans) {
-                writer.println(cardName);
-            }
+            missingCardOrphans.forEach(writer::println);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -545,9 +541,7 @@ public class MtgJsonReader {
         magarenaMissingCards.clear();
         try {
             final Path filePath = getMissingCardsFile().toPath();
-            for (final String cardName : Files.readAllLines(filePath, Charset.defaultCharset())) {
-                magarenaMissingCards.add(cardName.trim());
-            }
+            magarenaMissingCards.addAll(Files.readAllLines(filePath, Charset.defaultCharset()).stream().map(String::trim).collect(Collectors.toList()));
         } catch (final IOException ex) {
            throw new RuntimeException(ex);
         }
@@ -637,11 +631,8 @@ public class MtgJsonReader {
     }
 
     private static File[] getSortedInvalidImageScriptFiles(final File scriptsFolder) {
-        final File[] files = scriptsFolder.listFiles(new java.io.FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".txt");
-            }
+        final File[] files = scriptsFolder.listFiles((dir, name) -> {
+            return name.toLowerCase().endsWith(".txt");
         });
         Arrays.sort(files);
         return files;
@@ -650,9 +641,7 @@ public class MtgJsonReader {
     private static void saveSkippedFilesLog(List<String> skippedFiles) {
         final File textFile = getOutputPath().resolve(IMAGE_UPDATE_ERROR_LOG).toFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
-            for (String filename : skippedFiles) {
-                writer.println(filename);
-            }
+            skippedFiles.forEach(writer::println);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -671,7 +660,7 @@ public class MtgJsonReader {
                 final BufferedReader br = new BufferedReader(
                         new InputStreamReader(new FileInputStream(inputScript), "UTF-8"));
 
-                final PrintWriter bw = new PrintWriter(outputScript, "UTF-8");) {
+                final PrintWriter bw = new PrintWriter(outputScript, "UTF-8")) {
 
                     String line;
                     while ((line = br.readLine()) != null) {
