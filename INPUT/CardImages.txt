@@ -1512,4 +1512,7 @@ Volrath_s_Laboratory.txt=http://magiccards.info/scans/en/sh/136.jpg
 Warrior_en_Kor.txt=http://magiccards.info/scans/en/sh/124.jpg
 Weave_Fate.txt=http://magiccards.info/scans/en/ktk/61.jpg
 Willow_Elf.txt=http://magiccards.info/scans/en/st2k/20.jpg
+# Older frames in later printings
+Air_Elemental.txt=http://magiccards.info/scans/en/dpa/1.jpg
+Terror.txt=http://magiccards.info/scans/en/dpa/34.jpg
 
