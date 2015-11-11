@@ -90,10 +90,17 @@ public class MtgJsonReader {
     // Set codes to be ignored in the json feed - no card data will be used from these sets.
     private static final Set<String> invalidSetCodes = new HashSet<>(
             Arrays.asList(
-                    "UGL", "UNH", "VAN",
+                    // Un-Sets
+                    "UGL", "UNH",
+
+                    // Vanguard
+                    "VAN",
 
                     // Foil sets
                     "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
+
+                    //Anthology reprints
+                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
 
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
