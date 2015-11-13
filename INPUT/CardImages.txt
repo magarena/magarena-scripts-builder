@@ -1512,5 +1512,11 @@ Weave_Fate.txt=http://magiccards.info/scans/en/ktk/61.jpg
 Willow_Elf.txt=http://magiccards.info/scans/en/st2k/20.jpg
 # Older frames in later printings
 Air_Elemental.txt=http://magiccards.info/scans/en/dpa/1.jpg
+Atog.txt=http://magiccards.info/scans/en/mi/86.jpg
+Black_Knight.txt=http://magiccards.info/scans/en/m11/83.jpg
+Colossus_of_Sardia.txt=http://magiccards.info/scans/en/10e/317.jpg
+Detonate.txt=http://magiccards.info/scans/en/mi/88.jpg
+Remove_Soul.txt=http://magiccards.info/scans/en/10e/100.jpg
 Terror.txt=http://magiccards.info/scans/en/dpa/34.jpg
-
+Weakness.txt=http://magiccards.info/scans/en/m10/121.jpg
+Wild_Griffin.txt=http://magiccards.info/scans/en/m11/40.jpg
