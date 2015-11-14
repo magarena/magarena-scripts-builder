@@ -138,7 +138,6 @@ Undertaker.txt=http://magiccards.info/scans/en/tsts/53.jpg
 Unstable_Mutation.txt=http://magiccards.info/scans/en/tsts/33.jpg
 Uthden_Troll.txt=http://magiccards.info/scans/en/tsts/71.jpg
 Valor.txt=http://magiccards.info/scans/en/tsts/16.jpg
-Vhati_il_Dal.txt=http://magiccards.info/scans/en/tsts/104.jpg
 Void.txt=http://magiccards.info/scans/en/tsts/105.jpg
 Voidmage_Prodigy.txt=http://magiccards.info/scans/en/tsts/34.jpg
 War_Barge.txt=http://magiccards.info/scans/en/tsts/116.jpg
