@@ -12,13 +12,13 @@ class CardData {
     public static final SortedMap<String, String> cardImageErrors = new TreeMap<>();
 
     private static void addCardImageError(final CardData card, final String errorDetails) {
-        final String key = card.getCardName();
+        String key = card.cardName;
         if (!cardImageErrors.containsKey(key)) {
             cardImageErrors.put(key, errorDetails);
         }
     }
     private static void clearCardImageError(final CardData card) {
-        final String key = card.getCardName();
+        String key = card.getCardName();
         if (cardImageErrors.containsKey(key)) {
             cardImageErrors.remove(key);
         }
@@ -30,7 +30,7 @@ class CardData {
         return card.get("rarity").getAsString().substring(0, 1);
     }
     public static boolean isValid(final JsonObject jsonCard) {
-        return !CardData.getRarity(jsonCard).contentEquals("S") &&
+        return !getRarity(jsonCard).contentEquals("S") &&
                 (jsonCard.has("number") || jsonCard.has("multiverseid"));
     }
 
@@ -50,7 +50,7 @@ class CardData {
     private String oracleText   = null;
     private final String setCode;
 
-    public CardData(final JsonObject jsonCard, final String setCode) throws UnsupportedEncodingException {
+    public CardData(final JsonObject jsonCard, final String setCode) {
 
         this.setCode = setCode;
 
@@ -67,7 +67,7 @@ class CardData {
 
         if (jsonCard.has("text")) {
             setText(jsonCard.get("text").getAsString());
-            if (jsonCard.has("types") && (type.contains("Instant") || type.contains("Sorcery"))) {
+            if (jsonCard.has("types") && (getType().contains("Instant") || getType().contains("Sorcery"))) {
                 extractEffectText(jsonCard);
             } else {
                 extractAbilityText(jsonCard);
@@ -122,7 +122,7 @@ class CardData {
                 .replace(getCardName(), "SN");
     }
 
-    private void extractImageUrl(final JsonObject json) throws UnsupportedEncodingException {
+    private void extractImageUrl(final JsonObject json) {
 
         if (json.has("number")) {
             imageUrl = String.format(
@@ -130,14 +130,14 @@ class CardData {
                     setCode.toLowerCase(),
                     json.get("number").getAsString()
                     );
-            CardData.clearCardImageError(this);
+            clearCardImageError(this);
 
         } else if (json.has("multiverseid")) {
             imageUrl = setCode.toLowerCase();
-            CardData.clearCardImageError(this);
+            clearCardImageError(this);
 
         } else {
-            CardData.addCardImageError(this, String.format("%s has no number or multiverseid - cannot set {image} property.", cardName));
+            addCardImageError(this, String.format("%s has no number or multiverseid - cannot set {image} property.", cardName));
         }
 
     }
@@ -170,48 +170,45 @@ class CardData {
 
     private void extractSubTypes(final JsonObject json) {
         if (json.has("subtypes")) {
-            final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = json.getAsJsonArray("subtypes");
+            StringBuffer sb = new StringBuffer();
+            JsonArray cardTypes = json.getAsJsonArray("subtypes");
             for (int j = 0; j < cardTypes.size(); j++) {
-                final String subType = cardTypes.get(j).toString();
+                String subType = cardTypes.get(j).toString();
                 sb.append(subType
                         .replace("\"", "")
                         .replace(" ", "_")
                         .replace("’s", "'s")
                         .replace("-", "_")).append(",");
             }
-            final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
-            subTypes = typeValues;
+            subTypes = sb.toString().substring(0, sb.toString().length() - 1);
         }
     }
 
     private void extractSuperTypes(final JsonObject json) {
         if (json.has("supertypes")) {
-            final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = json.getAsJsonArray("supertypes");
+            StringBuilder sb = new StringBuilder();
+            JsonArray cardTypes = json.getAsJsonArray("supertypes");
             for (int j = 0; j < cardTypes.size(); j++) {
                 sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
             }
-            final String superTypes =sb.toString().substring(0,sb.toString().length()-1);
-            superType = superTypes;
+            superType = sb.toString().substring(0,sb.toString().length()-1);
         }
     }
 
-    private void extractToughness(final JsonObject json) {
+    private void extractToughness(JsonObject json) {
         if (json.has("toughness")) {
             toughness = json.get("toughness").getAsString();
         }
     }
 
-    private void extractTypes(final JsonObject json) {
+    private void extractTypes(JsonObject json) {
         if (json.has("types")) {
-            final StringBuffer sb = new StringBuffer();
-            final JsonArray cardTypes = json.getAsJsonArray("types");
+            StringBuilder sb = new StringBuilder();
+            JsonArray cardTypes = json.getAsJsonArray("types");
             for (int j = 0; j < cardTypes.size(); j++) {
                 sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
             }
-            final String typeValues = sb.toString().substring(0, sb.toString().length() - 1);
-            type = typeValues;
+            type = sb.toString().substring(0, sb.toString().length() - 1);
         }
     }
     public String getAbilityText() {
@@ -276,10 +273,14 @@ class CardData {
     }
 
     public String getTiming() {
+        if (hasAbilityText()) {
+            if (abilityText.contains("Flash")) {
+                return "flash";
+            }
+        }
         if (type.contains("Instant")) {
             if (hasEffectText()) {
-                final String effect = getEffectText();
-                if (effect.contains("Counter")) {
+                if (effectText.contains("Counter")) {
                     return "counter";
                 }
             }
@@ -297,35 +298,19 @@ class CardData {
         }
         if (type.contains("Creature")) {
             if (hasAbilityText()) {
-                final String ability = getAbilityText();
-                if (ability.contains("Flash")) {
-                    return "flash";
-                }
-                if (ability.contains("Haste")) {
+                if (abilityText.contains("Haste")) {
                     return "fmain";
                 }
-                if (ability.contains("Defender")) {
+                if (abilityText.contains("Defender")) {
                     return "smain";
                 }
             }
             return "main";
         }
         if (type.contains("Artifact")) {
-            if (hasAbilityText()) {
-                final String ability = getAbilityText();
-                if (ability.contains("Flash")) {
-                    return "flash";
-                }
-            }
             return "artifact";
         }
         if (type.contains("Enchantment")) {
-            if (hasAbilityText()) {
-                final String ability = getAbilityText();
-                if (ability.contains("Flash")) {
-                    return "flash";
-                }
-            }
             return "enchantment";
         }
         return "main";
@@ -336,11 +321,7 @@ class CardData {
     }
 
     public String getType() {
-        if (superType != null) {
-            return superType + "," + type;
-        } else {
-            return type;
-        }
+        return superType != null ? String.format("%s,%s", superType, type) : type;
     }
 
     public boolean hasAbilityText() {
@@ -371,8 +352,8 @@ class CardData {
         return getSubType() != null;
     }
 
-    public void setText(final String text) {
-        this.text = text;
+    public void setText(String cardText) {
+        text = cardText;
     }
 
 }
