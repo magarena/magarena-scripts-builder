@@ -79,7 +79,6 @@ Dand_n.txt=http://magiccards.info/scans/en/tsts/19.jpg
 Darkness.txt=http://magiccards.info/scans/en/tsts/40.jpg
 Defiant_Vanguard.txt=http://magiccards.info/scans/en/tsts/5.jpg
 Desert.txt=http://magiccards.info/scans/en/tsts/118.jpg
-Desolation_Giant.txt=http://magiccards.info/scans/en/tsts/57.jpg
 Disintegrate.txt=http://magiccards.info/scans/en/tsts/58.jpg
 Dodecapod.txt=http://magiccards.info/scans/en/tsts/108.jpg
 Enduring_Renewal.txt=http://magiccards.info/scans/en/tsts/7.jpg
