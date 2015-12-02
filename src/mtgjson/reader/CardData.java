@@ -121,7 +121,7 @@ class CardData {
                 .replaceFirst("~•", " (4)")
                 .replaceAll("\n.+ — ", "\n        ")
                 .replace(getCardName(), "SN")
-                .replaceAll("named SN","named "+getCardName());;
+                .replaceAll("named SN","named "+getCardName());
     }
 
     private void extractImageUrl(final JsonObject json) {
