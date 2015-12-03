@@ -98,6 +98,7 @@ public class MtgJsonReader {
 
                     // Foil sets
                     "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
+                    "CM1",
 
                     //Anthology reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
