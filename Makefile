@@ -13,6 +13,9 @@ target/classes:
 
 set ?= FRF
 
+INPUT/AllSets.json:
+	wget http://mtgjson.com/json/AllSets.json -O $@
+
 #AllSets.json: ${set}.json
 #	jq '{"ABC": .}' $^ > $@
 
