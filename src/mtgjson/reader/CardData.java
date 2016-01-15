@@ -2,6 +2,8 @@ package mtgjson.reader;
 
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -72,10 +74,21 @@ class CardData {
             setText(jsonCard.get("text").getAsString());
             if (jsonCard.has("types") && (getType().contains("Instant") || getType().contains("Sorcery"))) {
                 extractEffectText(jsonCard);
+                extractAdditionalCost();
+                System.out.println(abilityText);
             } else {
                 extractAbilityText(jsonCard);
             }
             extractOracleText(jsonCard);
+        }
+    }
+
+    private void extractAdditionalCost() {
+        Pattern pattern = Pattern.compile("As an additional cost to cast SN, [^.]*\\.~");
+        Matcher matcher = pattern.matcher(effectText);
+        if (matcher.find()) {
+            abilityText = matcher.group(0).replace("~","");
+            effectText = effectText.replaceFirst("As an additional cost to cast SN, [^.]*\\.~","");
         }
     }
 
@@ -216,6 +229,7 @@ class CardData {
             type = sb.toString().substring(0, sb.toString().length() - 1);
         }
     }
+
     public String getAbilityText() {
         return abilityText;
     }
@@ -331,7 +345,7 @@ class CardData {
     }
 
     public boolean hasAbilityText() {
-        return getText() != null && !hasEffectText() && getAbilityText() != null;
+        return getText() != null && getAbilityText() != null;
     }
 
     public boolean hasColor() {

@@ -408,11 +408,11 @@ public class MtgJsonReader {
             if (cardData.hasPT()) {
                 writer.println("pt=" + cardData.getPower() + "/" + cardData.getToughness());
             }
-            if (cardData.hasEffectText()) {
-                writer.println("effect=" + cardData.getEffectText());
-            }
             if (cardData.hasAbilityText()) {
                 writer.println("ability=" + cardData.getAbilityText());
+            }
+            if (cardData.hasEffectText()) {
+                writer.println("effect=" + cardData.getEffectText());
             }
             writer.println("timing=" + cardData.getTiming());
             writer.println("oracle=" + (cardData.hasOracleText() ? cardData.getOracleText() : "NONE"));
