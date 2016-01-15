@@ -75,7 +75,6 @@ class CardData {
             if (jsonCard.has("types") && (getType().contains("Instant") || getType().contains("Sorcery"))) {
                 extractEffectText(jsonCard);
                 extractAdditionalCost();
-                System.out.println(abilityText);
             } else {
                 extractAbilityText(jsonCard);
             }
