@@ -1,6 +1,5 @@
 package mtgjson.reader;
 
-import java.io.UnsupportedEncodingException;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -17,21 +16,25 @@ class CardData {
             cardImageErrors.put(key, errorDetails);
         }
     }
+
     private static void clearCardImageError(final CardData card) {
         String key = card.getCardName();
         if (cardImageErrors.containsKey(key)) {
             cardImageErrors.remove(key);
         }
     }
+
     public static String getId(final JsonObject card) {
         return card.get("name").getAsString().trim();
     }
+
     public static String getRarity(final JsonObject card) {
         return card.get("rarity").getAsString().substring(0, 1);
     }
+
     public static boolean isValid(final JsonObject jsonCard) {
         return !getRarity(jsonCard).contentEquals("S") &&
-                (jsonCard.has("number") || jsonCard.has("multiverseid"));
+            (jsonCard.has("number") || jsonCard.has("multiverseid"));
     }
 
     private String cardName;
@@ -39,15 +42,15 @@ class CardData {
     private String rarity;
     private String manaCost;
     private String type;
-    private String color        = null;
-    private String superType    = null;
-    private String subTypes     = null;
-    private String power        = null;
-    private String toughness    = null;
-    private String text         = null;
-    private String effectText   = null;
-    private String abilityText  = null;
-    private String oracleText   = null;
+    private String color = null;
+    private String superType = null;
+    private String subTypes = null;
+    private String power = null;
+    private String toughness = null;
+    private String text = null;
+    private String effectText = null;
+    private String abilityText = null;
+    private String oracleText = null;
     private final String setCode;
 
     public CardData(final JsonObject jsonCard, final String setCode) {
@@ -99,39 +102,39 @@ class CardData {
     private void extractColor(final JsonObject json) {
         if (json.has("colors") && json.has("manaCost") == false) {
             color = json.get("colors")
-                    .toString()
-                    .replace("Blue", "U")
-                    .replaceAll("\\W", "")
-                    .replaceAll("[a-z]", "")
-                    .toLowerCase();
+                .toString()
+                .replace("Blue", "U")
+                .replaceAll("\\W", "")
+                .replaceAll("[a-z]", "")
+                .toLowerCase();
         }
     }
 
     private void extractEffectText(final JsonObject json) {
         effectText = json.get("text").getAsString()
-                .replaceAll("^\\(.+?\\)\n", "")
-                .replaceAll("^.+— ", "")
-                .replace("\n", "~")
-                .replaceAll("~.+? — ", "~")
-                .replaceAll(" \\(.+?\\)", "")
-                .replaceAll("\n~•", "~•")
-                .replaceFirst("~•", " (1)")
-                .replaceFirst("~•", " (2)")
-                .replaceFirst("~•", " (3)")
-                .replaceFirst("~•", " (4)")
-                .replaceAll("\n.+ — ", "\n        ")
-                .replace(getCardName(), "SN")
-                .replaceAll("named SN","named "+getCardName());
+            .replaceAll("^\\(.+?\\)\n", "")
+            .replaceAll("^.+— ", "")
+            .replace("\n", "~")
+            .replaceAll("~.+? — ", "~")
+            .replaceAll(" \\(.+?\\)", "")
+            .replaceAll("\n~•", "~•")
+            .replaceFirst("~•", " (1)")
+            .replaceFirst("~•", " (2)")
+            .replaceFirst("~•", " (3)")
+            .replaceFirst("~•", " (4)")
+            .replaceAll("\n.+ — ", "\n        ")
+            .replace(getCardName(), "SN")
+            .replaceAll("named SN", "named " + getCardName());
     }
 
     private void extractImageUrl(final JsonObject json) {
 
         if (json.has("number")) {
             imageUrl = String.format(
-                    "http://magiccards.info/scans/en/%s/%s.jpg",
-                    setCode.toLowerCase(),
-                    json.get("number").getAsString()
-                    );
+                "http://magiccards.info/scans/en/%s/%s.jpg",
+                setCode.toLowerCase(),
+                json.get("number").getAsString()
+            );
             clearCardImageError(this);
 
         } else if (json.has("multiverseid")) {
@@ -153,10 +156,10 @@ class CardData {
     private void extractOracleText(final JsonObject json) {
         if (json.has("text")) {
             oracleText = json.get("text").getAsString()
-                    .replaceAll("^\\(.+?\\)\n", "")
-                    .replaceAll(" \\(.+?\\)", "")
-                    .replaceAll("\n","\\\\n")
-                    .replaceAll(";",",");
+                .replaceAll("^\\(.+?\\)\n", "")
+                .replaceAll(" \\(.+?\\)", "")
+                .replaceAll("\n", "\\\\n")
+                .replaceAll(";", ",");
         }
     }
 
@@ -177,10 +180,10 @@ class CardData {
             for (int j = 0; j < cardTypes.size(); j++) {
                 String subType = cardTypes.get(j).toString();
                 sb.append(subType
-                        .replace("\"", "")
-                        .replace(" ", "_")
-                        .replace("’s", "'s")
-                        .replace("-", "_")).append(",");
+                    .replace("\"", "")
+                    .replace(" ", "_")
+                    .replace("’s", "'s")
+                    .replace("-", "_")).append(",");
             }
             subTypes = sb.toString().substring(0, sb.toString().length() - 1);
         }
@@ -193,7 +196,7 @@ class CardData {
             for (int j = 0; j < cardTypes.size(); j++) {
                 sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
             }
-            superType = sb.toString().substring(0,sb.toString().length()-1);
+            superType = sb.toString().substring(0, sb.toString().length() - 1);
         }
     }
 
@@ -223,15 +226,15 @@ class CardData {
 
     private String getCardNameAsAscii() {
         return cardName
-                .replace("Æ", "_")
-                .replace("á", "_")
-                .replace("à", "_")
-                .replace("â", "_")
-                .replace("é", "_")
-                .replace("í", "_")
-                .replace("ö", "_")
-                .replace("ú", "_")
-                .replace("û", "_");
+            .replace("Æ", "_")
+            .replace("á", "_")
+            .replace("à", "_")
+            .replace("â", "_")
+            .replace("é", "_")
+            .replace("í", "_")
+            .replace("ö", "_")
+            .replace("ú", "_")
+            .replace("û", "_");
     }
 
     public String getColor() {
@@ -288,13 +291,14 @@ class CardData {
             }
             return "removal";
         }
-        if (type.contains("Land")){
+        if (type.contains("Land")) {
             return "land";
         }
         if (hasSubType()) {
             if (subTypes.contains("Equipment")) {
                 return "equipment";
-            } if (subTypes.contains("Aura")) {
+            }
+            if (subTypes.contains("Aura")) {
                 return "aura";
             }
         }
