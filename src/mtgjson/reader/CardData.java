@@ -87,6 +87,7 @@ class CardData {
         performPatternReplace(Pattern.compile("As an additional cost to cast SN, [^.]*\\.~"));
         performPatternReplace(Pattern.compile("Convoke~"));
         performPatternReplace(Pattern.compile("Buyback[^~]*~"));
+        performPatternReplace(Pattern.compile("Cast SN only [^.]*\\.~"));
     }
 
     private void performPatternReplace(Pattern pattern){
