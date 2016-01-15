@@ -11,6 +11,8 @@ import com.google.gson.JsonObject;
 class CardData {
 
     public static final SortedMap<String, String> cardImageErrors = new TreeMap<>();
+    private static final Pattern DEVOID = Pattern.compile("^Devoid~");
+    private static final Pattern ADDITIONAL = Pattern.compile("As an additional cost to cast SN, [^.]*\\.~");
 
     private static void addCardImageError(final CardData card, final String errorDetails) {
         String key = card.cardName;
@@ -74,7 +76,8 @@ class CardData {
             setText(jsonCard.get("text").getAsString());
             if (jsonCard.has("types") && (getType().contains("Instant") || getType().contains("Sorcery"))) {
                 extractEffectText(jsonCard);
-                extractAdditionalCost();
+                extractAbilitiesFromEffects();
+                System.out.println(abilityText);
             } else {
                 extractAbilityText(jsonCard);
             }
@@ -82,13 +85,22 @@ class CardData {
         }
     }
 
-    private void extractAdditionalCost() {
-        Pattern pattern = Pattern.compile("As an additional cost to cast SN, [^.]*\\.~");
-        Matcher matcher = pattern.matcher(effectText);
-        if (matcher.find()) {
-            abilityText = matcher.group(0).replace("~","");
-            effectText = effectText.replaceFirst("As an additional cost to cast SN, [^.]*\\.~","");
+    private void extractAbilitiesFromEffects() {
+        Matcher devoid = DEVOID.matcher(effectText);
+        if (devoid.find()){
+            abilityText = devoid.group(0).replace("~","");
+            effectText = DEVOID.matcher(effectText).replaceFirst("");
         }
+        Matcher additional = ADDITIONAL.matcher(effectText);
+        if (additional.find()) {
+            if (abilityText != null) {
+                abilityText = abilityText.concat(additional.group(0).replace("~","")).concat("\n        ");
+            } else {
+                abilityText = additional.group(0).replace("~", "");
+            }
+            effectText = ADDITIONAL.matcher(effectText).replaceFirst("");
+        }
+
     }
 
     private void extractAbilityText(final JsonObject json) {
