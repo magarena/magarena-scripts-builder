@@ -88,6 +88,7 @@ class CardData {
         performPatternReplace(Pattern.compile("Convoke~"));
         performPatternReplace(Pattern.compile("Delve~"));
         performPatternReplace(Pattern.compile("Buyback[^~]*~"));
+        performPatternReplace(Pattern.compile("Kicker[^~]*~"));
         performPatternReplace(Pattern.compile("Cast SN only [^.]*\\.~"));
         performPatternReplace(Pattern.compile("~Flashback.*"));
         performPatternReplace(Pattern.compile("~Conspire"));
