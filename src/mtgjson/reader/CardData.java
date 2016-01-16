@@ -94,6 +94,7 @@ class CardData {
         performPatternReplace(Pattern.compile("Multikicker[^~]*~"));
         performPatternReplace(Pattern.compile("Cast SN only [^.]*\\.~"));
         performPatternReplace(Pattern.compile("~Flashback.*"));
+        performPatternReplace(Pattern.compile("~Entwine.*"));
         performPatternReplace(Pattern.compile("~Conspire"));
     }
 
