@@ -89,6 +89,7 @@ class CardData {
         performPatternReplace(Pattern.compile("Delve~"));
         performPatternReplace(Pattern.compile("Buyback[^~]*~"));
         performPatternReplace(Pattern.compile("Cast SN only [^.]*\\.~"));
+        performPatternReplace(Pattern.compile("~Flashback.*"));
     }
 
     private void performPatternReplace(Pattern pattern){
@@ -300,7 +301,7 @@ class CardData {
 
     public String getTiming() {
         if (hasAbilityText()) {
-            if (abilityText.contains("Flash")) {
+            if (abilityText.contains("Flash") && !abilityText.contains("Flashback")) {
                 return "flash";
             }
         }
