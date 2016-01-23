@@ -96,9 +96,9 @@ class CardData {
         effectToAbility(Pattern.compile("~Cycling.*"));
         effectToAbility(Pattern.compile("~Basic landcycling.*"));
         effectToAbility(Pattern.compile("~Flashback.*"));
-        effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
         effectToAbility(Pattern.compile("~Entwine.*"));
         effectToAbility(Pattern.compile("~Conspire"));
+        effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
     }
 
     private void effectToAbility(Pattern pattern){
