@@ -83,22 +83,22 @@ class CardData {
     }
 
     private void extractAbilitiesFromEffects() {
-        performPatternReplace(Pattern.compile("^Devoid~"));
-        performPatternReplace(Pattern.compile("As an additional cost to cast SN, [^.]*\\.~"));
-        performPatternReplace(Pattern.compile("Convoke~"));
-        performPatternReplace(Pattern.compile("Delve~"));
-        performPatternReplace(Pattern.compile("Buyback[^~]*~"));
-        performPatternReplace(Pattern.compile("Kicker[^~]*~"));
-        performPatternReplace(Pattern.compile("Surge[^~]*~"));
-        performPatternReplace(Pattern.compile("Replicate[^~]*~"));
-        performPatternReplace(Pattern.compile("Multikicker[^~]*~"));
-        performPatternReplace(Pattern.compile("Cast SN only [^.]*\\.~"));
-        performPatternReplace(Pattern.compile("~Flashback.*"));
-        performPatternReplace(Pattern.compile("~Entwine.*"));
-        performPatternReplace(Pattern.compile("~Conspire"));
+        effectToAbility(Pattern.compile("^Devoid~"));
+        effectToAbility(Pattern.compile("As an additional cost to cast SN, [^.]*\\.~"));
+        effectToAbility(Pattern.compile("Convoke~"));
+        effectToAbility(Pattern.compile("Delve~"));
+        effectToAbility(Pattern.compile("Buyback[^~]*~"));
+        effectToAbility(Pattern.compile("Kicker[^~]*~"));
+        effectToAbility(Pattern.compile("Surge[^~]*~"));
+        effectToAbility(Pattern.compile("Replicate[^~]*~"));
+        effectToAbility(Pattern.compile("Multikicker[^~]*~"));
+        effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
+        effectToAbility(Pattern.compile("~Flashback.*"));
+        effectToAbility(Pattern.compile("~Entwine.*"));
+        effectToAbility(Pattern.compile("~Conspire"));
     }
 
-    private void performPatternReplace(Pattern pattern){
+    private void effectToAbility(Pattern pattern){
         Matcher matcher = pattern.matcher(effectText);
         if (matcher.find()) {
             abilityText = abilityText == null ? matcher.group(0).replace("~", "") : abilityText + ";\\\n        " + matcher.group(0).replace("~", "");
