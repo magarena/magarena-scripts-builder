@@ -93,8 +93,10 @@ class CardData {
         effectToAbility(Pattern.compile("Surge[^~]*~"));
         effectToAbility(Pattern.compile("Replicate[^~]*~"));
         effectToAbility(Pattern.compile("Multikicker[^~]*~"));
-        effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
+        effectToAbility(Pattern.compile("~Cycling.*"));
+        effectToAbility(Pattern.compile("~Basic landcycling.*"));
         effectToAbility(Pattern.compile("~Flashback.*"));
+        effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
         effectToAbility(Pattern.compile("~Entwine.*"));
         effectToAbility(Pattern.compile("~Conspire"));
     }
@@ -102,7 +104,7 @@ class CardData {
     private void effectToAbility(Pattern pattern){
         Matcher matcher = pattern.matcher(effectText);
         if (matcher.find()) {
-            abilityText = abilityText == null ? matcher.group(0).replace("~", "") : abilityText + ";\\\n        " + matcher.group(0).replace("~", "");
+            abilityText = abilityText == null ? matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ") : abilityText + ";\\\n        " + matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ");
             effectText = pattern.matcher(effectText).replaceFirst("");
         }
     }
