@@ -104,7 +104,7 @@ class CardData {
     private void effectToAbility(Pattern pattern){
         Matcher matcher = pattern.matcher(effectText);
         if (matcher.find()) {
-            abilityText = abilityText == null ? matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ") : abilityText + ";\\\n        " + matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ");
+            abilityText = abilityText == null ? matcher.group(0).replaceFirst("(^~|~(?!.))", "").replaceAll("~", ";\\\\\n        ") : abilityText + ";\\\n        " + matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ");
             effectText = pattern.matcher(effectText).replaceFirst("");
         }
     }
