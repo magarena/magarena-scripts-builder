@@ -1,12 +1,12 @@
 package mtgjson.reader;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 class CardData {
 
@@ -307,6 +307,10 @@ class CardData {
 
     public String getText() {
         return text;
+    }
+
+    public String getEnchant() {
+        return "default,creature";
     }
 
     public String getTiming() {

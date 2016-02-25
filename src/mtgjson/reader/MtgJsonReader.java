@@ -1,5 +1,13 @@
 package mtgjson.reader;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -8,14 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
-import org.apache.commons.io.FileUtils;
 
 /**
  * Given a list of missing card names from Magarena this will attempt to match each
@@ -415,6 +415,11 @@ public class MtgJsonReader {
                 writer.println("effect=" + cardData.getEffectText());
             }
             writer.println("timing=" + cardData.getTiming());
+            if (cardData.hasSubType()) {
+                if (cardData.getSubType().contains("Aura")) {
+                    writer.println("enchant=" + cardData.getEnchant());
+                }
+            }
             writer.println("oracle=" + (cardData.hasOracleText() ? cardData.getOracleText() : "NONE"));
 
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
