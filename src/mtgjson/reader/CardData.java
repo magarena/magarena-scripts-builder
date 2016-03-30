@@ -99,6 +99,8 @@ class CardData {
         effectToAbility(Pattern.compile("~Flashback.*"));
         effectToAbility(Pattern.compile("~Entwine.*"));
         effectToAbility(Pattern.compile("~Conspire"));
+        effectToAbility(Pattern.compile("Madness[^~]*~"));
+        effectToAbility(Pattern.compile("~Madness[^~]*"));
         effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
     }
 
