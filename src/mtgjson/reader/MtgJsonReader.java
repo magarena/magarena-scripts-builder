@@ -83,6 +83,10 @@ public class MtgJsonReader {
                     //Anthology reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
 
+                    //Duel Decks
+                    "EVG", "JVC", "DVD", "GVL", "PVC", "DDF", "DDG", "DDH", "DDI", "DDJ", "DDK",
+                    "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ",
+
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
