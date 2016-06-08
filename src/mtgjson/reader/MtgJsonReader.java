@@ -68,9 +68,10 @@ public class MtgJsonReader {
     private static final String JSON_SETS_FILE = "JsonSetCodes.txt";
 
     // Set codes to be ignored in the json feed - no card data will be used from these sets.
+    // Emphasis is on using base sets for extra language support.
     private static final Set<String> invalidSetCodes = new HashSet<>(
             Arrays.asList(
-                    // Un-Sets
+                    // Un-Sets (Not implemented)
                     "UGL", "UNH",
 
                     // Vanguard
