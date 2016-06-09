@@ -81,8 +81,9 @@ public class MtgJsonReader {
                     "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
                     "CM1",
 
-                    //Anthology reprints
-                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
+                    //Anthology and reprints
+                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
+                    "CEI", "BRB", "BTD", "DKM", "CPK",
 
                     //Duel Decks and Event Decks
                     "EVG", "DD2", "DDC", "DDD", "DDE", "DDF", "DDG", "DDH", "DDI", "DDJ",
