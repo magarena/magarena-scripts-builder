@@ -84,9 +84,9 @@ public class MtgJsonReader {
                     //Anthology reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD",
 
-                    //Duel Decks
+                    //Duel Decks and Event Decks
                     "EVG", "JVC", "DVD", "GVL", "PVC", "DDF", "DDG", "DDH", "DDI", "DDJ", "DDK",
-                    "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ",
+                    "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ", "MD1",
 
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
