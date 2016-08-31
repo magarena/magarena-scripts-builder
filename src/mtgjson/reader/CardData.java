@@ -44,15 +44,16 @@ class CardData {
     private String rarity;
     private String manaCost;
     private String type;
-    private String color = null;
-    private String superType = null;
-    private String subTypes = null;
-    private String power = null;
-    private String toughness = null;
-    private String text = null;
-    private String effectText = null;
-    private String abilityText = null;
-    private String oracleText = null;
+    private String color;
+    private String superType;
+    private String subTypes;
+    private String power;
+    private String toughness;
+    private String text;
+    private String effectText;
+    private String abilityText;
+    private String oracleText;
+    private String loyalty;
     private final String setCode;
 
     public CardData(final JsonObject jsonCard, final String setCode) {
@@ -69,6 +70,10 @@ class CardData {
         extractSuperTypes(jsonCard);
         extractTypes(jsonCard);
         extractSubTypes(jsonCard);
+
+        if (jsonCard.has("loyalty")) {
+            extractLoyalty(jsonCard);
+        }
 
         if (jsonCard.has("text")) {
             setText(jsonCard.get("text").getAsString());
@@ -180,6 +185,12 @@ class CardData {
 
     }
 
+    private void extractLoyalty(final JsonObject json) {
+        if (json.has("loyalty")) {
+            loyalty = json.get("loyalty").getAsString();
+        }
+    }
+
     private void extractManaCost(final JsonObject json) {
         if (json.has("manaCost")) {
             manaCost = json.get("manaCost").getAsString();
@@ -287,6 +298,10 @@ class CardData {
         return imageUrl;
     }
 
+    public String getLoyalty() {
+        return loyalty;
+    }
+
     public String getManaCost() {
         return manaCost;
     }
@@ -378,6 +393,10 @@ class CardData {
 
     public boolean hasEffectText() {
         return getText() != null && getEffectText() != null;
+    }
+
+    public boolean hasLoyalty() {
+        return getLoyalty() != null;
     }
 
     public boolean hasManaCost() {

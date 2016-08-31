@@ -417,6 +417,9 @@ public class MtgJsonReader {
             if (cardData.hasPT()) {
                 writer.println("pt=" + cardData.getPower() + "/" + cardData.getToughness());
             }
+            if (cardData.hasLoyalty()) {
+                writer.println("loyalty=" + cardData.getLoyalty());
+            }
             if (cardData.hasAbilityText()) {
                 writer.println("ability=" + cardData.getAbilityText());
             }
@@ -457,11 +460,7 @@ public class MtgJsonReader {
     }*/
 
     private static String getCardImageUrl(final String scriptFilename, final String defaultUrl) {
-        if (predefinedCardImages.containsKey(scriptFilename)) {
-            return predefinedCardImages.get(scriptFilename);
-        } else {
-            return defaultUrl;
-        }
+        return predefinedCardImages.containsKey(scriptFilename) ? predefinedCardImages.get(scriptFilename) : defaultUrl;
     }
 
     private static String[] getSetCodes() throws IOException {
@@ -625,7 +624,7 @@ public class MtgJsonReader {
                     updateCount, outputFolder
             );
 
-            if (skippedFiles.size() > 0) {
+            if (!skippedFiles.isEmpty()) {
                 saveSkippedFilesLog(skippedFiles);
             }
 
@@ -633,9 +632,7 @@ public class MtgJsonReader {
     }
 
     private static File[] getSortedInvalidImageScriptFiles(final File scriptsFolder) {
-        final File[] files = scriptsFolder.listFiles((dir, name) -> {
-            return name.toLowerCase().endsWith(".txt");
-        });
+        final File[] files = scriptsFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
         Arrays.sort(files);
         return files;
     }
