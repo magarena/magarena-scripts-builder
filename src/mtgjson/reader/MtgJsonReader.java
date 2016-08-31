@@ -94,6 +94,7 @@ public class MtgJsonReader {
                     "FRF_UGIN", // Ugin alternate art
                     "S00", // Starter Set 2000 incomplete
                     "EXP", // Expedition reprints
+                    "W16", // Deckbuilders toolkit 2016
 
                     // Promo Cards (Normally foil or textless)
                     "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
