@@ -105,7 +105,7 @@ public class MtgJsonReader {
                     "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
 
                     //Not High Quality - Uncomment the sets below if running for image updates
-                    //"CN2"
+                    //,"CN2"
             )
     );
 
