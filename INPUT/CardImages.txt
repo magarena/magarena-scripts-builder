@@ -86,7 +86,6 @@ Essence_Sliver.txt=http://magiccards.info/scans/en/tsts/8.jpg
 Evil_Eye_of_Orms_by_Gore.txt=http://magiccards.info/scans/en/tsts/42.jpg
 Faceless_Butcher.txt=http://magiccards.info/scans/en/tsts/43.jpg
 Feldon_s_Cane.txt=http://magiccards.info/scans/en/tsts/109.jpg
-Fiery_Temper.txt=http://magiccards.info/scans/en/tsts/62.jpg
 Fire_Whip.txt=http://magiccards.info/scans/en/tsts/63.jpg
 Flying_Men.txt=http://magiccards.info/scans/en/tsts/20.jpg
 Funeral_Charm.txt=http://magiccards.info/scans/en/tsts/44.jpg
