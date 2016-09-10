@@ -99,7 +99,13 @@ public class MtgJsonReader {
                     // Promo Cards (Normally foil or textless)
                     "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
                     "p2HG", "pREL", "pMPR", "pELP", "pFNM", "pSUS", "pWOS", "pWOR", "pGRU", "pALP",
-                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC", "pGTW", "pMEI"
+                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC", "pGTW", "pMEI",
+
+                    //Online sets (only in English/No Crops)
+                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
+
+                    //Not High Quality - Uncomment the sets below if running for image updates
+                    //"CN2"
             )
     );
 
