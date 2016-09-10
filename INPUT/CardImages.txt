@@ -50,7 +50,6 @@ Mox_Sapphire.txt=http://magiccards.info/scans/en/vma/9.jpg
 Time_Walk.txt=http://magiccards.info/scans/en/vma/2.jpg
 Timetwister.txt=http://magiccards.info/scans/en/vma/3.jpg
 # Special Cases
-Natural_Order.txt=http://magiccards.info/scans/en/jr/49.jpg
 To_Arms_.txt=http://magiccards.info/scans/en/gp/20.jpg
 Warrior_s_Charge.txt=http://magiccards.info/scans/en/po/201.jpg
 Plains.txt=http://magiccards.info/scans/en/bfz/254b.jpg
@@ -1463,7 +1462,6 @@ Giant_Crab.txt=http://magiccards.info/scans/en/bd/9.jpg
 Goblin_Hero.txt=http://magiccards.info/scans/en/6e/184.jpg
 Hand_of_Death.txt=http://magiccards.info/scans/en/st2k/6.jpg
 Hero_s_Resolve.txt=http://magiccards.info/scans/en/tp/235.jpg
-Jace__the_Mind_Sculptor.txt=http://magiccards.info/scans/en/wwk/31.jpg
 Mons_s_Goblin_Raiders.txt=http://magiccards.info/scans/en/st2k/9.jpg
 Moon_Sprite.txt=http://magiccards.info/scans/en/st2k/11.jpg
 Renegade_Warlord.txt=http://magiccards.info/scans/en/tp/197.jpg
