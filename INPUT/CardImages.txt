@@ -277,6 +277,7 @@ Barishi.txt=http://magiccards.info/scans/en/wl/61.jpg
 Barreling_Attack.txt=http://magiccards.info/scans/en/mr/157.jpg
 Barrow_Ghoul.txt=http://magiccards.info/scans/en/wl/3.jpg
 Basalt_Golem.txt=http://magiccards.info/scans/en/mr/259.jpg
+Basalt_Monolith.txt=http://magiccards.info/scans/en/rv/235.jpg
 Baton_of_Morale.txt=http://magiccards.info/scans/en/ia/288.jpg
 Battering_Ram.txt=http://magiccards.info/scans/en/5e/353.jpg
 Battle_Cry.txt=http://magiccards.info/scans/en/ia/229.jpg
