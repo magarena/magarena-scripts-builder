@@ -593,6 +593,7 @@ Fastbond.txt=http://magiccards.info/scans/en/rv/101.jpg
 Fasting.txt=http://magiccards.info/scans/en/dk/80.jpg
 Fatal_Lore.txt=http://magiccards.info/scans/en/ai/7.jpg
 Favorable_Destiny.txt=http://magiccards.info/scans/en/mr/220.jpg
+Feast_or_Famine.txt=http://magiccards.info/scans/en/ai/8.jpg
 Feedback.txt=http://magiccards.info/scans/en/5e/85.jpg
 Feint.txt=http://magiccards.info/scans/en/lg/144.jpg
 Femeref_Enchantress.txt=http://magiccards.info/scans/en/vi/129.jpg
