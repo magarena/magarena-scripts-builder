@@ -132,6 +132,7 @@ War_Barge.txt=http://magiccards.info/scans/en/tsts/116.jpg
 Whirling_Dervish.txt=http://magiccards.info/scans/en/tsts/90.jpg
 Witch_Hunter.txt=http://magiccards.info/scans/en/tsts/17.jpg
 Whispers_of_the_Muse.txt=http://magiccards.info/scans/en/tsts/35.jpg
+Zhalfirin_Commander.txt=http://magiccards.info/scans/en/tsts/18.jpg
 # Media Inserts - Won't parse (Arena uses Timeshifted image)
 Arena.txt=http://magiccards.info/scans/en/tsts/117.jpg
 Nalathni_Dragon.txt=http://magiccards.info/scans/en/mbp/3.jpg
@@ -196,6 +197,7 @@ Agility.txt=http://magiccards.info/scans/en/mr/154.jpg
 Aisling_Leprechaun.txt=http://magiccards.info/scans/en/lg/87.jpg
 Aku_Djinn.txt=http://magiccards.info/scans/en/vi/1.jpg
 Alabaster_Dragon.txt=http://magiccards.info/scans/en/wl/118.jpg
+Alaborn_Cavalier.txt=http://magiccards.info/scans/en/po2/121.jpg
 Alaborn_Grenadier.txt=http://magiccards.info/scans/en/po2/122.jpg
 Alaborn_Veteran.txt=http://magiccards.info/scans/en/po2/125.jpg
 Alaborn_Zealot.txt=http://magiccards.info/scans/en/po2/126.jpg
