@@ -303,6 +303,7 @@ Black_Ward.txt=http://magiccards.info/scans/en/4e/258.jpg
 Blanket_of_Night.txt=http://magiccards.info/scans/en/vi/2.jpg
 Blazing_Effigy.txt=http://magiccards.info/scans/en/lg/134.jpg
 Blessed_Wine.txt=http://magiccards.info/scans/en/5e/287.jpg
+Blessing.txt=http://magiccards.info/scans/en/4e/259.jpg
 Blind_Fury.txt=http://magiccards.info/scans/en/mr/158.jpg
 Blistering_Barrier.txt=http://magiccards.info/scans/en/mr/159.jpg
 Blizzard.txt=http://magiccards.info/scans/en/ia/115.jpg
