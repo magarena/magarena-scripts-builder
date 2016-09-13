@@ -104,8 +104,8 @@ public class MtgJsonReader {
                     //Online sets (only in English/No Crops)
                     "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
 
-                    //No crops - Uncomment the sets below if running for Orphaned files
-                    //,"C15", "C13", "CN2", "M14", "THS"
+                    //No crops - Comment out the sets below if running for Orphaned files
+                    ,"CN2", "C15", "C13", "M14", "BNG", "THS"
 
             )
     );
