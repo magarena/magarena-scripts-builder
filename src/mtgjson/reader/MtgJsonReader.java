@@ -83,17 +83,17 @@ public class MtgJsonReader {
 
                     //Anthology and reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
-                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA",
+                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR",
 
                     //Duel Decks and Event Decks
                     "EVG", "DD2", "DDC", "DDD", "DDE", "DDF", "DDG", "DDH", "DDI", "DDJ",
-                    "DDK", "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ", "MD1",
+                    "DDK", "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ", "MD1", "DDR",
 
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
                     "S00", // Starter Set 2000 incomplete
-                    "EXP", // Expedition reprints
+                    "EXP", "MPS", // Masterpiece reprints
                     "W16", // Deckbuilders toolkit 2016
 
                     // Promo Cards (Normally foil or textless)
