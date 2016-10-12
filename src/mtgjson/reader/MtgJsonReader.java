@@ -79,11 +79,14 @@ public class MtgJsonReader {
 
                     // Foil sets
                     "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
-                    "CM1",
+                    "CM1", "V16",
 
                     //Anthology and reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
                     "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR",
+
+                    // Masterpiece reprints
+                    "EXP", "MPS",
 
                     //Duel Decks and Event Decks
                     "EVG", "DD2", "DDC", "DDD", "DDE", "DDF", "DDG", "DDH", "DDI", "DDJ",
@@ -93,7 +96,6 @@ public class MtgJsonReader {
                     "RQS", // Rivals Quick Start Set
                     "FRF_UGIN", // Ugin alternate art
                     "S00", // Starter Set 2000 incomplete
-                    "EXP", "MPS", // Masterpiece reprints
                     "W16", // Deckbuilders toolkit 2016
 
                     // Promo Cards (Normally foil or textless)
@@ -102,10 +104,10 @@ public class MtgJsonReader {
                     "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC", "pGTW", "pMEI",
 
                     //Online sets (only in English/No Crops)
-                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
+                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR",
 
                     //No crops - Comment out the sets below if running for Orphaned files
-                    ,"CN2", "C15", "C13", "M14", "BNG", "THS"
+                    "KLD", "CN2", "C15", "C13", "M14", "BNG", "THS"
 
             )
     );
