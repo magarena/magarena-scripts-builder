@@ -104,10 +104,10 @@ public class MtgJsonReader {
                     "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC", "pGTW", "pMEI",
 
                     //Online sets (only in English/No Crops)
-                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR",
+                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
 
                     //No crops - Comment out the sets below if running for Orphaned files
-                    "KLD", "CN2", "C15", "C13", "M14", "BNG", "THS"
+                    , "C16", "KLD", "CN2", "C15", "C13", "M14", "BNG", "THS"
 
             )
     );
