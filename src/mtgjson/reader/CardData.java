@@ -92,6 +92,7 @@ class CardData {
         effectToAbility(Pattern.compile("^Changeling~"));
         effectToAbility(Pattern.compile("^Split second~"));
         effectToAbility(Pattern.compile("As an additional cost to cast SN, [^.]*\\.~"));
+        effectToAbility(Pattern.compile("SN costs [^.]*\\.~"));
         effectToAbility(Pattern.compile("Convoke~"));
         effectToAbility(Pattern.compile("Delve~"));
         effectToAbility(Pattern.compile("Buyback[^~]*~"));
@@ -108,6 +109,13 @@ class CardData {
         effectToAbility(Pattern.compile("~Madness[^~]*"));
         effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
         effectToAbility(Pattern.compile("~Storm"));
+        effectToAbility(Pattern.compile("^Undaunted~"));
+        effectToAbility(Pattern.compile("~Miracle.*"));
+        effectToAbility(Pattern.compile("Haunt~[^.]*\\."));
+        effectToAbility(Pattern.compile("Cascade~"));
+        effectToAbility(Pattern.compile("Affinity for [^.]*\\.~"));
+        effectToAbility(Pattern.compile("~Awaken.*"));
+        effectToAbility(Pattern.compile("~Transmute.*"));
     }
 
     private void effectToAbility(Pattern pattern){
@@ -335,6 +343,9 @@ class CardData {
         if (hasAbilityText()) {
             if (abilityText.contains("Flash") && !abilityText.contains("Flashback")) {
                 return "flash";
+            }
+            if (abilityText.contains("Storm")) {
+                return "storm";
             }
         }
         if (type.contains("Instant")) {
