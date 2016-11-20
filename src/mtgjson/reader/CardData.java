@@ -107,6 +107,7 @@ class CardData {
         effectToAbility(Pattern.compile("Madness[^~]*~"));
         effectToAbility(Pattern.compile("~Madness[^~]*"));
         effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
+        effectToAbility(Pattern.compile("~Storm"));
     }
 
     private void effectToAbility(Pattern pattern){
