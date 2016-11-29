@@ -111,11 +111,15 @@ class CardData {
         effectToAbility(Pattern.compile("~Storm"));
         effectToAbility(Pattern.compile("^Undaunted~"));
         effectToAbility(Pattern.compile("~Miracle.*"));
-        effectToAbility(Pattern.compile("Haunt~[^.]*\\."));
+        effectToAbility(Pattern.compile("Haunt[^.]*\\.~"));
+        effectToAbility(Pattern.compile("~Haunt"));
         effectToAbility(Pattern.compile("Cascade~"));
         effectToAbility(Pattern.compile("Affinity for [^.]*\\.~"));
         effectToAbility(Pattern.compile("~Awaken.*"));
         effectToAbility(Pattern.compile("~Transmute.*"));
+        effectToAbility(Pattern.compile("~Retrace"));
+        effectToAbility(Pattern.compile("~Fuse"));
+        effectToAbility(Pattern.compile("~Overload.*"));
     }
 
     private void effectToAbility(Pattern pattern){
