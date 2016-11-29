@@ -221,13 +221,13 @@ public class MtgJsonReader {
 
     private static void extractCardDataFromJson(final JsonArray cards, final String setCode) throws UnsupportedEncodingException {
 
-        for (int i = 0; i < cards.size(); i++) {
+        for (JsonElement jsonCardElement : cards) {
 
-            final JsonObject jsonCard = cards.get(i).getAsJsonObject();
-            final String key = CardData.getId(jsonCard);
+            JsonObject jsonCard = (JsonObject) jsonCardElement;
+            String key = CardData.getId(jsonCard);
 
             if (!mtgcomCards.containsKey(key) && CardData.isValid(jsonCard)) {
-                final CardData card = new CardData(cards.get(i).getAsJsonObject(), setCode);
+                CardData card = new CardData(jsonCard, setCode);
                 mtgcomCards.put(key, card);
                 cardImageLink.put(card.getFilename(), card.getImageUrl());
             }
