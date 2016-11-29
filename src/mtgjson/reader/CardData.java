@@ -374,7 +374,7 @@ class CardData {
         }
         if (type.contains("Creature")) {
             if (hasAbilityText()) {
-                if (abilityText.contains("Haste")) {
+                if (abilityText.contains("Haste") || abilityText.contains("Bolster")) {
                     return "fmain";
                 }
                 if (abilityText.contains("Defender")) {
