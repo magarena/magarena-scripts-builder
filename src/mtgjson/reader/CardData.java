@@ -3,6 +3,7 @@ package mtgjson.reader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.util.Locale;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -183,13 +184,13 @@ class CardData {
         if (json.has("number")) {
             imageUrl = String.format(
                 "http://magiccards.info/scans/en/%s/%s.jpg",
-                setCode.toLowerCase(),
+                setCode.toLowerCase(Locale.ENGLISH),
                 json.get("number").getAsString()
             );
             clearCardImageError(this);
 
         } else if (json.has("multiverseid")) {
-            imageUrl = setCode.toLowerCase();
+            imageUrl = setCode.toLowerCase(Locale.ENGLISH);
             clearCardImageError(this);
 
         } else {
