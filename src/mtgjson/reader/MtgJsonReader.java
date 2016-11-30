@@ -296,24 +296,12 @@ public class MtgJsonReader {
         mtginfoSetsMap.put("MOR", "mt");
         mtginfoSetsMap.put("CON", "cfx");
         // Reprint Sets
-        mtginfoSetsMap.put("CHR", "ch");
-        mtginfoSetsMap.put("DD2", "jvc");
-        mtginfoSetsMap.put("DDC", "dvd");
-        mtginfoSetsMap.put("DDD", "gvl");
-        mtginfoSetsMap.put("DDE", "pvc");
         mtginfoSetsMap.put("HOP", "pch");
-        mtginfoSetsMap.put("CM1", "CMA");
         mtginfoSetsMap.put("CST", "cstd");
         // Starter Sets
         mtginfoSetsMap.put("POR", "po");
         mtginfoSetsMap.put("PTK", "p3k");
         mtginfoSetsMap.put("S99", "st");
-        // Boxed Sets
-        mtginfoSetsMap.put("BRB", "br");
-        mtginfoSetsMap.put("BTD", "bd");
-        mtginfoSetsMap.put("DKM", "dm");
-        mtginfoSetsMap.put("ATH", "at");
-        mtginfoSetsMap.put("MGB", "mgbc");
         // Media Inserts
         mtginfoSetsMap.put("pMEI", "mbp");
 }
