@@ -375,7 +375,7 @@ class CardData {
         }
         if (type.contains("Creature")) {
             if (hasAbilityText()) {
-                if (abilityText.contains("Haste") || abilityText.contains("Bolster")) {
+                if (abilityText.contains("Haste") || abilityText.contains("Bolster") || abilityText.contains("Exalted")) {
                     return "fmain";
                 }
                 if (abilityText.contains("Defender")) {
