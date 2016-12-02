@@ -236,7 +236,6 @@ public class MtgJsonReader {
 
 
     private static String getSetCode(final String jsonSetCode) {
-        final String key = jsonSetCode.toUpperCase().trim();
         String key = jsonSetCode.toUpperCase(Locale.ENGLISH).trim();
         return mtginfoSetsMap.containsKey(key) ? mtginfoSetsMap.get(key) : jsonSetCode;
     }
