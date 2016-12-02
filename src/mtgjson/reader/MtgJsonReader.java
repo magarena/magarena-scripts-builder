@@ -306,7 +306,7 @@ public class MtgJsonReader {
 }
 
     private static void logErrorDetails() {
-        if (CardData.cardImageErrors.size() > 0) {
+        if (!CardData.cardImageErrors.isEmpty()) {
             final File textFile = getOutputPath().resolve(ERRORS_FILE).toFile();
             try (final PrintWriter writer = new PrintWriter(textFile)) {
                 CardData.cardImageErrors.values().forEach(writer::println);
