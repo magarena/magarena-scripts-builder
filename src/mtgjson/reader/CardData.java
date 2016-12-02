@@ -121,6 +121,7 @@ class CardData {
         effectToAbility(Pattern.compile("~Retrace"));
         effectToAbility(Pattern.compile("~Fuse"));
         effectToAbility(Pattern.compile("~Overload.*"));
+        effectToAbility(Pattern.compile("~Reinforce.*"));
     }
 
     private void effectToAbility(Pattern pattern){
