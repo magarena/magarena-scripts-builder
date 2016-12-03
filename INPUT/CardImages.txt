@@ -798,6 +798,7 @@ Fire_Sprites.txt=http://magiccards.info/scans/en/lg/100.jpg
 Fire_and_Brimstone.txt=http://magiccards.info/scans/en/dk/82.jpg
 Fireblast.txt=http://magiccards.info/scans/en/ddajvc/55.jpg
 Firefly.txt=http://magiccards.info/scans/en/tp/172.jpg
+Fireslinger.txt=http://magiccards.info/scans/en/tp/173.jpg
 Firestorm.txt=http://magiccards.info/scans/en/wl/101.jpg
 Firestorm_Hellkite.txt=http://magiccards.info/scans/en/vi/130.jpg
 Firestorm_Phoenix.txt=http://magiccards.info/scans/en/lg/145.jpg
