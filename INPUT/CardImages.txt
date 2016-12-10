@@ -1021,6 +1021,7 @@ Hope_Charm.txt=http://magiccards.info/scans/en/vi/108.jpg
 Horn_of_Deafening.txt=http://magiccards.info/scans/en/lg/224.jpg
 Horn_of_Greed.txt=http://magiccards.info/scans/en/sh/129.jpg
 Horned_Sliver.txt=http://magiccards.info/scans/en/tp/128.jpg
+Hornet_Cannon.txt=http://magiccards.info/scans/en/sh/130.jpg
 Hornet_Cobra.txt=http://magiccards.info/scans/en/lg/104.jpg
 Horrible_Hordes.txt=http://magiccards.info/scans/en/mr/269.jpg
 Hot_Springs.txt=http://magiccards.info/scans/en/ia/136.jpg
