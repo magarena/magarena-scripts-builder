@@ -83,7 +83,7 @@ public class MtgJsonReader {
 
                     //Anthology and reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
-                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR",
+                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC",
 
                     // Masterpiece reprints
                     "EXP", "MPS",
