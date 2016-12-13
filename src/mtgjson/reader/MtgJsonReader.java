@@ -83,7 +83,7 @@ public class MtgJsonReader {
 
                     //Anthology and reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
-                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "PCH",
+                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "HOP",
 
                     // Masterpiece reprints
                     "EXP", "MPS",
@@ -295,7 +295,6 @@ public class MtgJsonReader {
         mtginfoSetsMap.put("MOR", "mt");
         mtginfoSetsMap.put("CON", "cfx");
         // Reprint Sets
-        mtginfoSetsMap.put("HOP", "pch");
         mtginfoSetsMap.put("CST", "cstd");
         // Starter Sets
         mtginfoSetsMap.put("POR", "po");
