@@ -435,6 +435,7 @@ Burning_Shield_Askari.txt=http://magiccards.info/scans/en/mr/162.jpg
 Burnout.txt=http://magiccards.info/scans/en/ai/101.jpg
 Burnt_Offering.txt=http://magiccards.info/scans/en/ia/4.jpg
 Cadaverous_Bloom.txt=http://magiccards.info/scans/en/mr/318.jpg
+Cadaverous_Knight.txt=http://magiccards.info/scans/en/mr/8.jpg
 Caldera_Lake.txt=http://magiccards.info/scans/en/tp/306.jpg
 Call_to_Arms.txt=http://magiccards.info/scans/en/ia/234.jpg
 Calming_Licid.txt=http://magiccards.info/scans/en/sh/102.jpg
