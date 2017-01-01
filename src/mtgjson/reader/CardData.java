@@ -123,6 +123,7 @@ class CardData {
         effectToAbility(Pattern.compile("~Overload.*"));
         effectToAbility(Pattern.compile("~Reinforce.*"));
         effectToAbility(Pattern.compile("^Affinity for [^~]*~"));
+        effectToAbility(Pattern.compile("Prowl[^~]*~"));
     }
 
     private void effectToAbility(Pattern pattern){
