@@ -1541,6 +1541,7 @@ Psychic_Allergy.txt=http://magiccards.info/scans/en/dk/33.jpg
 Psychic_Purge.txt=http://magiccards.info/scans/en/lg/68.jpg
 Psychic_Vortex.txt=http://magiccards.info/scans/en/wl/50.jpg
 Puppet_Master.txt=http://magiccards.info/scans/en/lg/69.jpg
+Puppet_Strings.txt=http://magiccards.info/scans/en/tp/294.jpg
 Purelace.txt=http://magiccards.info/scans/en/4e/293.jpg
 Purgatory.txt=http://magiccards.info/scans/en/mr/335.jpg
 Purraj_of_Urborg.txt=http://magiccards.info/scans/en/mr/33.jpg
