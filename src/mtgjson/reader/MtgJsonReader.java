@@ -629,7 +629,7 @@ public class MtgJsonReader {
     }
 
     private static File[] getSortedInvalidImageScriptFiles(final File scriptsFolder) {
-        final File[] files = scriptsFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".txt"));
+        final File[] files = scriptsFolder.listFiles((dir, name) -> name.toLowerCase(Locale.ENGLISH).endsWith(".txt"));
         Arrays.sort(files);
         return files;
     }
