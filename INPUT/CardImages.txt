@@ -1588,6 +1588,7 @@ Razorclaw_Bear.txt=http://magiccards.info/scans/en/po2/82.jpg
 Reality_Anchor.txt=http://magiccards.info/scans/en/tp/140.jpg
 Reality_Ripple.txt=http://magiccards.info/scans/en/mr/87.jpg
 Reality_Twist.txt=http://magiccards.info/scans/en/ia/94.jpg
+Reanimate.txt=http://magiccards.info/scans/en/tp/45.jpg
 Reap.txt=http://magiccards.info/scans/en/tp/141.jpg
 Rebound.txt=http://magiccards.info/scans/en/sh/40.jpg
 Reclamation.txt=http://magiccards.info/scans/en/ia/378.jpg
