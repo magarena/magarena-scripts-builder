@@ -110,6 +110,7 @@ Pirate_Ship.txt=http://magiccards.info/scans/en/tsts/28.jpg
 Psionic_Blast.txt=http://magiccards.info/scans/en/tsts/30.jpg
 Resurrection.txt=http://magiccards.info/scans/en/tsts/12.jpg
 Safe_Haven.txt=http://magiccards.info/scans/en/tsts/121.jpg
+Serrated_Arrows.txt=http://magiccards.info/scans/en/tsts/114.jpg
 Scragnoth.txt=http://magiccards.info/scans/en/tsts/83.jpg
 Shadow_Guildmage.txt=http://magiccards.info/scans/en/tsts/46.jpg
 Sindbad.txt=http://magiccards.info/scans/en/tsts/31.jpg
