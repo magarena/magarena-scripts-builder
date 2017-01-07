@@ -15,6 +15,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
@@ -206,7 +207,7 @@ public class MtgJsonReader {
             logSetCodes(sortedSetCodes);
             loadMtgInfoSetsMap();
 
-            for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
+            for (Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
                 final String jsonSetCode = entrySet.getValue();
                 if (isValidSetCode(jsonSetCode)) {
                     final JsonObject jsonSetObject = element.getAsJsonObject().get(jsonSetCode).getAsJsonObject();
@@ -219,7 +220,7 @@ public class MtgJsonReader {
 
     }
 
-    private static void extractCardDataFromJson(final JsonArray cards, final String setCode) throws UnsupportedEncodingException {
+    private static void extractCardDataFromJson(final JsonArray cards, final String setCode) {
 
         for (JsonElement jsonCardElement : cards) {
 
@@ -317,19 +318,19 @@ public class MtgJsonReader {
         }
     }
 
-    private static void logSetCodes(final SortedMap<String, String> sortedSetCodes) {
+    private static void logSetCodes(final Map<String, String> sortedSetCodes) {
         final File textFile = getOutputPath().resolve(JSON_SETS_FILE).toFile();
         try (final PrintWriter writer = new PrintWriter(textFile)) {
-            for (Map.Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
+            for (Entry<String, String> entrySet : sortedSetCodes.entrySet()) {
                 final String key = entrySet.getKey();
                 final String jsonSetCode = entrySet.getValue();
                 final boolean isValidSetCode = isValidSetCode(jsonSetCode);
                 final String setCode = getSetCode(jsonSetCode);
                 if (isValidSetCode) {
-                    if (!setCode.equalsIgnoreCase(jsonSetCode)) {
-                        writer.printf("%s -> %s\n", key, setCode);
-                    } else {
+                    if (setCode.equalsIgnoreCase(jsonSetCode)) {
                         writer.printf("%s\n", key);
+                    } else {
+                        writer.printf("%s -> %s\n", key, setCode);
                     }
                 }
             }
@@ -345,12 +346,8 @@ public class MtgJsonReader {
 
     }
 
-    private static SortedMap<String, String> getSetCodesSortedByReleaseDateDesc(
-            final String[] setCodes, final JsonElement element) {
-
-        final SortedMap<String, String> sortedSetCodes =
-                new TreeMap<>(Collections.reverseOrder());
-
+    private static SortedMap<String, String> getSetCodesSortedByReleaseDateDesc(final String[] setCodes, final JsonElement element) {
+        final SortedMap<String, String> sortedSetCodes = new TreeMap<>(Collections.reverseOrder());
         for (String setCode : setCodes) {
             final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
             final JsonElement releaseDate = setObject.get("releaseDate");
@@ -360,7 +357,6 @@ public class MtgJsonReader {
                 sortedSetCodes.put(key, setCode);
             }
         }
-
         return sortedSetCodes;
     }
 
@@ -368,7 +364,7 @@ public class MtgJsonReader {
      * Saves a list of the card names that are present in the missing cards list from
      * Magarena but which have no matching card name in the json file from mtgjson.com.
      */
-    private static int saveListOfMissingCardOrphans(final List<String> mtgcomCardNames) {
+    private static int saveListOfMissingCardOrphans(final Collection<String> mtgcomCardNames) {
         final List<String> missingCardOrphans = new ArrayList<>(magarenaMissingCards);
         missingCardOrphans.removeAll(mtgcomCardNames);
         Collections.sort(missingCardOrphans);
@@ -381,11 +377,10 @@ public class MtgJsonReader {
         return missingCardOrphans.size();
     }
 
-    private static void saveMissingCardData(final List<String> cardNames) {
+    private static void saveMissingCardData(final Iterable<String> cardNames) {
         FileUtils.deleteQuietly(getScriptsMissingFolder().toFile());
         for (String cardName : cardNames) {
-            final CardData cardData = mtgcomCards.get(cardName);
-            saveCardData(cardData);
+            saveCardData(mtgcomCards.get(cardName));
         }
     }
 
@@ -480,13 +475,14 @@ public class MtgJsonReader {
         reader.beginObject();
         while (reader.hasNext()) {
             JsonToken token = reader.peek();
-            if (token.equals(JsonToken.BEGIN_ARRAY))
+            if (token == JsonToken.BEGIN_ARRAY) {
                 handleArray(reader);
-            else if (token.equals(JsonToken.END_ARRAY)) {
+            } else if (token == JsonToken.END_ARRAY) {
                 reader.endObject();
                 return;
-            } else
+            } else {
                 handleNonArrayToken(reader, token);
+            }
         }
 
     }
@@ -502,13 +498,14 @@ public class MtgJsonReader {
         reader.beginArray();
         while (true) {
             JsonToken token = reader.peek();
-            if (token.equals(JsonToken.END_ARRAY)) {
+            if (token == JsonToken.END_ARRAY) {
                 reader.endArray();
                 break;
-            } else if (token.equals(JsonToken.BEGIN_OBJECT)) {
+            } else if (token == JsonToken.BEGIN_OBJECT) {
                 handleObject(reader);
-            } else
+            } else {
                 handleNonArrayToken(reader, token);
+            }
         }
     }
 
@@ -520,15 +517,19 @@ public class MtgJsonReader {
      * @throws IOException
      */
     public static void handleNonArrayToken(JsonReader reader, JsonToken token) throws IOException {
-        if (token.equals(JsonToken.NAME)) {
-            final String value = reader.nextName();
-            setCodesList.add(value);
-        } else if (token.equals(JsonToken.STRING)) {
-            System.out.println(reader.nextString());
-        } else if (token.equals(JsonToken.NUMBER)) {
-            System.out.println(reader.nextDouble());
-        } else {
-            reader.skipValue();
+        switch (token) {
+            case NAME:
+                setCodesList.add(reader.nextName());
+                break;
+            case STRING:
+                System.out.println(reader.nextString());
+                break;
+            case NUMBER:
+                System.out.println(reader.nextDouble());
+                break;
+            default:
+                reader.skipValue();
+                break;
         }
     }
 
@@ -647,17 +648,11 @@ public class MtgJsonReader {
         );
     }
 
-    private static void replaceScriptImageLink(
-            final File inputScript,
-            final Path outputFolder,
-            final String imageUrl) throws IOException {
+    private static void replaceScriptImageLink(final File inputScript, final Path outputFolder, final String imageUrl) throws IOException {
         final File outputScript = outputFolder.resolve(inputScript.getName()).toFile();
         try (
-                final BufferedReader br = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(inputScript), "UTF-8"));
-
+                final BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(inputScript), "UTF-8"));
                 final PrintWriter bw = new PrintWriter(outputScript, "UTF-8")) {
-
                     String line;
                     while ((line = br.readLine()) != null) {
                         if (line.startsWith("image=")) {

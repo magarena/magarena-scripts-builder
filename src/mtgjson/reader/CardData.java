@@ -129,7 +129,7 @@ class CardData {
     private void effectToAbility(Pattern pattern){
         Matcher matcher = pattern.matcher(effectText);
         if (matcher.find()) {
-            abilityText = abilityText == null ? matcher.group(0).replaceFirst("(^~|~(?!.))", "").replaceAll("~", ";\\\\\n        ") : abilityText + ";\\\n        " + matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ");
+            abilityText = (abilityText == null) ? matcher.group(0).replaceFirst("(^~|~(?!.))", "").replaceAll("~", ";\\\\\n        ") : abilityText + ";\\\n        " + matcher.group(0).replaceFirst("^~", "").replaceAll("~", ";\\\\\n        ");
             effectText = pattern.matcher(effectText).replaceFirst("");
         }
     }
@@ -146,8 +146,8 @@ class CardData {
                 .replaceFirst(" •", " (3)")
                 .replaceFirst(" •", " (4)")
                 .replaceAll("\n.+ — ", "\n        ")
-                .replace(getCardName(), "SN")
-                .replaceAll("named SN","named "+getCardName());
+                .replace(cardName, "SN")
+                .replaceAll("named SN","named "+ cardName);
     }
 
     private void extractCardName(final JsonObject json) {
@@ -155,7 +155,7 @@ class CardData {
     }
 
     private void extractColor(final JsonObject json) {
-        if (json.has("colors") && json.has("manaCost") == false) {
+        if (json.has("colors") && !json.has("manaCost")) {
             color = json.get("colors")
                 .toString()
                 .replace("Blue", "U")
@@ -178,8 +178,8 @@ class CardData {
             .replaceFirst("~•", " (3)")
             .replaceFirst("~•", " (4)")
             .replaceAll("\n.+ — ", "\n        ")
-            .replace(getCardName(), "SN")
-            .replaceAll("named SN", "named " + getCardName());
+            .replace(cardName, "SN")
+            .replaceAll("named SN", "named " + cardName);
     }
 
     private void extractImageUrl(final JsonObject json) {
@@ -231,12 +231,12 @@ class CardData {
     }
 
     private void extractRarity(final JsonObject json) {
-        rarity = CardData.getRarity(json);
+        rarity = getRarity(json);
     }
 
     private void extractSubTypes(final JsonObject json) {
         if (json.has("subtypes")) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             JsonArray cardTypes = json.getAsJsonArray("subtypes");
             for (int j = 0; j < cardTypes.size(); j++) {
                 String subType = cardTypes.get(j).toString();
@@ -404,35 +404,35 @@ class CardData {
     }
 
     public boolean hasAbilityText() {
-        return getText() != null && getAbilityText() != null;
+        return text != null && abilityText != null;
     }
 
     public boolean hasColor() {
-        return !hasManaCost() && getColor() != null;
+        return !hasManaCost() && color != null;
     }
 
     public boolean hasEffectText() {
-        return getText() != null && getEffectText() != null;
+        return text != null && effectText != null;
     }
 
     public boolean hasLoyalty() {
-        return getLoyalty() != null;
+        return loyalty != null;
     }
 
     public boolean hasManaCost() {
-        return getManaCost() != null;
+        return manaCost != null;
     }
 
     public boolean hasOracleText() {
-        return getText() != null;
+        return text != null;
     }
 
     public boolean hasPT() {
-        return getPower() != null && getToughness() != null;
+        return power != null && toughness != null;
     }
 
     public boolean hasSubType() {
-        return getSubType() != null;
+        return subTypes != null;
     }
 
     public void setText(String cardText) {
