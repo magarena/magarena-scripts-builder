@@ -1740,6 +1740,7 @@ Serra_Aviary.txt=http://magiccards.info/scans/en/hl/118.jpg
 Serra_Bestiary.txt=http://magiccards.info/scans/en/5e/336.jpg
 Serra_Inquisitors.txt=http://magiccards.info/scans/en/hl/120.jpg
 Serra_Paladin.txt=http://magiccards.info/scans/en/5e/337.jpg
+Serrated_Biskeleton.txt=http://magiccards.info/scans/en/wl/156.jpg
 Servant_of_Volrath.txt=http://magiccards.info/scans/en/tp/50.jpg
 Sewer_Rats.txt=http://magiccards.info/scans/en/mr/37.jpg
 Shadow_Rider.txt=http://magiccards.info/scans/en/wl/21.jpg
