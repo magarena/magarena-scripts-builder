@@ -1829,6 +1829,7 @@ Soul_Kiss.txt=http://magiccards.info/scans/en/ia/50.jpg
 Soul_Rend.txt=http://magiccards.info/scans/en/mr/42.jpg
 Soul_Shepherd.txt=http://magiccards.info/scans/en/wl/142.jpg
 Soul_Shred.txt=http://magiccards.info/scans/en/po/35.jpg
+Souldrinker.txt=http://magiccards.info/scans/en/tp/52.jpg
 Soulshriek.txt=http://magiccards.info/scans/en/mr/43.jpg
 Spatial_Binding.txt=http://magiccards.info/scans/en/mr/344.jpg
 Spectral_Bears.txt=http://magiccards.info/scans/en/hl/72.jpg
