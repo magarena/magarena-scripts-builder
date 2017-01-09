@@ -124,6 +124,7 @@ class CardData {
         effectToAbility(Pattern.compile("~Reinforce.*"));
         effectToAbility(Pattern.compile("^Affinity for [^~]*~"));
         effectToAbility(Pattern.compile("Prowl[^~]*~"));
+        effectToAbility(Pattern.compile("~Splice onto Arcane.*"));
     }
 
     private void effectToAbility(Pattern pattern){
