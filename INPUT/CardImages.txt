@@ -126,6 +126,7 @@ Stupor.txt=http://magiccards.info/scans/en/tsts/48.jpg
 Suq_Ata_Lancer.txt=http://magiccards.info/scans/en/tsts/69.jpg
 Swamp_Mosquito.txt=http://magiccards.info/scans/en/tsts/49.jpg
 Teferi_s_Moat.txt=http://magiccards.info/scans/en/tsts/103.jpg
+The_Rack.txt=http://magiccards.info/scans/en/tsts/113.jpg
 Uncle_Istvan.txt=http://magiccards.info/scans/en/tsts/51.jpg
 Undertaker.txt=http://magiccards.info/scans/en/tsts/53.jpg
 Unstable_Mutation.txt=http://magiccards.info/scans/en/tsts/33.jpg
