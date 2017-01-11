@@ -125,7 +125,8 @@ class CardData {
         effectToAbility(Pattern.compile("^Affinity for [^~]*~"));
         effectToAbility(Pattern.compile("Prowl[^~]*~"));
         effectToAbility(Pattern.compile("~Splice onto Arcane.*"));
-        effectToAbility(Pattern.compile("^You may [^.]* rather than pay SN's mana cost\\.~"));
+        effectToAbility(Pattern.compile("^(You may [^.]*|If you control [^.]*) rather than pay SN's mana cost\\.~"));
+        effectToAbility(Pattern.compile("^If [^.]*, you may [^.]* rather than pay SN's mana cost\\.~"));
     }
 
     private void effectToAbility(Pattern pattern){
