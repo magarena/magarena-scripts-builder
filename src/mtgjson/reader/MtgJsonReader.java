@@ -84,7 +84,7 @@ public class MtgJsonReader {
 
                     //Anthology and reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
-                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "HOP",
+                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "HOP", "PCA",
 
                     // Masterpiece reprints
                     "EXP", "MPS",
@@ -108,7 +108,7 @@ public class MtgJsonReader {
                     "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
 
                     //No crops - Comment out the sets below if running for Orphaned files
-                    , "C16", "KLD", "CN2", "C15", "C13", "M14", "BNG", "THS"
+                    , "AER", "C16", "KLD", "CN2", "C15", "C13", "M14", "BNG", "THS"
 
             )
     );
