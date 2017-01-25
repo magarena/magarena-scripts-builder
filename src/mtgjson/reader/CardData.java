@@ -164,7 +164,7 @@ class CardData {
                 .replace("Blue", "U")
                 .replaceAll("\\W", "")
                 .replaceAll("[a-z]", "")
-                .toLowerCase();
+                .toLowerCase(Locale.ENGLISH);
         }
     }
 
