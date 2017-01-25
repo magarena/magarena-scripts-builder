@@ -383,7 +383,7 @@ class CardData {
                 if (abilityText.contains("Haste") || abilityText.contains("Bolster") || abilityText.contains("Exalted")) {
                     return "fmain";
                 }
-                if (abilityText.contains("Defender")) {
+                if (abilityText.contains("Defender") || oracleText.contains("Revolt")) {
                     return "smain";
                 }
             }
