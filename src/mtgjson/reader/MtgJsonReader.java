@@ -84,14 +84,15 @@ public class MtgJsonReader {
 
                     //Anthology and reprints
                     "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
-                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "HOP", "PCA",
+                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "HOP", "PCA", "RQS", "MGB",
+                    "ITP",
 
                     // Masterpiece reprints
-                    "EXP", "MPS",
+                    "EXP", "MPS", "MPS_AKH",
 
                     //Duel Decks and Event Decks
                     "EVG", "DD2", "DDC", "DDD", "DDE", "DDF", "DDG", "DDH", "DDI", "DDJ",
-                    "DDK", "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ", "MD1", "DDR",
+                    "DDK", "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ", "MD1", "DDR", "DDS",
 
                     // Not on magiccards.info
                     "RQS", // Rivals Quick Start Set
@@ -100,18 +101,18 @@ public class MtgJsonReader {
                     "W16", // Deckbuilders toolkit 2016
 
                     // Promo Cards (Normally foil or textless)
-                    "pWCQ", "p15A", "pLPA", "pSUM", "pMGD", "pGPX", "pPRO", "pHHO", "pCMP", "pWPN",
-                    "p2HG", "pREL", "pMPR", "pELP", "pFNM", "pSUS", "pWOS", "pWOR", "pGRU", "pALP",
-                    "pJGP", "pPRE", "pPOD", "pCEL", "pARL", "pLGM", "pDRC", "pGTW", "pMEI",
+                    "p15A", "p2HG", "pALP", "pARL", "pCEL", "pCMP", "pDRC", "pELP", "pFNM", "pGPX",
+                    "pGRU", "pGTW", "pHHO", "pJGP", "pLGM", "pLPA", "pMEI", "pMGD", "pMPR", "pPOD",
+                    "pPRE", "pPRO", "pREL", "pSUM", "pSUS", "pWCQ", "pWOR", "pWOS", "pWPN",
 
                     //Online sets (only in English/No Crops)
-                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR",
+                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
 
                     //Not on MagicCards.info
-                    "MM3"
+
 
                     //No crops - Comment out the sets below if running for Orphaned files
-                    , "AER", "C16", "KLD", "CN2", "C15", "C13", "M14", "BNG", "THS", "AKH"
+                    , "C13", "M14", "C16", "CN2", "C15", "THS", "BNG", "KLD", "MM3", "AER", "AKH"
 
             )
     );
