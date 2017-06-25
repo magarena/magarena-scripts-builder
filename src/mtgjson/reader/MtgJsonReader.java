@@ -112,7 +112,7 @@ public class MtgJsonReader {
 
 
                     //No crops - Comment out the sets below if running for Orphaned files
-                    , "C13", "M14", "C16", "CN2", "C15", "THS", "BNG", "KLD", "MM3", "AER", "AKH"
+                    , "C13", "M14", "C15", "THS", "BNG", "MM3", "AKH"
 
             )
     );
