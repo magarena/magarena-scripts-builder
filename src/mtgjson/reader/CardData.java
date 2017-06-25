@@ -92,6 +92,7 @@ class CardData {
         effectToAbility(Pattern.compile("^Devoid~"));
         effectToAbility(Pattern.compile("^Changeling~"));
         effectToAbility(Pattern.compile("^Split second~"));
+        effectToAbility(Pattern.compile("Aftermath~"));
         effectToAbility(Pattern.compile("As an additional cost to cast SN, [^.]*\\.~"));
         effectToAbility(Pattern.compile("SN costs [^.]*\\.~"));
         effectToAbility(Pattern.compile("Convoke~"));
