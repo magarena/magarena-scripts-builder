@@ -72,49 +72,26 @@ public class MtgJsonReader {
     // Emphasis is on using base sets for extra language support.
     private static final Set<String> invalidSetCodes = new HashSet<>(
             Arrays.asList(
-                    // Un-Sets (Not implemented)
-                    "UGL", "UNH",
+                //Not on MagicCards.info
 
-                    // Vanguard
-                    "VAN",
-
-                    // Foil sets
-                    "DRB", "V09", "V10", "V11", "V12", "V13", "V14", "V15", "H09", "PD2", "PD3",
-                    "CM1", "V16",
-
-                    //Anthology and reprints
-                    "DD3_JVC", "DD3_GVL", "DD3_EVG", "DD3_DVD", "CED", "ITP", "MGB", "ATH", "CED",
-                    "CEI", "BRB", "BTD", "DKM", "CPK", "DPA", "CHR", "ARC", "HOP", "PCA", "RQS", "MGB",
-                    "ITP",
-
-                    // Masterpiece reprints
-                    "EXP", "MPS", "MPS_AKH",
-
-                    //Duel Decks and Event Decks
-                    "EVG", "DD2", "DDC", "DDD", "DDE", "DDF", "DDG", "DDH", "DDI", "DDJ",
-                    "DDK", "DDL", "DDM", "DDN", "DDO", "DDP", "DDQ", "MD1", "DDR", "DDS",
-
-                    // Not on magiccards.info
-                    "RQS", // Rivals Quick Start Set
-                    "FRF_UGIN", // Ugin alternate art
-                    "S00", // Starter Set 2000 incomplete
-                    "W16", // Deckbuilders toolkit 2016
-
-                    // Promo Cards (Normally foil or textless)
-                    "p15A", "p2HG", "pALP", "pARL", "pCEL", "pCMP", "pDRC", "pELP", "pFNM", "pGPX",
-                    "pGRU", "pGTW", "pHHO", "pJGP", "pLGM", "pLPA", "pMEI", "pMGD", "pMPR", "pPOD",
-                    "pPRE", "pPRO", "pREL", "pSUM", "pSUS", "pWCQ", "pWOR", "pWOS", "pWPN",
-
-                    //Online sets (only in English/No Crops)
-                    "MED", "ME2", "ME3", "ME4", "VMA", "TPR"
-
-                    //Not on MagicCards.info
-
-
-                    //No crops - Comment out the sets below if running for Orphaned files
-                    , "C13", "M14", "C15", "THS", "BNG", "MM3", "AKH"
+                //No crops - Comment out the sets below if running for Orphaned files
+                "C13", "M14", "C15", "THS", "BNG", "MM3", "AKH", "HOU"
 
             )
+    );
+
+    private static final Set<String> validSetCodes = new HashSet<>(
+        Arrays.asList(
+            "LEA", "LEB", "2ED", "ARN", "ATQ", "3ED", "LEG", "DRK", "FEM", "4ED", "ICE", "HML", "ALL", "MIR", "VIS",
+            "5ED", "POR", "WTH", "TMP", "STH", "EXO", "PO2", "USG", "ULG", "6ED", "PTK", "UDS", "S99", "MMQ", "NMS",
+            "PCY", "INV", "PLS", "7ED", "APC", "ODY", "TOR", "JUD", "ONS", "LGN", "SCG", "8ED", "MRD", "DST", "5DN",
+            "CHK", "BOK", "SOK", "9ED", "RAV", "GPT", "DIS", "CSP", "CST", "TSB", "TSP", "PLC", "FUT", "10E", "LRW",
+            "MOR", "SHM", "EVE", "ALA", "CON", "ARB", "M10", "ZEN", "WWK", "ROE", "M11", "SOM", "MBS", "NPH", "CMD",
+            "M12", "ISD", "DKA", "AVR", "PC2", "M13", "RTR", "GTC", "DGM", "MMA", "M14", "THS", "C13", "BNG", "JOU",
+            "CNS", "M15", "KTK", "C14", "FRF", "DTK", "MM2", "ORI", "BFZ", "C15", "OGW", "SOI", "EMA", "EMN", "CN2",
+            "KLD", "C16", "AER", "MM3", "AKH", "HOU"
+
+        )
     );
 
     private static final String ERRORS_FILE = "errors.txt";
@@ -346,7 +323,7 @@ public class MtgJsonReader {
     }
 
     private static boolean isValidSetCode(final String setCode) {
-        return !invalidSetCodes.contains(setCode);
+        return validSetCodes.contains(setCode) && !invalidSetCodes.contains(setCode);
 
     }
 
