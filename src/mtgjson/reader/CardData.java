@@ -121,6 +121,8 @@ class CardData {
         effectToAbility(Pattern.compile("~Transmute.*"));
         effectToAbility(Pattern.compile("~Retrace"));
         effectToAbility(Pattern.compile("~Fuse"));
+        effectToAbility(Pattern.compile("Suspend[^~]*~"));
+        effectToAbility(Pattern.compile("~Suspend[^~]*"));
         effectToAbility(Pattern.compile("~Overload.*"));
         effectToAbility(Pattern.compile("~Reinforce.*"));
         effectToAbility(Pattern.compile("^Affinity for [^~]*~"));
