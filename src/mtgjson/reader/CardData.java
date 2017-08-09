@@ -130,6 +130,7 @@ class CardData {
         effectToAbility(Pattern.compile("~Splice onto Arcane.*"));
         effectToAbility(Pattern.compile("^(You may [^.]*|If you control [^.]*) rather than pay SN's mana cost\\.~"));
         effectToAbility(Pattern.compile("^If [^.]*, you may [^.]* rather than pay SN's mana cost\\.~"));
+        effectToAbility(Pattern.compile("SN can't be countered by spells or abilities\\.~"));
     }
 
     private void effectToAbility(Pattern pattern){
