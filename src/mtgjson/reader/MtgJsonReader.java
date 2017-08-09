@@ -75,7 +75,7 @@ public class MtgJsonReader {
                 //Not on MagicCards.info
 
                 //No crops - Comment out the sets below if running for Orphaned files
-                "C13", "M14", "C15", "THS", "BNG", "MM3", "AKH", "HOU"
+                "C13", "M14", "C15", "THS", "BNG", "AKH", "HOU"
 
             )
     );
