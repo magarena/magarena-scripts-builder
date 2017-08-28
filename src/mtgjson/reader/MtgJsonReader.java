@@ -73,7 +73,7 @@ public class MtgJsonReader {
     private static final Set<String> invalidSetCodes = new HashSet<>(
             Arrays.asList(
                 //Not on MagicCards.info
-
+                "C17",
                 //No crops - Comment out the sets below if running for Orphaned files
                 "C13", "M14", "C15", "THS", "BNG", "AKH", "HOU"
 
@@ -89,7 +89,7 @@ public class MtgJsonReader {
             "MOR", "SHM", "EVE", "ALA", "CON", "ARB", "M10", "ZEN", "WWK", "ROE", "M11", "SOM", "MBS", "NPH", "CMD",
             "M12", "ISD", "DKA", "AVR", "PC2", "M13", "RTR", "GTC", "DGM", "MMA", "M14", "THS", "C13", "BNG", "JOU",
             "CNS", "M15", "KTK", "C14", "FRF", "DTK", "MM2", "ORI", "BFZ", "C15", "OGW", "SOI", "EMA", "EMN", "CN2",
-            "KLD", "C16", "AER", "MM3", "AKH", "HOU",
+            "KLD", "C16", "AER", "MM3", "AKH", "HOU", "C17",
                 "pMEI"
 
         )
