@@ -121,7 +121,8 @@ public class MtgJsonReader {
         System.out.printf("-> Total missing cards in Magarena = %d (see %s).\n",
                 magarenaMissingCards.size(), getMissingCardsFile());
 
-        loadPredefinedCardImages();
+        //Un-comment below for full database reparse
+        //loadPredefinedCardImages();
 
         // sort list of ALL card names from json file.
         final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
