@@ -199,6 +199,14 @@ class CardData {
             );
             clearCardImageError(this);
 
+        } else if (json.has("mciNumber")) {
+            imageUrl = String.format(
+                    "http://magiccards.info/scans/en/%s/%s.jpg",
+                    setCode.toLowerCase(Locale.ENGLISH),
+                    json.get("mciNumber").getAsString()
+            );
+            clearCardImageError(this);
+
         } else if (json.has("multiverseid")) {
             imageUrl = setCode.toLowerCase(Locale.ENGLISH);
             clearCardImageError(this);
