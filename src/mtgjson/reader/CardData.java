@@ -193,7 +193,7 @@ class CardData {
 
         if (json.has("number")) {
             imageUrl = String.format(
-                "http://magiccards.info/scans/en/%s/%s.jpg",
+                "https://magiccards.info/scans/en/%s/%s.jpg",
                 setCode.toLowerCase(Locale.ENGLISH),
                 json.get("number").getAsString()
             );
@@ -201,7 +201,7 @@ class CardData {
 
         } else if (json.has("mciNumber")) {
             imageUrl = String.format(
-                    "http://magiccards.info/scans/en/%s/%s.jpg",
+                    "https://magiccards.info/scans/en/%s/%s.jpg",
                     setCode.toLowerCase(Locale.ENGLISH),
                     json.get("mciNumber").getAsString()
             );
