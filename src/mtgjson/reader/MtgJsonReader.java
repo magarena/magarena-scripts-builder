@@ -73,9 +73,9 @@ public class MtgJsonReader {
     private static final Set<String> invalidSetCodes = new HashSet<>(
             Arrays.asList(
                 //Not on MagicCards.info
-                "IMN",
+                "RIX",
                 //No crops - Comment out the sets below if running for Orphaned files
-                "C13", "M14", "C15", "THS", "BNG", "XLN"
+                "C13", "M14", "C15", "THS", "BNG", "RIX"
 
             )
     );
