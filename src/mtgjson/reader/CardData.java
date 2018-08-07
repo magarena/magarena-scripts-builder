@@ -144,7 +144,7 @@ class CardData {
     private void extractAbilityText(final JsonObject json) {
         abilityText = json.get("text").getAsString()
                 .replaceAll("^\\(.+?\\)\n", "")
-                .replaceAll("^.+— ", "")
+                .replaceAll("^[^I —]— ", "")
                 .replace("\n", ";\\\n        ")
                 .replace(";\\\n        •", " \\\n        •")
                 .replaceAll(" \\(.+?\\)", "")
