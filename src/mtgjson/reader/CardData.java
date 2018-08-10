@@ -93,8 +93,8 @@ class CardData {
         effectToAbility(Pattern.compile("^Changeling~"));
         effectToAbility(Pattern.compile("^Split second~"));
         effectToAbility(Pattern.compile("Aftermath~"));
-        effectToAbility(Pattern.compile("As an additional cost to cast SN, [^.]*\\.~"));
-        effectToAbility(Pattern.compile("SN costs [^.]*\\.~"));
+        effectToAbility(Pattern.compile("As an additional cost to cast this spell, [^.]*\\.~"));
+        effectToAbility(Pattern.compile("This spell costs [^.]*\\.~"));
         effectToAbility(Pattern.compile("Convoke~"));
         effectToAbility(Pattern.compile("Delve~"));
         effectToAbility(Pattern.compile("Buyback[^~]*~"));
@@ -109,7 +109,7 @@ class CardData {
         effectToAbility(Pattern.compile("~Conspire"));
         effectToAbility(Pattern.compile("Madness[^~]*~"));
         effectToAbility(Pattern.compile("~Madness[^~]*"));
-        effectToAbility(Pattern.compile("Cast SN only [^.]*\\.~"));
+        effectToAbility(Pattern.compile("Cast this spell only [^.]*\\.~"));
         effectToAbility(Pattern.compile("~Storm"));
         effectToAbility(Pattern.compile("^Undaunted~"));
         effectToAbility(Pattern.compile("~Miracle.*"));
@@ -130,7 +130,7 @@ class CardData {
         effectToAbility(Pattern.compile("~Splice onto Arcane.*"));
         effectToAbility(Pattern.compile("^(You may [^.]*|If you control [^.]*) rather than pay SN's mana cost\\.~"));
         effectToAbility(Pattern.compile("^If [^.]*, you may [^.]* rather than pay SN's mana cost\\.~"));
-        effectToAbility(Pattern.compile("SN can't be countered by spells or abilities\\.~"));
+        effectToAbility(Pattern.compile("This spell can't be countered\\.~"));
     }
 
     private void effectToAbility(Pattern pattern){
