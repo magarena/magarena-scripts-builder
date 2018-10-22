@@ -335,7 +335,7 @@ public class MtgJsonReader {
         for (String setCode : setCodes) {
             final JsonObject setObject = element.getAsJsonObject().get(setCode).getAsJsonObject();
             final JsonElement releaseDate = setObject.get("releaseDate");
-            if (releaseDate != null) {
+            if (releaseDate != null && !releaseDate.isJsonNull()) {
                 final String setReleaseDate = releaseDate.getAsString();
                 final String key = setReleaseDate + " " + setCode;
                 sortedSetCodes.put(key, setCode);

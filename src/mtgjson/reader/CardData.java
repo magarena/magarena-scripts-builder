@@ -32,7 +32,7 @@ class CardData {
     }
 
     public static String getRarity(final JsonObject card) {
-        return card.get("rarity").getAsString().substring(0, 1);
+        return card.get("rarity").getAsString().substring(0, 1).toUpperCase();
     }
 
     public static boolean isValid(final JsonObject jsonCard) {
@@ -251,8 +251,11 @@ class CardData {
 
     private void extractSubTypes(final JsonObject json) {
         if (json.has("subtypes")) {
-            StringBuilder sb = new StringBuilder();
             JsonArray cardTypes = json.getAsJsonArray("subtypes");
+            if (cardTypes.size() == 0) {
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
             for (int j = 0; j < cardTypes.size(); j++) {
                 String subType = cardTypes.get(j).toString();
                 sb.append(subType
@@ -267,8 +270,11 @@ class CardData {
 
     private void extractSuperTypes(final JsonObject json) {
         if (json.has("supertypes")) {
-            StringBuilder sb = new StringBuilder();
             JsonArray cardTypes = json.getAsJsonArray("supertypes");
+            if (cardTypes.size() == 0) {
+                return;
+            }
+            StringBuilder sb = new StringBuilder();
             for (int j = 0; j < cardTypes.size(); j++) {
                 sb.append(cardTypes.get(j).toString().replace("\"", "")).append(",");
             }
