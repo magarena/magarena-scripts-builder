@@ -1,0 +1,30 @@
+#!/bin/sh
+# Script to download list of images from Scryfall and generate CardImages.txt
+# See https://scryfall.com/docs/api/bulk-data for info about the downloaded JSON
+
+INPUT=scryfall-default-cards.json
+INT=intermediate.json
+
+if [ ! -r $INPUT ]
+then
+  wget https://archive.scryfall.com/json/$INPUT
+else
+  echo "$INPUT is already downloaded"
+fi
+
+if [ $INPUT -nt $INT ]
+then
+  if [ -r $INT ]
+  then
+    echo "$INPUT is newer than $INT -> deleting $INT"
+    rm $INT
+  fi
+fi
+
+if [ ! -r $INT ]
+then
+  jq '[ .[] | { name:.name, img:.image_uris.normal, set:.set } ]' < $INPUT > $INT
+else
+  echo "$INT exists"
+fi
+jq -r '[ .[] | [ .name, ".txt=", .img , "\n"] |add ] |add' < $INT |grep -v '=$' |sed 's/\.jpg\?.*/.jpg/' > CardImages.txt
