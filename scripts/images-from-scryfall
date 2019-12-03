@@ -27,4 +27,5 @@ then
 else
   echo "$INT exists"
 fi
-jq -r '[ .[] | [ .name, ".txt=", .img , "\n"] |add ] |add' < $INT |grep -v '=$' |sed 's/\.jpg\?.*/.jpg/' > CardImages.txt
+jq -r '[ .[] | [ .name, ".txt=", .img , "\n"] |add ] |add' < $INT |grep -v '=$' |sed 's/\.jpg\?.*/.jpg/' | \
+ perl -e 'while(<>){@x=split(/=/);$x[0]=~s/[^A-Za-z0-9\.]/_/g;print join("=",@x);}' > CardImages.txt
