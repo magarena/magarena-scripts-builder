@@ -1,4 +1,4 @@
-run: target/classes INPUT/AllSets.json INPUT/CardsMissingInMagarena.txt
+run: target/classes INPUT/AllPrintings.json INPUT/CardsMissingInMagarena.txt
 	mvn exec:exec -Dexec.executable="java" -Dexec.args="-cp %classpath mtgjson.reader.MtgJsonReader"
 
 clean:
@@ -13,10 +13,10 @@ target/classes:
 
 set ?= FRF
 
-INPUT/AllSets.json:
-	wget http://mtgjson.com/json/AllSets.json -O $@
+INPUT/AllPrintings.json:
+	wget http://mtgjson.com/json/AllPrintings.json -O $@
 
-#AllSets.json: ${set}.json
+#AllPrintings.json: ${set}.json
 #	jq '{"ABC": .}' $^ > $@
 
 #CardsMissingInMagarena.txt: ${set}.txt

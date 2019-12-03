@@ -30,7 +30,7 @@ Please make sure the required files are present in the ``INPUT`` folder (see bel
 
     // Required. Place this file in the INPUT_FOLDER.
     // It is obtained from mtgjson.com. It contains every card grouped by set.
-    private static final String JSON_FILE = "AllSets.json";
+    private static final String JSON_FILE = "AllPrintings.json";
 
     // Required. Place this file in the INPUT_FOLDER.
     // This is a list of the cards which have not yet been implemented in Magarena.
