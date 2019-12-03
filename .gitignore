@@ -2,6 +2,7 @@ results/
 nbactions.xml
 target/
 AllSets.json
+AllPrintings.json
 CardsMissingInMagarena.txt
 nb-configuration.xml
 OUTPUT/
