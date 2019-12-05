@@ -72,25 +72,22 @@ public class MtgJsonReader {
     // Emphasis is on using base sets for extra language support.
     private static final Set<String> invalidSetCodes = new HashSet<>(
             Arrays.asList(
-                //Not on MagicCards.info
-
-                //No crops - Comment out the sets below if running for Orphaned files
-                "C13", "M14", "C15", "THS", "BNG"
-
+                //Un-sets
+                "UGL", "UNH", "UST"
             )
     );
 
     private static final Set<String> validSetCodes = new HashSet<>(
         Arrays.asList(
             "LEA", "LEB", "2ED", "ARN", "ATQ", "3ED", "LEG", "DRK", "FEM", "4ED", "ICE", "HML", "ALL", "MIR", "VIS",
-            "5ED", "POR", "WTH", "TMP", "STH", "EXO", "PO2", "USG", "ULG", "6ED", "PTK", "UDS", "S99", "MMQ", "NMS",
+            "5ED", "POR", "WTH", "TMP", "STH", "EXO", "P02", "USG", "ULG", "6ED", "PTK", "UDS", "S99", "MMQ", "NEM",
             "S00", "PCY", "INV", "PLS", "7ED", "APC", "ODY", "TOR", "JUD", "ONS", "LGN", "SCG", "8ED", "MRD", "DST",
             "5DN", "CHK", "BOK", "SOK", "9ED", "RAV", "GPT", "DIS", "CSP", "CST", "TSB", "TSP", "PLC", "FUT", "10E",
             "LRW", "MOR", "SHM", "EVE", "ALA", "CON", "ARB", "M10", "ZEN", "WWK", "ROE", "M11", "SOM", "MBS", "NPH",
             "CMD", "M12", "ISD", "DKA", "AVR", "PC2", "M13", "RTR", "GTC", "DGM", "MMA", "M14", "THS", "C13", "BNG",
             "JOU", "CNS", "M15", "KTK", "C14", "FRF", "DTK", "MM2", "ORI", "BFZ", "C15", "OGW", "SOI", "EMA", "EMN",
             "CN2", "KLD", "C16", "AER", "MM3", "AKH", "HOU", "C17", "XLN", "IMA", "RIX", "A25", "DOM", "M19", "C18",
-            "GRN", "GNT",
+            "GRN", "GNT", "BBD", "UMA", "RNA", "WAR", "MH1", "M20", "C19", "ELD", "GN2", "GS1", "PZ2",
                 "pMEI"
 
         )
@@ -122,8 +119,8 @@ public class MtgJsonReader {
         System.out.printf("-> Total missing cards in Magarena = %d (see %s).\n",
                 magarenaMissingCards.size(), getMissingCardsFile());
 
-        //Un-comment below for full database reparse
-        //loadPredefinedCardImages();
+        //Use CardImages.txt
+        loadPredefinedCardImages();
 
         // sort list of ALL card names from json file.
         final List<String> mtgcomCardNames = new ArrayList<>(mtgcomCards.keySet());
